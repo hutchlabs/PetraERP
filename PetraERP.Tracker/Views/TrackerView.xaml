@@ -1,0 +1,29 @@
+﻿<UserControl
+             x:Class="PetraERP.Tracker.Views.TrackerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Shared="clr-namespace:PetraERP.Shared;assembly=PetraERP.Shared"
+             xmlns:nativeControls="clr-namespace:PetraERP.Shared.UI.Controls;assembly=PetraERP.Shared"
+             xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
+             AttachedBehaviors:ElementLoadingBehavior.InitializeDataContextWhenLoaded="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Shared:DecimalToIntConverter x:Key="decTointConv"/>
+            <Shared:NullToBoolConverter x:Key="nullToBool"/>
+            <Shared:UserHeaderConverter x:Key="userToHeaderConv"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid RenderOptions.ClearTypeHint="Enabled" TextOptions.TextFormattingMode="Ideal">
+        <DockPanel LastChildFill="True"  HorizontalAlignment="Left" Margin="0,40,0,0"> 
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Label  Content="Coming soon" Style="{StaticResource ControlHeaderStyle}" Margin="0" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+
+</UserControl>

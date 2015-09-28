@@ -1,0 +1,5 @@
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe.config
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.pdb
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\obj\Debug\PetraERP.TrackerService.exe
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\obj\Debug\PetraERP.TrackerService.pdb

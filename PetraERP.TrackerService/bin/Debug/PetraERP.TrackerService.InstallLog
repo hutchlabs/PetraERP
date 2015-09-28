@@ -1,0 +1,21 @@
+﻿Installing assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+Installing service PetraERPTrackerUpdateService...
+Service PetraERPTrackerUpdateService has been successfully installed.
+Creating EventLog source PetraERPTrackerUpdateService in log Application...
+Committing assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+Uninstalling assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+Removing EventLog source PetraERPTrackerUpdateService.
+Service PetraERPTrackerUpdateService is being removed from the system...
+Service PetraERPTrackerUpdateService was successfully removed from the system.

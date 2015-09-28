@@ -1,0 +1,12 @@
+2015-09-07 12:37:10,691 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 12:37:10,942 [9] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-09-07 12:37:43,063 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 12:37:43,232 [9] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-09-07 12:39:28,039 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 12:39:28,274 [9] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-09-07 12:40:13,624 [8] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 12:40:13,925 [8] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-09-07 12:40:58,457 [8] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 12:40:58,763 [8] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-09-07 13:08:05,377 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-07 13:08:10,765 [9] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.

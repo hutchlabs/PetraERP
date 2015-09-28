@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="PetraERP.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Shared="clr-namespace:PetraERP.Shared;assembly=PetraERP.Shared"
+             xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
+             AttachedBehaviors:ElementLoadingBehavior.InitializeDataContextWhenLoaded="True"
+             xmlns:attached="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Background="{DynamicResource WhiteBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <Border Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource HighlightBrush}">
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="80" VerticalAlignment="Top" Width="180" Source="Resources/petrablk.png" Stretch="None" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="22" Text="Login" />
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Username" />
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Username}" FontSize="14" Width="200"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Password" />
+                <PasswordBox Grid.Row="3" Grid.Column="1" Margin="5"  Width="200" 
+                             attached:PasswordHelper.Attach="True" 
+                             attached:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
+                
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Login"
+                        Content="{Binding ButtonText}" Margin="10" HorizontalAlignment="Center"
+                        Command="{Binding TryLogInCommand}"/>
+
+                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_forgotpassword" Content="Reset Password reset" 
+                        HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Focusable="True" Background="{x:Null}" Foreground="#FF000064" 
+                        ToolTip="Enter a username first to reset password" Cursor="Hand" Command="{Binding TryResetPassCommand}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="PetraERP.CRM.Views.AdminCategoriesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"            
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:ViewModels="clr-namespace:PetraERP.CRM.ViewModels"
+             xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
+             mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <ViewModels:AdminCategoriesViewViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid RenderOptions.ClearTypeHint="Enabled" TextOptions.TextFormattingMode="Display">
+        <DockPanel LastChildFill="True"  HorizontalAlignment="Left" Margin="0,10,0,0">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Label Content="" Style="{StaticResource ControlHeaderStyle}" Margin="0" />
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,5,0,0" Background="{DynamicResource AccentColorBrush}">
+  
+                <Label x:Name="lbl_ticketCount" Content="{Binding CategoriessCount}" FontFamily="Segoe WP Light" FontWeight="Bold"  FontSize="14" Foreground="WhiteSmoke" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+                <Button x:Name="btn_showAddTicket" Command="{Binding AddCategoryCommand}" Width="40" Height="40" Margin="20,0,0,0" ToolTip="Add" Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle Width="10" Height="10" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <DataGrid x:Name="viewCategories" 
+                      RenderOptions.ClearTypeHint="Enabled" TextOptions.TextFormattingMode="Display"
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
+                      MinWidth="600" ColumnWidth="*" Margin="10,10,0,10" 
+                      SelectionUnit="FullRow" GridLinesVisibility="All" HeadersVisibility="All"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding Categories}" CanUserAddRows="False" CanUserDeleteRows="False"
+                      SelectedItem="{Binding SelectedCateogry}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OpenCategoryCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>

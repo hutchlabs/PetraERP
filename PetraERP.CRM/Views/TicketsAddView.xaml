@@ -1,0 +1,168 @@
+﻿<Controls:MetroWindow x:Class="PetraERP.CRM.Views.TicketsAddView"       
+      mc:Ignorable="d" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:aw="http://schemas.pavel.fedarovich.com/winfx/2010/xaml/presentation"
+      EnableDWMDropShadow="True" ResizeMode="NoResize"
+	  Title="Add New Ticket" Width="738.85" Height="658.048" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" WindowStyle="ToolWindow" Closing="CloseWindow">
+
+    <Grid Background="White" Margin="0">
+        
+        <aw:Wizard x:Name="AddTicketWizard" aw:Designer.PageIndex="0" WizardStyle="Wizard97" CurrentPageChanged="PageChanged" Cancelled="AddTicketWizard_Cancelled" Finished="create_ticket">
+           <aw:WizardPage x:Name="tbSearch" Header="Step 1 of 3"  aw:Wizard97.Subtitle="Search for customer or company and double click" AllowBack="False" AllowCancel="True" AllowNext="False">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel x:Name="searchPanel" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                        <TextBox x:Name="txtSearch" HorizontalAlignment="Center" Width="400" Height="30" Margin="0,0,10,0"
+                            Controls:TextBoxHelper.Watermark="Search..." KeyUp="do_search">
+                        </TextBox>
+                        <Button Command="{Binding SearchButtonCmd, Mode=OneWay}" Width="50" Height="30">
+                            <Rectangle Width="10" Height="10" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Controls:ProgressRing x:Name="spinner" IsActive="{Binding Path=Spinner, Mode=TwoWay}" Width="32" Height="32" Margin="10,0,0,0" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="optionsPanel" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <RadioButton x:Name="rdCustomerName" Margin="-38,0,20,0" Content="Customer Name" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" FontWeight="Bold"/>
+                        <RadioButton x:Name="rdCompanyName" Margin="0,0,20,0" Content="Company Name" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton x:Name="rdPetraID" Margin="0,0,20,0" Content="Petra ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton x:Name="rdSSNITNo" Margin="0,0,20,0" Content="SSNIT No." HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <Label x:Name="lblRecordsFound" Grid.Row="2" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+
+                    <DataGrid x:Name="dgFoundRecords" Grid.Row="3" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" 
+                               Height="360" Width="700" 
+                               SelectionUnit="FullRow" GridLinesVisibility="All" HeadersVisibility="All" HorizontalContentAlignment="Stretch" 
+                               VerticalContentAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                               ColumnWidth="*" PreviewMouseDoubleClick="dgFoundRecords_PreviewMouseDoubleClick" />
+                </Grid>
+            </aw:WizardPage>
+
+           <aw:WizardPage x:Name="tbCustomerInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Customer Information" AllowBack="True" AllowCancel="True" AllowNext="True">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="195*"/>
+                        <ColumnDefinition Width="58*"/>
+                        <ColumnDefinition Width="489*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="First Name :" HorizontalAlignment="Left" Margin="21,63,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtFirstName" HorizontalAlignment="Left" Height="23" Margin="21,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True"/>
+                    <Label Content="Employer :" HorizontalAlignment="Left" Margin="185,181,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <Label Content="Petra ID :" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.261"/>
+                    <TextBox x:Name="txtCustomerPetraID" HorizontalAlignment="Left" Height="23" Margin="21,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True"/>
+                    <TextBox x:Name="txtSSN" HorizontalAlignment="Left" Height="23" Margin="185,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" Grid.Column="2" IsReadOnly="True"/>
+                    <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="185,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="2" IsReadOnly="True"/>
+                    <Label Content="Email Address :" HorizontalAlignment="Left" Margin="185,63,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBox x:Name="txtContactNo" HorizontalAlignment="Left" Height="23" Margin="185,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="2" IsReadOnly="True"/>
+                    <Label Content="Contact No." HorizontalAlignment="Left" Margin="185,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.287,0.252" Grid.Column="2"/>
+                    <Label Content="SSNIT Number :" HorizontalAlignment="Left" Margin="185,10,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <Label Content="Previous Tickets" HorizontalAlignment="Left" Margin="21,243,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <DataGrid x:Name="CustomerPreviousTickets" HorizontalAlignment="Left" Height="180" Margin="21,274,0,0"
+                              VerticalAlignment="Top" Width="691"  Grid.ColumnSpan="3"
+                              IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" PreviewMouseDoubleClick="CustomerPreviousTickets_PreviewMouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Ticket ID" Width="170" Binding="{Binding ticket_id}" />
+                            <DataGridTextColumn Header="Subject" Width="200" Binding="{Binding subject}" />
+                            <DataGridTextColumn Header="Status" Width="70" Binding="{Binding status}" />
+                            <DataGridTextColumn Header="Escalation due" Width="55" Binding="{Binding escalation_due}" />
+                            <DataGridTextColumn Header="Owner" Width="150" Binding="{Binding owner}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="txtMiddleNames" HorizontalAlignment="Left" Height="23" Margin="21,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True"/>
+                    <TextBox x:Name="txtSurname" HorizontalAlignment="Left" Height="23" Margin="21,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True"/>
+                    <Label Content="Middle Names" HorizontalAlignment="Left" Margin="21,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.105,0.038"/>
+                    <Label Content="Surname" HorizontalAlignment="Left" Margin="21,181,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbEmployers" Grid.Column="2" HorizontalAlignment="Left" Margin="185,207,0,0" VerticalAlignment="Top" Width="271"  DisplayMemberPath="Key" SelectedValuePath="Value"/>
+                </Grid>
+            </aw:WizardPage>
+        
+           <aw:WizardPage x:Name="tbCompanyInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Company Information" AllowBack="True" AllowCancel="True" AllowNext="True">
+                    <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="181*"/>
+                        <ColumnDefinition Width="58*"/>
+                        <ColumnDefinition Width="489*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Name of Company" HorizontalAlignment="Left" Margin="7,63,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="txtCompanyName" HorizontalAlignment="Left" Height="23" Margin="7,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="691" Grid.ColumnSpan="3" IsReadOnly="True" Grid.Column="1"/>
+                    <Label Content="Petra ID :" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.261" Grid.Column="1"/>
+                    <TextBox x:Name="txtCompanyPetraID" HorizontalAlignment="Left" Height="23" Margin="7,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True" Grid.Column="1"/>
+                    <TextBox x:Name="txtCompanyRegNo" HorizontalAlignment="Left" Height="23" Margin="185,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="3" IsReadOnly="True"/>
+                    <TextBox x:Name="txtCompanyEmail" HorizontalAlignment="Left" Height="23" Margin="7,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" IsReadOnly="True" Grid.ColumnSpan="3" Grid.Column="1"/>
+                    <Label Content="Email Address :" HorizontalAlignment="Left" Margin="7,117,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="txtCompanyContactNo" HorizontalAlignment="Left" Height="23" Margin="185,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="3" IsReadOnly="True"/>
+                    <Label Content="Contact No." HorizontalAlignment="Left" Margin="185,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.287,0.252" Grid.Column="3"/>
+                    <Label Content="Company Reg. No." HorizontalAlignment="Left" Margin="185,10,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Previous Tickets" HorizontalAlignment="Left" Margin="7,247,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="1"/>
+                    <DataGrid x:Name="CompanyPreviousTickets" HorizontalAlignment="Left" Height="238" Margin="7,278,0,0" 
+                              VerticalAlignment="Top" Width="691" Grid.ColumnSpan="3" Grid.Column="1" PreviewMouseDoubleClick="CompanyPreviousTickets_PreviewMouseDoubleClick"
+                              IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Ticket ID" Width="170" Binding="{Binding ticket_id}" />
+                            <DataGridTextColumn Header="Subject" Width="200" Binding="{Binding subject}" />
+                            <DataGridTextColumn Header="Status" Width="70" Binding="{Binding status}" />
+                            <DataGridTextColumn Header="Escalation due" Width="55" Binding="{Binding escalation_due}" />
+                            <DataGridTextColumn Header="Owner" Width="150" Binding="{Binding owner}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="txtCompanyContactPerson" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" Grid.ColumnSpan="3"/>
+                    <Label Content="Contact Person" Grid.Column="1" HorizontalAlignment="Left" Margin="6,171,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtMobileNo" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="185,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274"/>
+                    <Label Content="Mobile Number" Grid.Column="3" HorizontalAlignment="Left" Margin="185,171,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </aw:WizardPage>
+ 
+           <aw:WizardPage x:Name="tbTicketInfo" Header="Step 3 of 3" aw:Wizard97.Subtitle="Create Ticket" AllowBack="True" AllowCancel="True" AllowNext="False" AllowFinish="True" Commit="create_ticket">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,-2">
+                    <TextBox x:Name="txtTicketID" HorizontalAlignment="Left" Height="23" Margin="23,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301" IsReadOnly="True"/>
+                    <Label Content="Ticket ID :" HorizontalAlignment="Left" Margin="23,64,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Priority :" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rdPriorityLow" Content="Low" HorizontalAlignment="Left" Margin="401,93,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rdPriorityMedium" Content="Medium" HorizontalAlignment="Left" Margin="459,93,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton x:Name="rdPriorityHigh" Content="High" HorizontalAlignment="Left" Margin="536,93,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Type of Category" HorizontalAlignment="Left" Margin="20,227,0,0" VerticalAlignment="Top"/>
+                    <GroupBox Header="Category Details" HorizontalAlignment="Left" Margin="20,285,0,0" VerticalAlignment="Top" Height="146" Width="692">
+                        <Grid HorizontalAlignment="Left" Height="111" Margin="4,7,0,-1" VerticalAlignment="Top" Width="662">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17*"/>
+                                <ColumnDefinition Width="314*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Correspondence :" HorizontalAlignment="Left" Margin="18,7,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <ComboBox x:Name="cmbTicketCorrespondence" HorizontalAlignment="Left" Margin="119,11,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketCorrespondence_SelectionChanged"/>
+                            <ComboBox x:Name="cmbTicketSubCorrespondence" HorizontalAlignment="Left" Margin="119,44,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketSubCorrespondence_SelectionChanged"/>
+                            <Label Content="Sub Correspondence :" HorizontalAlignment="Left" Margin="18,40,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <Label Content="Associated SLA :" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="txtAssocaitedSLA" HorizontalAlignment="Left" Height="23" Margin="119,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" Grid.Column="1" IsReadOnly="True"/>
+                        </Grid>
+                    </GroupBox>
+                    <Label Content="Ticket Subject" HorizontalAlignment="Left" Margin="23,117,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtTicketSubject" HorizontalAlignment="Left" Height="23" Margin="23,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="689"/>
+                    <ComboBox x:Name="cmbTicketCategory" HorizontalAlignment="Left" Margin="22,253,0,0" VerticalAlignment="Top" Width="689"  DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="cmbTicketCategory_SelectionChanged"/>
+                    <Label Content="Notes :" HorizontalAlignment="Left" Margin="19,435,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="58" Margin="18,461,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="694"/>
+                    <TextBox x:Name="txtCustomerName" HorizontalAlignment="Left" Height="23" Margin="23,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" IsReadOnly="True"/>
+                    <TextBox x:Name="txtPetraID" HorizontalAlignment="Left" Height="23" Margin="536,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" IsReadOnly="True"/>
+                    <Label Content="Name of Customer :" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Petra ID :" HorizontalAlignment="Left" Margin="536,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Assign To :" HorizontalAlignment="Left" Margin="23,176,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbAssignTo"  DisplayMemberPath="_Value" SelectedValuePath="_Key" HorizontalAlignment="Left" Margin="22,202,0,0" VerticalAlignment="Top" Width="690"/>
+                </Grid>
+            </aw:WizardPage>
+        </aw:Wizard>
+    </Grid>
+</Controls:MetroWindow>

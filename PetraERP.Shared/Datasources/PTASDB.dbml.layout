@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PTASDB">
+  <DataContextMoniker Name="/PTASDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a5768d03-de32-4629-864e-c2cacba1d757" absoluteBounds="3.125, 0.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PTASDBDataContext/FundDeal" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6230f241-6229-43c8-a055-3662be0c65b9" absoluteBounds="3.14, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e9e7dbd3-3724-40f1-bc39-de950191d018" absoluteBounds="6.5, 0.5, 2, 5.6169254557291657">
+      <DataClassMoniker Name="/PTASDBDataContext/FundDealLine" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0bd7602b-8253-4e1c-ab42-709f6775fc0a" absoluteBounds="6.515, 0.96, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.125 : 1.86620198567708); (6.5 : 1.86620198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PTASDBDataContext/FundDeal/FundDeal_FundDealLine" />
+      <nodes>
+        <classShapeMoniker Id="a5768d03-de32-4629-864e-c2cacba1d757" />
+        <classShapeMoniker Id="e9e7dbd3-3724-40f1-bc39-de950191d018" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="791bcc1c-ad58-4756-aeca-86500e648523" absoluteBounds="0.5, 0.5, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PTASDBDataContext/ScheduleStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0aee9059-a209-49da-bc08-8c9b80d724d2" absoluteBounds="0.51500000000000057, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.09699625651042); (3.125 : 1.09699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PTASDBDataContext/ScheduleStatus/ScheduleStatus_FundDeal" />
+      <nodes>
+        <classShapeMoniker Id="791bcc1c-ad58-4756-aeca-86500e648523" />
+        <classShapeMoniker Id="a5768d03-de32-4629-864e-c2cacba1d757" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="4cd8a193-86be-413b-ab48-e4cb674a953b" absoluteBounds="0.5, 3.125, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/PTASDBDataContext/Payment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cccfc0fb-ff76-413d-9fa7-f7477563fb2c" absoluteBounds="0.51500000000000012, 3.585, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3c014771-2f31-464c-9430-401302b25c61" absoluteBounds="3.375, 3.625, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PTASDBDataContext/ContributionType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0f7f080-f26c-4737-b039-176807edf089" absoluteBounds="3.3899999999999997, 4.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

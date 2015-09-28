@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP", "PetraERP\PetraERP.csproj", "{2B6258C0-1CF5-4297-9170-A30626C08E0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.Shared", "PetraERP.Shared\PetraERP.Shared.csproj", "{C597FB9A-3F29-4E9B-8995-8E5DC04CA123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.CRM", "PetraERP.CRM\PetraERP.CRM.csproj", "{2884DBA4-7CF2-4FBF-B4AA-C647DE95E8A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.Tracker", "PetraERP.Tracker\PetraERP.Tracker.csproj", "{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.TrackerService", "PetraERP.TrackerService\PetraERP.TrackerService.csproj", "{130663FC-4498-483D-A3E7-973C75698F17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B6258C0-1CF5-4297-9170-A30626C08E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6258C0-1CF5-4297-9170-A30626C08E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6258C0-1CF5-4297-9170-A30626C08E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6258C0-1CF5-4297-9170-A30626C08E0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C597FB9A-3F29-4E9B-8995-8E5DC04CA123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C597FB9A-3F29-4E9B-8995-8E5DC04CA123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C597FB9A-3F29-4E9B-8995-8E5DC04CA123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C597FB9A-3F29-4E9B-8995-8E5DC04CA123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2884DBA4-7CF2-4FBF-B4AA-C647DE95E8A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2884DBA4-7CF2-4FBF-B4AA-C647DE95E8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2884DBA4-7CF2-4FBF-B4AA-C647DE95E8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2884DBA4-7CF2-4FBF-B4AA-C647DE95E8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{130663FC-4498-483D-A3E7-973C75698F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{130663FC-4498-483D-A3E7-973C75698F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{130663FC-4498-483D-A3E7-973C75698F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{130663FC-4498-483D-A3E7-973C75698F17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

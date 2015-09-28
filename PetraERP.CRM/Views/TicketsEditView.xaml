@@ -1,0 +1,75 @@
+﻿<Controls:MetroWindow 
+         x:Class="PetraERP.CRM.Views.TicketsEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"     
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:SharedControls="clr-namespace:PetraERP.Shared.UI.Controls;assembly=PetraERP.Shared"
+        ResizeMode="NoResize" WindowStyle="ToolWindow"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+        EnableDWMDropShadow="True" Title="Edit Ticket" Height="636.846" Width="608.362" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="WhiteSmoke" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Label x:Name="lblTicketName" Content="Name" HorizontalAlignment="Left"  Margin="16,14,0,0" VerticalAlignment="Top" FontFamily="Segoe WP Light" 
+                        FontSize="36" FontWeight="ExtraBold"/>
+
+            <Label x:Name="lblTicketInfo" Content="    Ticket ID: {0}&#10;          Date: {2}&#10;Description: {3}&#10;      Subject: {4}" HorizontalAlignment="Left" 
+                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+                       Margin="25,0,0,0" VerticalAlignment="Top"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="lblstatus" Content="Status: " HorizontalAlignment="Left" 
+                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+                       Margin="50,0,0,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbxStatus" ItemsSource="{Binding TicketStatuses}" SelectedValuePath="id" DisplayMemberPath="status" SelectionChanged="cbxStatus_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" />
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="40,20,40,0" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="lblC" Grid.Row="0" Grid.Column="0" Content="Comments (0)" HorizontalAlignment="Left" FontFamily="Segoe WP Light" FontSize="18" FontWeight="ExtraBold"  VerticalAlignment="Top"/>
+
+            <ScrollViewer Grid.Row="1" Grid.Column="0" x:Name="ConversationScrollViewer" Background="White">
+                <StackPanel Orientation="Vertical"  x:Name="ConversationContentContainer" VerticalAlignment="Top">
+                    <!-- padding element -->
+                    <Rectangle Width="100" Height="0" x:Name="PaddingRectangle">
+                        <Rectangle.Resources>
+                            <Storyboard x:Name="PaddingRectangleShowAnim" x:Key="prsa">
+                                <DoubleAnimation Storyboard.TargetName="PaddingRectangle" Storyboard.TargetProperty="(Height)" To="400"  Duration="00:00:00.3"/>
+                            </Storyboard>
+                            <Storyboard x:Name="PaddingRectangleHideAnim" x:Key="prha">
+                                <DoubleAnimation Storyboard.TargetName="PaddingRectangle" Storyboard.TargetProperty="(Height)" To="0"  Duration="00:00:00.3"/>
+                            </Storyboard>
+                        </Rectangle.Resources>
+                    </Rectangle>
+                    <SharedControls:ConversationView x:Name="conversationView" DataContext="{Binding Messages}"/>
+                </StackPanel>
+            </ScrollViewer>
+            
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                <TextBox x:Name="txtComment" Margin="0,10,0,0"  Controls:TextBoxHelper.Watermark="Type a message..." 
+                     HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"
+                     KeyUp="txtComment_KeyUp" GotFocus="txtComment_GotFocus" LostFocus="txtComment_LostFocus"/>
+                <Button  x:Name="btnPostComment" Content="Post" 
+                    HorizontalAlignment="Left" Margin="9,10,0,0" VerticalAlignment="Top" 
+                    Width="65" Height="40" Click="btnPostComment_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>
