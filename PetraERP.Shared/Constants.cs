@@ -12,7 +12,7 @@
         public const string ROLES_SUPER_OPS_USER = "Super Ops User";
         public const string ROLES_SUPER_USER = "Super User";
         public const string ROLES_CRM_USER = "CRM User";
-        public const string ROLES_CRM_ADMIN = "CRM Admin";
+        public const string ROLES_CRM_ADMIN = "CRM Super User";
         public const string ROLES_ADMINISTRATOR = "Administrator";
 
         public const int ROLES_OPS_USER_ID = 4;

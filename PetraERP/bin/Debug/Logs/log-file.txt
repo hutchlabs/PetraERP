@@ -2026,3 +2026,6 @@ Login failed for user 'Elmina\David'.
 2015-09-23 19:13:19,032 [9] DEBUG - App.OnExit --- Application closing.
 2015-09-23 20:05:08,129 [9] DEBUG - App.OnStartup --- Starting up.
 2015-09-23 20:19:47,711 [9] DEBUG - App.OnExit --- Application closing.
+2015-09-28 23:11:31,009 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-28 23:18:11,432 [9] DEBUG - App.OnExit --- Application closing.
+2015-09-28 23:26:10,934 [8] DEBUG - App.OnStartup --- Starting up.

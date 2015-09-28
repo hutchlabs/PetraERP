@@ -166,12 +166,11 @@ namespace PetraERP.Shared.Models
             }
         }
 
-        // TODO: implement CRM access rules.
         public static bool IsCurrentUserCRMAdmin()
         {
             try
             {
-                return (IsCurrentUserAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN));
+                return (IsCurrentUserSuperAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN));
             }
             catch (Exception)
             {
@@ -183,7 +182,7 @@ namespace PetraERP.Shared.Models
         {
             try
             {
-                return (IsCurrentUserAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN) ||
+                return (IsCurrentUserSuperAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN) ||
                         AppData.CurrentRole.Equals(Constants.ROLES_CRM_USER));
             }
             catch (Exception)
