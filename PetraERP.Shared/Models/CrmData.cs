@@ -259,10 +259,12 @@ namespace PetraERP.Shared.Models
         public static  crmTicketDetails get_ticket_details(string ticket_id)
         {
             return (from tic in Database.CRM.tickets
+                    join cat in Database.CRM.categories on tic.category_id equals cat.id
+                    join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
                     join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
                     join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                     where tic.ticket_id == ticket_id
-                    select new crmTicketDetails() { ticket_id = tic.ticket_id, petra_id = tic.customer_id, description = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status }
+                    select new crmTicketDetails() { owner = GetUserName(tic.owner), category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status }
                    ).Single<crmTicketDetails>();
         }
 
@@ -474,12 +476,16 @@ namespace PetraERP.Shared.Models
     {
         public string ticket_id { get; set; }
         public string petra_id { get; set; }
-        public string description { get; set; }
         public string ticket_date { get; set; }
         public int esacalation { get; set; }
         public string subject { get; set; }
         public int customer_type { get; set; }
         public int status_id { get; set; }
+        public string notes { get; set; }
+        public string category { get; set; }
+        public string correspondence { get; set; }
+        public string subcorrespondence { get; set; }
+        public string owner { get; set; }
     }
 
     public class crmTicketComments

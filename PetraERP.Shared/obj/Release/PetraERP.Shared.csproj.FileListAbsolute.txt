@@ -15,3 +15,5 @@ C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\R
 C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Release\PetraERP.Shared.g.resources
 C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Release\PetraERP.Shared.dll
 C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Release\PetraERP.Shared.pdb
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Release\UI\Controls\ConversationView.baml
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Release\UI\Controls\ConversationView.g.cs

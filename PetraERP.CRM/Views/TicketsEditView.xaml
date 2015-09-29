@@ -21,22 +21,40 @@
             <Label x:Name="lblTicketName" Content="Name" HorizontalAlignment="Left"  Margin="16,14,0,0" VerticalAlignment="Top" FontFamily="Segoe WP Light" 
                         FontSize="36" FontWeight="ExtraBold"/>
 
-            <Label x:Name="lblTicketInfo" Content="    Ticket ID: {0}&#10;          Date: {2}&#10;Description: {3}&#10;      Subject: {4}" HorizontalAlignment="Left" 
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="lblTicketInfo" Content="    Ticket ID: {0}&#10;          Date: {1}&#10;       Owner: {2}" HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
 
+                <Label x:Name="lblTicketInfo2" Content="                  Category: {0}&#10;       Correspondence: {1}&#10;Sub Correspondence: {2}&#10;" HorizontalAlignment="Left" 
+                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+                       Margin="25,0,0,0" VerticalAlignment="Top"/>
+            </StackPanel>
+            
             <StackPanel Orientation="Horizontal">
                 <Label x:Name="lblstatus" Content="Status: " HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="50,0,0,0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cbxStatus" ItemsSource="{Binding TicketStatuses}" SelectedValuePath="id" DisplayMemberPath="status" SelectionChanged="cbxStatus_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" />
+                
+                <Label x:Name="lblesca" Content="Escalation due: x hours " HorizontalAlignment="Left" 
+                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+                       Margin="30,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Row="1" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="40,20,40,0" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="40,20,40,0">
+            <Label  x:Name="lblIssue"  Content="Issue - {Subject}" HorizontalAlignment="Left" FontFamily="Segoe WP Light" FontSize="18" FontWeight="ExtraBold"  VerticalAlignment="Top"/>
+
+            <TextBox Text="Issue description" IsEnabled="False" Height="50" x:Name="tbIssue"
+                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+                       Margin="0,0,0,0" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="40,20,40,0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="200"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>

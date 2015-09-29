@@ -72,8 +72,17 @@ namespace PetraERP.CRM.Views
                 var microgen_data = CrmData.get_company_by_petra_id(ticket_data.petra_id);
                 lblTicketName.Content= microgen_data.company_name;
             }
-            lblTicketInfo.Content = string.Format("    Ticket ID: {0}\n          Date: {1:ddd dd MMM yyyy HH:mm tt}\nDescription: {2}\n      Subject: {3}",
-                                                  ticket_data.ticket_id, DateTime.Parse(ticket_data.ticket_date),ticket_data.subject,ticket_data.description );
+
+            lblTicketInfo.Content = string.Format("    Ticket ID: {0}\n          Date: {1:ddd dd MMM yyyy HH:mm tt}\n       Owner: {2}",
+                                                  ticket_data.ticket_id, DateTime.Parse(ticket_data.ticket_date), ticket_data.owner);
+
+            lblTicketInfo2.Content = string.Format("                        Category: {0}\n             Correspondence: {1}\n      Sub Correspondence: {2}\n",
+                                                   ticket_data.category, ticket_data.correspondence,  ticket_data.subcorrespondence);
+
+            lblesca.Content = "Escalation Due: " + ticket_data.esacalation;
+
+            lblIssue.Content = "Issue - " + ticket_data.subject;
+            tbIssue.Text = ticket_data.notes;
 
             cbxStatus.SelectedValue = ticket_data.status_id;
 

@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP\App.xaml
-13-1208085213
+111759697490
 
-22-130406789
-15701274632
-Resources\Figures.xaml;Resources\Icons.xaml;Resources\Styles.xaml;Shell.xaml;Views\ApplicationView.xaml;Views\ConfigView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\ManageView.xaml;Views\NotificationsView.xaml;Views\SettingsView.xaml;Views\UserEmblemView.xaml;Views\UserView.xaml;
+2071485223
+17-1181292108
+Resources\Figures.xaml;Resources\Icons.xaml;Resources\Styles.xaml;Shell.xaml;Views\ApplicationView.xaml;Views\ConfigView.xaml;Views\HomeView.xaml;Views\LoginView.xaml;Views\ERPSettingsView.xaml;Views\NotificationsView.xaml;Views\UserSettingsView.xaml;
 
 False
 

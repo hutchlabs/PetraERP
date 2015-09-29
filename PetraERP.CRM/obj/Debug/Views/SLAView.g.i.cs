@@ -12,7 +12,6 @@
 using MahApps.Metro.Controls;
 using PetraERP.CRM.ViewModels;
 using PetraERP.Shared.UI.AttachedMembers;
-using PetraERP.Shared.UI.Controls;
 using System;
 using System.Diagnostics;
 using System.Windows;
