@@ -16,3 +16,5 @@
 2015-09-29 00:53:38,930 [9] DEBUG - App.OnExit --- Application closing.
 2015-09-29 00:53:56,417 [9] DEBUG - App.OnStartup --- Starting up.
 2015-09-29 00:54:52,127 [9] DEBUG - App.OnExit --- Application closing.
+2015-09-29 00:58:14,304 [9] DEBUG - App.OnStartup --- Starting up.
+2015-09-29 00:58:20,981 [9] DEBUG - App.OnExit --- Application closing.
