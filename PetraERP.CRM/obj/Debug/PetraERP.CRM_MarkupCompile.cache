@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.CRM\obj\Debug\
+\\psf\Home\Documents\PetraERP\PetraERP.CRM\obj\Debug\
 PetraERP.CRM
 none
 false
 DEBUG;TRACE
-C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.CRM\App.xaml
+\\psf\Home\Documents\PetraERP\PetraERP.CRM\App.xaml
 11-2008260806
 
 16-2042673949
-17-550674701
+17-719834745
 Resources\Figures.xaml;Resources\Icons.xaml;Resources\Styles.xaml;Views\SLAView.xaml;Views\SubCorrespondenceView.xaml;Views\CorrespondenceView.xaml;Views\TicketsAddView.xaml;Views\TicketsEditView.xaml;Views\CategoriesView.xaml;Views\TicketsView.xaml;Views\CRMView.xaml;
 
 False

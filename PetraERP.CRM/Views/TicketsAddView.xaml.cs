@@ -112,6 +112,20 @@ namespace PetraERP.CRM.Views
             CloseWin();
         }
 
+
+        private void clear_existing_details()
+        {
+
+            txtPetraID.Text = string.Empty;
+            txtCustomerPetraID.Text = string.Empty;
+            txtSSN.Text = string.Empty;
+            txtFirstName.Text = string.Empty;
+            txtMiddleNames.Text = string.Empty;
+            txtSurname.Text = string.Empty;
+            txtCustomerName.Text = string.Empty;
+            cmbEmployers.ItemsSource = null;
+        }
+
         public ICommand SearchButtonCmd
         {
             get
@@ -172,6 +186,8 @@ namespace PetraERP.CRM.Views
 
             try
             {
+                clear_existing_details();
+
                 var cust_info = CrmData.get_customer_by_petra_id(petra_id);
                 entity_id = cust_info.Entity_ID;
 
@@ -182,14 +198,22 @@ namespace PetraERP.CRM.Views
                 txtMiddleNames.Text = cust_info.Second_Name;
                 txtSurname.Text = cust_info.Last_Name;
                 txtCustomerName.Text = cust_info.First_Name + " " + cust_info.Second_Name + " " + cust_info.Last_Name;
-                CustomerPreviousTickets.Items.Clear();
-                CustomerPreviousTickets.ItemsSource = null;
-                CustomerPreviousTickets.ItemsSource = CrmData.get_customer_active_tickets(petra_id);
              }
              catch (Exception e)
              {
                MessageBox.Show("Unable to load customer details: "+e.Message);
              }
+
+            try
+            {
+                //CustomerPreviousTickets.Items.Clear();
+                CustomerPreviousTickets.ItemsSource = null;
+                CustomerPreviousTickets.ItemsSource = CrmData.get_customer_active_tickets(petra_id);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("A new set of ticket history will be loaded for the selected client.");
+            }
 
             try
             {
