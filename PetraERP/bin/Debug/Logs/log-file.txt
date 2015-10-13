@@ -2053,3 +2053,10 @@ Login failed for user 'Elmina\David'.
 2015-10-06 21:00:46,495 [9] DEBUG - App.OnStartup --- Starting up.
 2015-10-06 21:03:45,820 [9] DEBUG - App.OnExit --- Application closing.
 2015-10-06 21:09:52,328 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-06 21:28:54,393 [9] DEBUG - App.OnExit --- Application closing.
+2015-10-06 21:28:59,692 [1] DEBUG - App.OnStartup --- Starting up.
+2015-10-06 21:28:59,876 [1] DEBUG - Database.Initialize --- PetraERP.Shared.Exceptions+DBNotSetupException: Database parameters not stored in System settings.
+2015-10-06 21:28:59,876 [1] DEBUG - ShellViewModel.Constructor --- Error code 3: Cannot connect to database. Database parameters not stored in System settings.
+2015-10-06 21:29:42,929 [1] DEBUG - LoginViewModel.doLogin --- Failed login attempted for  username: marlene@petratrust.com.
+2015-10-06 21:30:29,539 [1] DEBUG - App.OnExit --- Application closing.
+2015-10-06 21:30:43,298 [1] DEBUG - App.OnExit --- Application closing.
