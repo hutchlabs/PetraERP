@@ -215,16 +215,44 @@ namespace PetraERP.CRM.Views
                 MessageBox.Show("A new set of ticket history will be loaded for the selected client.");
             }
 
+
+            //Get customer emails
             try
             {
-                var cust_contact = CrmData.get_customer_contact_by_id(entity_id);
-                txtEmail.Text = cust_contact.email;
-                txtContactNo.Text = cust_contact.phone;
+                var cust_emails = CrmData.get_customer_emails(entity_id);
+
+                cmbEmails.Items.Clear();
+
+                foreach (var emp in cust_emails)
+                {
+                    cmbEmails.Items.Add(new KeyValuePair<string, string>(emp.Email, emp.Email));
+                }
+                if (cmbEmails.Items.Count > 0) { cmbEmails.SelectedIndex = 0; }
             }
-            catch(Exception)
+            catch (Exception)
             {
-                MessageBox.Show("No contact details found.");
+                MessageBox.Show("No email address found.");
             }
+
+
+            //Get customer contact #s
+            try
+            {
+                var cust_contact_nos = CrmData.get_customer_contact_nos(entity_id);
+
+                cmbContactNo.Items.Clear();
+
+                foreach (var emp in cust_contact_nos)
+                {
+                    cmbContactNo.Items.Add(new KeyValuePair<string, string>(emp.Contact_No, emp.Contact_No));
+                }
+                if (cmbContactNo.Items.Count > 0) { cmbContactNo.SelectedIndex = 0; }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No contact nos found.");
+            }    
+
 
             try
             {

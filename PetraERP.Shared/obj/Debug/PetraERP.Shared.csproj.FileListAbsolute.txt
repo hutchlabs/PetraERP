@@ -25,7 +25,6 @@ C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\D
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\bin\Debug\System.Windows.Interactivity.dll
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\bin\Debug\log4net.xml
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\bin\Debug\MahApps.Metro.xml
-\\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\PetraERP.Shared.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\UI\Controls\ConversationView.baml
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\UI\MessagingService\ModalCustomMessageDialog.baml
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\UI\MessagingService\ModalMessageDialog.baml
@@ -36,3 +35,4 @@ C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\D
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\PetraERP.Shared.g.resources
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\PetraERP.Shared.dll
 \\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\PetraERP.Shared.pdb
+\\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\PetraERP.Shared.csprojResolveAssemblyReference.cache

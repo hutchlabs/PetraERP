@@ -356,6 +356,20 @@ namespace PetraERP.Shared.Models
                     select new crmCustomerEmpoyerDetails() { Employer_Name = ec.FullName });
         }
 
+        public static IEnumerable<crmCustomerContactNoDetails> get_customer_contact_nos(int entity_ID)
+        {
+            return (from ec in Database.Microgen.EntityContacts
+                    where ec.EntityID == entity_ID
+                    select new crmCustomerContactNoDetails() {  Contact_No = ec.TelephoneNo });
+        }
+
+        public static IEnumerable<crmCustomerEmailsDetails> get_customer_emails(int entity_ID)
+        {
+            return (from ec in Database.Microgen.EntityContacts
+                    where ec.EntityID == entity_ID
+                    select new crmCustomerEmailsDetails() { Email = ec.Email});
+        }
+
         public static crmCustomerFullDetails get_customer_by_petra_id(string p_id)
         {
             return (from er in Database.Microgen.EntityRoles
@@ -376,6 +390,8 @@ namespace PetraERP.Shared.Models
                     select new crmCustomerContactDetails() { email = ec.Email, phone = ec.MobileNo }).Single<crmCustomerContactDetails>();
 
         }
+
+       
 
         public static IEnumerable<crmCompanyList> search_companies_by_name(string company_name)
         {
@@ -535,6 +551,16 @@ namespace PetraERP.Shared.Models
     public class crmCustomerEmpoyerDetails
     {
         public string Employer_Name { get; set; }
+    }
+
+    public class crmCustomerContactNoDetails
+    {
+        public string Contact_No { get; set; }
+    }
+
+    public class crmCustomerEmailsDetails
+    {
+        public string Email { get; set; }
     }
 
     public class crmCustomerContactDetails

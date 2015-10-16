@@ -2060,3 +2060,18 @@ Login failed for user 'Elmina\David'.
 2015-10-06 21:29:42,929 [1] DEBUG - LoginViewModel.doLogin --- Failed login attempted for  username: marlene@petratrust.com.
 2015-10-06 21:30:29,539 [1] DEBUG - App.OnExit --- Application closing.
 2015-10-06 21:30:43,298 [1] DEBUG - App.OnExit --- Application closing.
+2015-10-16 11:42:51,280 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 11:44:00,828 [9] DEBUG - LoginViewModel.doLogin --- Failed login attempted for  username: admin@petratrust.com.
+2015-10-16 11:44:11,788 [9] DEBUG - LoginViewModel.doLogin --- Failed login attempted for  username: admin@petratrust.com.
+2015-10-16 11:44:32,946 [9] DEBUG - LoginViewModel.doLogin --- Failed login attempted for  username: marlene@petratrust.com.
+2015-10-16 11:45:44,818 [9] DEBUG - App.OnExit --- Application closing.
+2015-10-16 12:00:07,875 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 12:45:08,856 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 12:50:57,570 [8] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 12:53:04,754 [8] DEBUG - App.OnExit --- Application closing.
+2015-10-16 13:01:24,554 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 13:03:15,392 [9] DEBUG - App.OnExit --- Application closing.
+2015-10-16 13:10:49,926 [10] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 13:11:57,905 [10] DEBUG - App.OnExit --- Application closing.
+2015-10-16 13:12:43,603 [9] DEBUG - App.OnStartup --- Starting up.
+2015-10-16 13:38:37,585 [9] DEBUG - App.OnExit --- Application closing.

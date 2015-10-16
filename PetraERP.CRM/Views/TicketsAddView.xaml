@@ -10,9 +10,9 @@
 	  Title="Add New Ticket" Width="738.85" Height="658.048" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" WindowStyle="ToolWindow" Closing="CloseWindow">
 
     <Grid Background="White" Margin="0">
-        
+
         <aw:Wizard x:Name="AddTicketWizard" aw:Designer.PageIndex="0" WizardStyle="Wizard97" CurrentPageChanged="PageChanged" Cancelled="AddTicketWizard_Cancelled" Finished="create_ticket">
-           <aw:WizardPage x:Name="tbSearch" Header="Step 1 of 3"  aw:Wizard97.Subtitle="Search for customer or company and double click" AllowBack="False" AllowCancel="True" AllowNext="False">
+            <aw:WizardPage x:Name="tbSearch" Header="Step 1 of 3"  aw:Wizard97.Subtitle="Search for customer or company and double click" AllowBack="False" AllowCancel="True" AllowNext="False">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60" />
@@ -52,7 +52,7 @@
                 </Grid>
             </aw:WizardPage>
 
-           <aw:WizardPage x:Name="tbCustomerInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Customer Information" AllowBack="True" AllowCancel="True" AllowNext="True">
+            <aw:WizardPage x:Name="tbCustomerInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Customer Information" AllowBack="True" AllowCancel="True" AllowNext="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="195*"/>
@@ -65,11 +65,11 @@
                     <Label Content="Petra ID :" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.261"/>
                     <TextBox x:Name="txtCustomerPetraID" HorizontalAlignment="Left" Height="23" Margin="21,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.ColumnSpan="3" IsReadOnly="True"/>
                     <TextBox x:Name="txtSSN" HorizontalAlignment="Left" Height="23" Margin="185,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" Grid.Column="2" IsReadOnly="True"/>
-                    <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="185,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="2" IsReadOnly="True"/>
                     <Label Content="Email Address :" HorizontalAlignment="Left" Margin="185,63,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-                    <TextBox x:Name="txtContactNo" HorizontalAlignment="Left" Height="23" Margin="185,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274" Grid.Column="2" IsReadOnly="True"/>
+                    <ComboBox x:Name="cmbContactNo" HorizontalAlignment="Left" Height="23" Margin="185,148,0,0"  VerticalAlignment="Top" Width="274" Grid.Column="2"  DisplayMemberPath="Key" SelectedValuePath="Value"/>
                     <Label Content="Contact No." HorizontalAlignment="Left" Margin="185,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.287,0.252" Grid.Column="2"/>
                     <Label Content="SSNIT Number :" HorizontalAlignment="Left" Margin="185,10,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <ComboBox x:Name="cmbEmails" HorizontalAlignment="Left" Height="23" Margin="185,89,0,0" VerticalAlignment="Top" Width="274" Grid.Column="2"  DisplayMemberPath="Key" SelectedValuePath="Value"/>
                     <Label Content="Previous Tickets" HorizontalAlignment="Left" Margin="21,243,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     <DataGrid x:Name="CustomerPreviousTickets" HorizontalAlignment="Left" Height="180" Margin="21,274,0,0"
                               VerticalAlignment="Top" Width="691"  Grid.ColumnSpan="3"
@@ -89,9 +89,9 @@
                     <ComboBox x:Name="cmbEmployers" Grid.Column="2" HorizontalAlignment="Left" Margin="185,207,0,0" VerticalAlignment="Top" Width="271"  DisplayMemberPath="Key" SelectedValuePath="Value"/>
                 </Grid>
             </aw:WizardPage>
-        
-           <aw:WizardPage x:Name="tbCompanyInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Company Information" AllowBack="True" AllowCancel="True" AllowNext="True">
-                    <Grid Background="#FFE5E5E5">
+
+            <aw:WizardPage x:Name="tbCompanyInfo" Header="Step 2 of 3" aw:Wizard97.Subtitle="Company Information" AllowBack="True" AllowCancel="True" AllowNext="True">
+                <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="14*"/>
                         <ColumnDefinition Width="181*"/>
@@ -122,12 +122,12 @@
                     </DataGrid>
                     <TextBox x:Name="txtCompanyContactPerson" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" Grid.ColumnSpan="3"/>
                     <Label Content="Contact Person" Grid.Column="1" HorizontalAlignment="Left" Margin="6,171,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtMobileNo" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="185,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="274"/>
+                    <ComboBox x:Name="cmbMobileNumber" Grid.Column="2" HorizontalAlignment="Left" Margin="185,207,0,0" VerticalAlignment="Top" Width="271"  DisplayMemberPath="Key" SelectedValuePath="Value"/>
                     <Label Content="Mobile Number" Grid.Column="3" HorizontalAlignment="Left" Margin="185,171,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </aw:WizardPage>
- 
-           <aw:WizardPage x:Name="tbTicketInfo" Header="Step 3 of 3" aw:Wizard97.Subtitle="Create Ticket" AllowBack="True" AllowCancel="True" AllowNext="False" AllowFinish="True" Commit="create_ticket">
+
+            <aw:WizardPage x:Name="tbTicketInfo" Header="Step 3 of 3" aw:Wizard97.Subtitle="Create Ticket" AllowBack="True" AllowCancel="True" AllowNext="False" AllowFinish="True" Commit="create_ticket">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,-2">
                     <TextBox x:Name="txtTicketID" HorizontalAlignment="Left" Height="23" Margin="23,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301" IsReadOnly="True"/>
                     <Label Content="Ticket ID :" HorizontalAlignment="Left" Margin="23,64,0,0" VerticalAlignment="Top"/>
