@@ -16,5 +16,5 @@ DEBUG;TRACE
 17-719834745
 Resources\Figures.xaml;Resources\Icons.xaml;Resources\Styles.xaml;Views\SLAView.xaml;Views\SubCorrespondenceView.xaml;Views\CorrespondenceView.xaml;Views\TicketsAddView.xaml;Views\TicketsEditView.xaml;Views\CategoriesView.xaml;Views\TicketsView.xaml;Views\CRMView.xaml;
 
-True
+False
 
