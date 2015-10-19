@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <Label x:Name="lblTicketName" Content="Name" HorizontalAlignment="Left"  Margin="16,14,0,0" VerticalAlignment="Top" FontFamily="Segoe WP Light" 
                         FontSize="36" FontWeight="ExtraBold"/>
@@ -30,13 +30,13 @@
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal">
                 <Label x:Name="lblstatus" Content="Status: " HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="50,0,0,0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cbxStatus" ItemsSource="{Binding TicketStatuses}" SelectedValuePath="id" DisplayMemberPath="status" SelectionChanged="cbxStatus_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" />
-                
+
                 <Label x:Name="lblesca" Content="Escalation due: x hours " HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="30,0,0,0" VerticalAlignment="Center"/>
@@ -79,14 +79,14 @@
                     <SharedControls:ConversationView x:Name="conversationView" DataContext="{Binding Messages}"/>
                 </StackPanel>
             </ScrollViewer>
-            
+
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                 <TextBox x:Name="txtComment" Margin="0,10,0,0"  Controls:TextBoxHelper.Watermark="Type a message..." 
                      HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"
                      KeyUp="txtComment_KeyUp" GotFocus="txtComment_GotFocus" LostFocus="txtComment_LostFocus"/>
                 <Button  x:Name="btnPostComment" Content="Post" 
-                    HorizontalAlignment="Left" Margin="9,10,0,0" VerticalAlignment="Top" 
-                    Width="65" Height="40" Click="btnPostComment_Click"/>
+                    HorizontalAlignment="Left" Margin="9,10,0,0" 
+                    Width="65" Click="btnPostComment_Click" Height="40" VerticalAlignment="Top"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -328,17 +328,23 @@ namespace PetraERP.Shared.Models
                     join emp in Database.Microgen.Associations on er.EntityID equals emp.TargetEntityID
                     join ec in Database.Microgen.EntityClients on emp.SourceEntityID equals ec.EntityID
                     where er.RoleTypeID == 3 && et.StatusID == 51004 && (new[] { "1001", "1004" }).Contains(emp.RoleTypeID.ToString())
-                    && (ep.FirstName + ep.SecondNames + ep.Surname).Contains(customer_name)
-                    select new crmCustomerDetails() { Petra_ID = et.EntityKey, Customer_Name = (ep.FirstName + " " + ep.SecondNames + " " + ep.Surname), SSNIT_No = ep.NationalInsuranceNo, Employer = ec.FullName });
+                    && ((ep.FirstName ?? "") + " " + (ep.SecondNames + " " ?? "") + (ep.Surname ?? "")).Contains(customer_name) ||
+                    ((ep.FirstName ?? "") + " " + (ep.Surname ?? "") + (" " + ep.SecondNames ?? "")).Contains(customer_name) ||
+                    ((ep.Surname ?? "") + " " + (ep.SecondNames + " " ?? "") + (ep.FirstName ?? "")).Contains(customer_name) ||
+                    ((ep.Surname ?? "") + " " + (ep.FirstName + " " ?? "") + (ep.SecondNames ?? "")).Contains(customer_name) ||
+                    ((ep.SecondNames ?? "") + " " + (ep.FirstName + " " ?? "") + (ep.Surname ?? "")).Contains(customer_name) ||
+                    ((ep.SecondNames ?? "") + " " + (ep.Surname + " " ?? "") + (ep.FirstName ?? "")).Contains(customer_name)
+                    select new crmCustomerDetails() { Petra_ID = et.EntityKey, Customer_Name = ((ep.FirstName ?? "") + " " + (ep.SecondNames ?? "") + " " + (ep.Surname ?? "")), SSNIT_No = ep.NationalInsuranceNo, Employer = ec.FullName }).Distinct();
 
         }
 
         public static IEnumerable<crmCustomerDetails> search_customer_by_ssnit_no(string ssnit_no)
         {
+
             return (from ep in Database.Microgen.EntityPersons
                     join et in Database.Microgen.Entities on ep.EntityID equals et.EntityID
                     where ep.NationalInsuranceNo == ssnit_no
-                    select new crmCustomerDetails() { Petra_ID = et.EntityKey, Customer_Name = (ep.FirstName + " " + ep.SecondNames + " " + ep.Surname), SSNIT_No = ep.NationalInsuranceNo });
+                    select new crmCustomerDetails() { Petra_ID = et.EntityKey, Customer_Name = ((ep.FirstName ?? "") + " " + (ep.SecondNames ?? "") + " " + (ep.Surname ?? "")), SSNIT_No = ep.NationalInsuranceNo });
 
         }
 
@@ -350,6 +356,20 @@ namespace PetraERP.Shared.Models
                     select new crmCustomerEmpoyerDetails() { Employer_Name = ec.FullName });
         }
 
+        public static IEnumerable<crmCustomerContactNoDetails> get_customer_contact_nos(int entity_ID)
+        {
+            return (from ec in Database.Microgen.EntityContacts
+                    where ec.EntityID == entity_ID
+                    select new crmCustomerContactNoDetails() {  Contact_No = ec.TelephoneNo });
+        }
+
+        public static IEnumerable<crmCustomerEmailsDetails> get_customer_emails(int entity_ID)
+        {
+            return (from ec in Database.Microgen.EntityContacts
+                    where ec.EntityID == entity_ID
+                    select new crmCustomerEmailsDetails() { Email = ec.Email});
+        }
+
         public static crmCustomerFullDetails get_customer_by_petra_id(string p_id)
         {
             return (from er in Database.Microgen.EntityRoles
@@ -359,7 +379,7 @@ namespace PetraERP.Shared.Models
                     join ec in Database.Microgen.EntityClients on emp.SourceEntityID equals ec.EntityID
                     where er.RoleTypeID == 3 && et.StatusID == 51004 && (new[] { "1001", "1004" }).Contains(emp.RoleTypeID.ToString())
                     && et.EntityKey == p_id
-                    select new crmCustomerFullDetails() { Entity_ID = ep.EntityID, Petra_ID = et.EntityKey, First_Name = ep.FirstName, Second_Name = ep.SecondNames, Last_Name = ep.Surname, SSNIT_No = ep.NationalInsuranceNo, Email = "econs.Email", Telephone = "econs.MobileNo", Employer = "Unknown" }).Single<crmCustomerFullDetails>();
+                    select new crmCustomerFullDetails() { Entity_ID = ep.EntityID, Petra_ID = et.EntityKey, First_Name = ep.FirstName, Second_Name = ep.SecondNames, Last_Name = ep.Surname, SSNIT_No = ep.NationalInsuranceNo, Email = "econs.Email", Telephone = "econs.MobileNo", Employer = "Unknown" }).Take(1).Single<crmCustomerFullDetails>();
 
         }
 
@@ -370,6 +390,8 @@ namespace PetraERP.Shared.Models
                     select new crmCustomerContactDetails() { email = ec.Email, phone = ec.MobileNo }).Single<crmCustomerContactDetails>();
 
         }
+
+       
 
         public static IEnumerable<crmCompanyList> search_companies_by_name(string company_name)
         {
@@ -529,6 +551,16 @@ namespace PetraERP.Shared.Models
     public class crmCustomerEmpoyerDetails
     {
         public string Employer_Name { get; set; }
+    }
+
+    public class crmCustomerContactNoDetails
+    {
+        public string Contact_No { get; set; }
+    }
+
+    public class crmCustomerEmailsDetails
+    {
+        public string Email { get; set; }
     }
 
     public class crmCustomerContactDetails

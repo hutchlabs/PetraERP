@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Shared\obj\Debug\
+\\psf\Home\Documents\PetraERP\PetraERP.Shared\obj\Debug\
 PetraERP.Shared
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 3-1999950794
 
 492094686440
-16-191099099
+161799837819
 UI\Controls\ConversationView.xaml;UI\MessagingService\ModalCustomMessageDialog.xaml;UI\MessagingService\ModalMessageDialog.xaml;
 
 False
