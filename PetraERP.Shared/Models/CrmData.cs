@@ -232,28 +232,57 @@ namespace PetraERP.Shared.Models
 
         public static IEnumerable<crmTicketsView> get_active_tickets(int status_id=0)
         {
-            if (status_id == 0)
+            if (Users.IsCurrentUserCRMAdmin())
             {
-                return (from tic in Database.CRM.tickets
-                        join cat in Database.CRM.categories on tic.category_id equals cat.id
-                        join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
-                        join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
-                        join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                        join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
-                        select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                if (status_id == 0)
+                {
+                    return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                }
+                else
+                {
+                    return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                            where tic.status == status_id
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                }
             }
             else
             {
-                return (from tic in Database.CRM.tickets
-                        join cat in Database.CRM.categories on tic.category_id equals cat.id
-                        join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
-                        join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
-                        join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                        join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
-                        where tic.status == status_id
-                        select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                int uid = AppData.CurrentUser.id;
+
+                if (status_id == 0)
+                {
+                    return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                            where (tic.assigned_to == uid || tic.assigned_to == null)
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                }
+                else
+                {
+                    return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                            where tic.status == status_id && (tic.assigned_to == uid || tic.assigned_to == null)
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
+                }
             }
-   
         }
 
         public static  crmTicketDetails get_ticket_details(string ticket_id)
