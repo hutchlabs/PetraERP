@@ -567,8 +567,8 @@ namespace PetraERP.CRM.ViewModels
         private bool validate_sla()
         {
             if (SelectedSLA.Name == string.Empty) { AppData.MessageService.ShowMessage("Please specify the name of the SLA you want to create", "No SLA name", DialogType.Error); return false; }
-            else if (SelectedSLA.Pre_escalate < 0) { AppData.MessageService.ShowMessage("Please specify SLA pre escalate timer in hours", "Invalid Pre Escalate Value", DialogType.Error); return false; }
-            else if (SelectedSLA.Escalated < 0) { AppData.MessageService.ShowMessage("Please specify SLA escalate timer in hours", "Invalid Escalate Value", DialogType.Error); return false; }
+            else if (SelectedSLA.Pre_escalate < 0) { AppData.MessageService.ShowMessage("Please specify SLA pre escalate timer in minutes", "Invalid Pre Escalate Value", DialogType.Error); return false; }
+            else if (SelectedSLA.Escalated < 0) { AppData.MessageService.ShowMessage("Please specify SLA escalate timer in minutes", "Invalid Escalate Value", DialogType.Error); return false; }
             else if (SelectedSLA.code == string.Empty) { AppData.MessageService.ShowMessage("Please specify a unique code for this SLA", "No SLA Code Specified", DialogType.Error); return false; }
             else { return true; }
         }

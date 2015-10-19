@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-\\psf\Home\Documents\PetraERP\PetraERP.Tracker\obj\Debug\
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Tracker\obj\Debug\
 PetraERP.Tracker
 none
 false
 DEBUG;TRACE
-\\psf\Home\Documents\PetraERP\PetraERP.Tracker\App.xaml
+C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.Tracker\App.xaml
 2-1399688771
 
 7-1897767358
-15-1934679064
+15-309572247
 MainWindow.xaml;Views\TrackerView.xaml;
 
 False

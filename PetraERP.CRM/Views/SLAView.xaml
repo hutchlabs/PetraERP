@@ -72,10 +72,10 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Name :" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedSLA.Name}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" />
 
-                <Label Grid.Row="4" Grid.Column="0" Content="      Time to notify before&#10;       escalation (hrs) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="      Time to notify before&#10;       escalation (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedSLA.Pre_escalate}" HorizontalAlignment="Left" Height="23" VerticalAlignment="center" Width="200" />
                 
-                <Label Grid.Row="5" Grid.Column="0" Content="      Time to escalate (hrs) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="      Time to escalate (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                 <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedSLA.Escalated}" HorizontalAlignment="Left" Height="23" VerticalAlignment="center" Width="200" />
                 
                 <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
