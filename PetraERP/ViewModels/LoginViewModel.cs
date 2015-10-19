@@ -136,21 +136,36 @@ namespace PetraERP.ViewModels
         private void TryResetPass()
         {
             bool success = false;
+            bool cancel = false;
+
             try
             {
-                Users.ResetPasswordRequest(Username);
-                success = true;
+                DialogResponse r = AppData.MessageService.ShowMessage("Do you really want to request a password reset?", "Password Reset", DialogType.QuestionWithCancel);
+
+                if (r == DialogResponse.Ok)
+                {
+                    Users.ResetPasswordRequest(Username);
+                    success = true;
+                }
+                else 
+                { 
+                    cancel = true;
+                }
             }
             catch (Exception) { success = false; }
 
-            if (success)
+            if (!cancel)
             {
-                AppData.MessageService.ShowMessage("Reset message sent to Administrator. Please follow up with them.", "Reset Password", DialogType.Message);
+                if (success)
+                {
+
+                    AppData.MessageService.ShowMessage("Reset message sent to Administrator. Please follow up with them.", "Reset Password", DialogType.Message);
+                }
+                else
+                {
+                    AppData.MessageService.ShowMessage("Username is incorrect. Please re-enter.", "Reset Password Error", DialogType.Error);
+                }
             }
-            else
-            {
-                AppData.MessageService.ShowMessage("Username is incorrect. Please re-enter.", "Reset Password Error", DialogType.Error);
-            }      
         }
 
         private void changePassword(string username, string oldpass)

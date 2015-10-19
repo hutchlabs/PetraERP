@@ -64,7 +64,7 @@
                         Content="{Binding ButtonText}" Margin="10" HorizontalAlignment="Center"
                         Command="{Binding TryLogInCommand}"/>
 
-                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_forgotpassword" Content="Reset Password reset" 
+                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lbl_forgotpassword" Content="Reset Password request" 
                         HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Focusable="True" Background="{x:Null}" Foreground="#FF000064" 
                         ToolTip="Enter a username first to reset password" Cursor="Hand" Command="{Binding TryResetPassCommand}" />
             </Grid>
