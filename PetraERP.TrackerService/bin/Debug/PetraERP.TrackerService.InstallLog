@@ -158,3 +158,24 @@ Affected parameters are:
    logtoconsole = 
    assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
    logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+Uninstalling assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+Removing EventLog source PetraERP.TrackerService.
+Service PetraERP.TrackerService is being removed from the system...
+Service PetraERP.TrackerService was successfully removed from the system.
+Installing assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog
+Installing service PetraERP.TrackerService...
+Service PetraERP.TrackerService has been successfully installed.
+Creating EventLog source PetraERP.TrackerService in log Application...
+Committing assembly 'c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.exe
+   logfile = c:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.InstallLog

@@ -1,6 +1,7 @@
 ﻿using PetraERP.TrackerService.Datasources;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
@@ -40,12 +41,16 @@ namespace PetraERP.TrackerService.Models
 
         public static void Comment(string info)
         {
+            EventLog.WriteEntry("PetraERP.TrackerService",info,EventLogEntryType.Information);
+            /*
+             *             
             info = string.Format("{0}\t{1}", DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss"), info);
-
+            
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Public\petraerptrackerservice.txt", true))
             {
                 file.WriteLine(info);
             }
+             **/
         }
 
         #endregion
