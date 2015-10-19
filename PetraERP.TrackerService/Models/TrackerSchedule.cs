@@ -1,10 +1,8 @@
 ﻿using PetraERP.TrackerService.Datasources;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace PetraERP.TrackerService.Models
 {
@@ -12,6 +10,8 @@ namespace PetraERP.TrackerService.Models
     {
         #region Private Members
 
+        private static bool _continue = true;
+        private static int _interval;
         private static int _defaultUserId = 1;
 
         #endregion
@@ -20,38 +20,102 @@ namespace PetraERP.TrackerService.Models
 
         public TrackerSchedule()
         {
+            _interval = TimeSpan.FromMinutes(Double.Parse(GetSetting(Constants.SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES))).Milliseconds;
         }
 
         #endregion
-    
-        public static bool InitiateScheduleWorkFlow()
+
+        #region Public Methods
+
+        public static void StartUpdate()
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(UpdateScheduleWorkFlowStatus);
-            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(UpdateScheduleWorkFlowStatusComplete);
-            worker.RunWorkerAsync();
-            return true;
+            _continue = true;
+            UpdateScheduleWorkFlowStatus();    
         }
 
-        private static void UpdateScheduleWorkFlowStatus(object sender, DoWorkEventArgs e)
+        public static void StopUpdate()
         {
-            var schedules = GetSchedulesForProcessing();
+            _continue = false;
+        }
 
-            foreach (var s in schedules)
+        public static void Comment(string info)
+        {
+            info = string.Format("{0}\t{1}", DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss"), info);
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Public\petraerptrackerservice.txt", true))
             {
-                if (s.ptas_fund_deal_id == 0 || s.ptas_fund_deal_id == null)
-                {
-                    s.ptas_fund_deal_id = GetFundDealId(s.company_id, s.tier, s.contributiontypeid, s.month, s.year);
-                }
-                EvaluateScheduleWorkFlow(s);
+                file.WriteLine(info);
             }
         }
 
-        private static async void UpdateScheduleWorkFlowStatusComplete(object sender, RunWorkerCompletedEventArgs e)
+        #endregion
+
+        #region Private Methods
+
+        private static void UpdateScheduleWorkFlowStatus()
         {
-            var dueTime = TimeSpan.FromSeconds(5);
-            var interval = TimeSpan.FromMinutes(Double.Parse(GetSetting(Constants.SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES)));
-            await DoPeriodicWorkAsync(new Func<bool>(InitiateScheduleWorkFlow), dueTime, interval, CancellationToken.None);
+            if (_continue)
+            {
+                var schedules = GetSchedulesForProcessing();
+
+                foreach (var s in schedules)
+                {
+                    if (! _continue)
+                        break;
+
+                    if (s.ptas_fund_deal_id == 0 || s.ptas_fund_deal_id == null)
+                    {
+                        s.ptas_fund_deal_id = GetFundDealId(s.company_id, s.tier, s.contributiontypeid, s.month, s.year);
+                    }
+
+                    //Comment("\tWorking on schedule: " + s.id.ToString());
+                    EvaluateScheduleWorkFlow(s);
+                }
+
+                if (_continue)
+                {
+                    System.Timers.Timer timer1 = new System.Timers.Timer();
+                    timer1.Interval = 20000;
+                    timer1.Start();
+                    timer1.Elapsed += new ElapsedEventHandler(timer1_Elapsed);
+                }
+            }
+        }
+
+        private static void timer1_Elapsed(object sender, EventArgs e)
+        {
+            UpdateScheduleWorkFlowStatus();
+        }
+
+        private static string GetSetting(string setting)
+        {
+            try
+            {
+                var x = (from n in Database.Tracker.Settings where n.setting1 == setting select n).Single();
+                return x.value;
+            }
+            catch (Exception e)
+            {
+                Comment("Error: " + e.Message);
+                return "5";
+            }
+        }
+
+        private static string GetCompanyCode(string company_id)
+        {
+            try
+            {
+                var u = (from c in Database.Microgen.cclv_AllEntities
+                         where c.EntityTypeDesc == "Company" && c.FullName.ToLower() != "available" && c.FullName != "Available Company"
+                              && c.EntityID == int.Parse(company_id)
+                         orderby c.FullName
+                         select c).Single();
+                return u.EntityKey;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #region Workflow Methods
@@ -340,8 +404,6 @@ namespace PetraERP.TrackerService.Models
         }
 
         #endregion
-
-        #region Private Helper Methods
 
         #region Schedule Methods
   
@@ -745,47 +807,6 @@ namespace PetraERP.TrackerService.Models
 
         #endregion
 
-        private static string GetSetting(string setting)
-        {
-            var x = (from n in Database.Tracker.Settings where n.setting1 == setting select n).Single();
-            return x.value;
-        }
-
-        private static string GetCompanyCode(string company_id)
-        {
-            try
-            {
-                var u = (from c in Database.Microgen.cclv_AllEntities
-                         where c.EntityTypeDesc == "Company" && c.FullName.ToLower() != "available" && c.FullName != "Available Company"
-                              && c.EntityID == int.Parse(company_id)
-                         orderby c.FullName
-                         select c).Single();
-                return u.EntityKey;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private static async Task DoPeriodicWorkAsync(Delegate todoTask, TimeSpan dueTime, TimeSpan interval, CancellationToken token)
-        {
-            // Initial wait time before we begin the periodic loop.
-            if (dueTime > TimeSpan.Zero)
-                await Task.Delay(dueTime, token);
-
-            // Repeat this loop until cancelled.
-            while (!token.IsCancellationRequested)
-            {
-                // Update Task
-                todoTask.DynamicInvoke();
-
-                // Wait to repeat again.
-                if (interval > TimeSpan.Zero)
-                    await Task.Delay(interval, token);
-            }
-        }
-
         #endregion
     }
 
@@ -877,5 +898,4 @@ namespace PetraERP.TrackerService.Models
         public const string SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES = "time_update_schedules";
         public const string SETTINGS_TIME_INTERVAL_UPDATE_NOTIFICATIONS = "time_update_notifications";
     }
-
 }
