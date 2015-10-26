@@ -33,12 +33,6 @@ namespace PetraERP.Shared.Datasources
     partial void Insertticket_comment(ticket_comment instance);
     partial void Updateticket_comment(ticket_comment instance);
     partial void Deleteticket_comment(ticket_comment instance);
-    partial void Insertticket_statuse(ticket_statuse instance);
-    partial void Updateticket_statuse(ticket_statuse instance);
-    partial void Deleteticket_statuse(ticket_statuse instance);
-    partial void Insertticket(ticket instance);
-    partial void Updateticket(ticket instance);
-    partial void Deleteticket(ticket instance);
     partial void Insertcorrespondence(correspondence instance);
     partial void Updatecorrespondence(correspondence instance);
     partial void Deletecorrespondence(correspondence instance);
@@ -51,6 +45,12 @@ namespace PetraERP.Shared.Datasources
     partial void Insertsub_correspondence(sub_correspondence instance);
     partial void Updatesub_correspondence(sub_correspondence instance);
     partial void Deletesub_correspondence(sub_correspondence instance);
+    partial void Insertticket(ticket instance);
+    partial void Updateticket(ticket instance);
+    partial void Deleteticket(ticket instance);
+    partial void Insertticket_statuse(ticket_statuse instance);
+    partial void Updateticket_statuse(ticket_statuse instance);
+    partial void Deleteticket_statuse(ticket_statuse instance);
     #endregion
 		
 		public CRMDBDataContext() : 
@@ -91,22 +91,6 @@ namespace PetraERP.Shared.Datasources
 			}
 		}
 		
-		public System.Data.Linq.Table<ticket_statuse> ticket_statuses
-		{
-			get
-			{
-				return this.GetTable<ticket_statuse>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ticket> tickets
-		{
-			get
-			{
-				return this.GetTable<ticket>();
-			}
-		}
-		
 		public System.Data.Linq.Table<correspondence> correspondences
 		{
 			get
@@ -136,6 +120,22 @@ namespace PetraERP.Shared.Datasources
 			get
 			{
 				return this.GetTable<sub_correspondence>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ticket> tickets
+		{
+			get
+			{
+				return this.GetTable<ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ticket_statuse> ticket_statuses
+		{
+			get
+			{
+				return this.GetTable<ticket_statuse>();
 			}
 		}
 	}
@@ -464,737 +464,6 @@ namespace PetraERP.Shared.Datasources
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ticket_statuses")]
-	public partial class ticket_statuse : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _status_desc;
-		
-		private EntitySet<ticket> _tickets;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onstatus_descChanging(string value);
-    partial void Onstatus_descChanged();
-    #endregion
-		
-		public ticket_statuse()
-		{
-			this._tickets = new EntitySet<ticket>(new Action<ticket>(this.attach_tickets), new Action<ticket>(this.detach_tickets));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status_desc", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string status_desc
-		{
-			get
-			{
-				return this._status_desc;
-			}
-			set
-			{
-				if ((this._status_desc != value))
-				{
-					this.Onstatus_descChanging(value);
-					this.SendPropertyChanging();
-					this._status_desc = value;
-					this.SendPropertyChanged("status_desc");
-					this.Onstatus_descChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ticket_statuse_ticket", Storage="_tickets", ThisKey="id", OtherKey="status")]
-		public EntitySet<ticket> tickets
-		{
-			get
-			{
-				return this._tickets;
-			}
-			set
-			{
-				this._tickets.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_tickets(ticket entity)
-		{
-			this.SendPropertyChanging();
-			entity.ticket_statuse = this;
-		}
-		
-		private void detach_tickets(ticket entity)
-		{
-			this.SendPropertyChanging();
-			entity.ticket_statuse = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tickets")]
-	public partial class ticket : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _ticket_id;
-		
-		private string _customer_id;
-		
-		private int _customer_id_type;
-		
-		private int _ticket_priority;
-		
-		private string _subject;
-		
-		private int _category_id;
-		
-		private int _correspondence_id;
-		
-		private int _sub_correspondence_id;
-		
-		private string _notes;
-		
-		private System.Nullable<int> _assigned_to;
-		
-		private System.DateTime _date_time_created;
-		
-		private int _ticket_month;
-		
-		private int _ticket_year;
-		
-		private int _status;
-		
-		private int _owner;
-		
-		private System.DateTime _created_at;
-		
-		private System.Nullable<int> _modified_by;
-		
-		private System.Nullable<System.DateTime> _updated_at;
-		
-		private EntityRef<ticket_statuse> _ticket_statuse;
-		
-		private EntityRef<correspondence> _correspondence;
-		
-		private EntityRef<category> _category;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onticket_idChanging(string value);
-    partial void Onticket_idChanged();
-    partial void Oncustomer_idChanging(string value);
-    partial void Oncustomer_idChanged();
-    partial void Oncustomer_id_typeChanging(int value);
-    partial void Oncustomer_id_typeChanged();
-    partial void Onticket_priorityChanging(int value);
-    partial void Onticket_priorityChanged();
-    partial void OnsubjectChanging(string value);
-    partial void OnsubjectChanged();
-    partial void Oncategory_idChanging(int value);
-    partial void Oncategory_idChanged();
-    partial void Oncorrespondence_idChanging(int value);
-    partial void Oncorrespondence_idChanged();
-    partial void Onsub_correspondence_idChanging(int value);
-    partial void Onsub_correspondence_idChanged();
-    partial void OnnotesChanging(string value);
-    partial void OnnotesChanged();
-    partial void Onassigned_toChanging(System.Nullable<int> value);
-    partial void Onassigned_toChanged();
-    partial void Ondate_time_createdChanging(System.DateTime value);
-    partial void Ondate_time_createdChanged();
-    partial void Onticket_monthChanging(int value);
-    partial void Onticket_monthChanged();
-    partial void Onticket_yearChanging(int value);
-    partial void Onticket_yearChanged();
-    partial void OnstatusChanging(int value);
-    partial void OnstatusChanged();
-    partial void OnownerChanging(int value);
-    partial void OnownerChanged();
-    partial void Oncreated_atChanging(System.DateTime value);
-    partial void Oncreated_atChanged();
-    partial void Onmodified_byChanging(System.Nullable<int> value);
-    partial void Onmodified_byChanged();
-    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
-    partial void Onupdated_atChanged();
-    #endregion
-		
-		public ticket()
-		{
-			this._ticket_statuse = default(EntityRef<ticket_statuse>);
-			this._correspondence = default(EntityRef<correspondence>);
-			this._category = default(EntityRef<category>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_id", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string ticket_id
-		{
-			get
-			{
-				return this._ticket_id;
-			}
-			set
-			{
-				if ((this._ticket_id != value))
-				{
-					this.Onticket_idChanging(value);
-					this.SendPropertyChanging();
-					this._ticket_id = value;
-					this.SendPropertyChanged("ticket_id");
-					this.Onticket_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string customer_id
-		{
-			get
-			{
-				return this._customer_id;
-			}
-			set
-			{
-				if ((this._customer_id != value))
-				{
-					this.Oncustomer_idChanging(value);
-					this.SendPropertyChanging();
-					this._customer_id = value;
-					this.SendPropertyChanged("customer_id");
-					this.Oncustomer_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id_type", DbType="Int NOT NULL")]
-		public int customer_id_type
-		{
-			get
-			{
-				return this._customer_id_type;
-			}
-			set
-			{
-				if ((this._customer_id_type != value))
-				{
-					this.Oncustomer_id_typeChanging(value);
-					this.SendPropertyChanging();
-					this._customer_id_type = value;
-					this.SendPropertyChanged("customer_id_type");
-					this.Oncustomer_id_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_priority", DbType="Int NOT NULL")]
-		public int ticket_priority
-		{
-			get
-			{
-				return this._ticket_priority;
-			}
-			set
-			{
-				if ((this._ticket_priority != value))
-				{
-					this.Onticket_priorityChanging(value);
-					this.SendPropertyChanging();
-					this._ticket_priority = value;
-					this.SendPropertyChanged("ticket_priority");
-					this.Onticket_priorityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subject", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string subject
-		{
-			get
-			{
-				return this._subject;
-			}
-			set
-			{
-				if ((this._subject != value))
-				{
-					this.OnsubjectChanging(value);
-					this.SendPropertyChanging();
-					this._subject = value;
-					this.SendPropertyChanged("subject");
-					this.OnsubjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category_id", DbType="Int NOT NULL")]
-		public int category_id
-		{
-			get
-			{
-				return this._category_id;
-			}
-			set
-			{
-				if ((this._category_id != value))
-				{
-					if (this._category.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncategory_idChanging(value);
-					this.SendPropertyChanging();
-					this._category_id = value;
-					this.SendPropertyChanged("category_id");
-					this.Oncategory_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_correspondence_id", DbType="Int NOT NULL")]
-		public int correspondence_id
-		{
-			get
-			{
-				return this._correspondence_id;
-			}
-			set
-			{
-				if ((this._correspondence_id != value))
-				{
-					if (this._correspondence.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncorrespondence_idChanging(value);
-					this.SendPropertyChanging();
-					this._correspondence_id = value;
-					this.SendPropertyChanged("correspondence_id");
-					this.Oncorrespondence_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sub_correspondence_id", DbType="Int NOT NULL")]
-		public int sub_correspondence_id
-		{
-			get
-			{
-				return this._sub_correspondence_id;
-			}
-			set
-			{
-				if ((this._sub_correspondence_id != value))
-				{
-					this.Onsub_correspondence_idChanging(value);
-					this.SendPropertyChanging();
-					this._sub_correspondence_id = value;
-					this.SendPropertyChanged("sub_correspondence_id");
-					this.Onsub_correspondence_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_notes", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string notes
-		{
-			get
-			{
-				return this._notes;
-			}
-			set
-			{
-				if ((this._notes != value))
-				{
-					this.OnnotesChanging(value);
-					this.SendPropertyChanging();
-					this._notes = value;
-					this.SendPropertyChanged("notes");
-					this.OnnotesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_assigned_to", DbType="Int")]
-		public System.Nullable<int> assigned_to
-		{
-			get
-			{
-				return this._assigned_to;
-			}
-			set
-			{
-				if ((this._assigned_to != value))
-				{
-					this.Onassigned_toChanging(value);
-					this.SendPropertyChanging();
-					this._assigned_to = value;
-					this.SendPropertyChanged("assigned_to");
-					this.Onassigned_toChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date_time_created", DbType="DateTime2 NOT NULL")]
-		public System.DateTime date_time_created
-		{
-			get
-			{
-				return this._date_time_created;
-			}
-			set
-			{
-				if ((this._date_time_created != value))
-				{
-					this.Ondate_time_createdChanging(value);
-					this.SendPropertyChanging();
-					this._date_time_created = value;
-					this.SendPropertyChanged("date_time_created");
-					this.Ondate_time_createdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_month", DbType="Int NOT NULL")]
-		public int ticket_month
-		{
-			get
-			{
-				return this._ticket_month;
-			}
-			set
-			{
-				if ((this._ticket_month != value))
-				{
-					this.Onticket_monthChanging(value);
-					this.SendPropertyChanging();
-					this._ticket_month = value;
-					this.SendPropertyChanged("ticket_month");
-					this.Onticket_monthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_year", DbType="Int NOT NULL")]
-		public int ticket_year
-		{
-			get
-			{
-				return this._ticket_year;
-			}
-			set
-			{
-				if ((this._ticket_year != value))
-				{
-					this.Onticket_yearChanging(value);
-					this.SendPropertyChanging();
-					this._ticket_year = value;
-					this.SendPropertyChanged("ticket_year");
-					this.Onticket_yearChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
-		public int status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					if (this._ticket_statuse.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_owner", DbType="Int NOT NULL")]
-		public int owner
-		{
-			get
-			{
-				return this._owner;
-			}
-			set
-			{
-				if ((this._owner != value))
-				{
-					this.OnownerChanging(value);
-					this.SendPropertyChanging();
-					this._owner = value;
-					this.SendPropertyChanged("owner");
-					this.OnownerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime2 NOT NULL")]
-		public System.DateTime created_at
-		{
-			get
-			{
-				return this._created_at;
-			}
-			set
-			{
-				if ((this._created_at != value))
-				{
-					this.Oncreated_atChanging(value);
-					this.SendPropertyChanging();
-					this._created_at = value;
-					this.SendPropertyChanged("created_at");
-					this.Oncreated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modified_by", DbType="Int")]
-		public System.Nullable<int> modified_by
-		{
-			get
-			{
-				return this._modified_by;
-			}
-			set
-			{
-				if ((this._modified_by != value))
-				{
-					this.Onmodified_byChanging(value);
-					this.SendPropertyChanging();
-					this._modified_by = value;
-					this.SendPropertyChanged("modified_by");
-					this.Onmodified_byChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime2")]
-		public System.Nullable<System.DateTime> updated_at
-		{
-			get
-			{
-				return this._updated_at;
-			}
-			set
-			{
-				if ((this._updated_at != value))
-				{
-					this.Onupdated_atChanging(value);
-					this.SendPropertyChanging();
-					this._updated_at = value;
-					this.SendPropertyChanged("updated_at");
-					this.Onupdated_atChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ticket_statuse_ticket", Storage="_ticket_statuse", ThisKey="status", OtherKey="id", IsForeignKey=true)]
-		public ticket_statuse ticket_statuse
-		{
-			get
-			{
-				return this._ticket_statuse.Entity;
-			}
-			set
-			{
-				ticket_statuse previousValue = this._ticket_statuse.Entity;
-				if (((previousValue != value) 
-							|| (this._ticket_statuse.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ticket_statuse.Entity = null;
-						previousValue.tickets.Remove(this);
-					}
-					this._ticket_statuse.Entity = value;
-					if ((value != null))
-					{
-						value.tickets.Add(this);
-						this._status = value.id;
-					}
-					else
-					{
-						this._status = default(int);
-					}
-					this.SendPropertyChanged("ticket_statuse");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="correspondence_ticket", Storage="_correspondence", ThisKey="correspondence_id", OtherKey="id", IsForeignKey=true)]
-		public correspondence correspondence
-		{
-			get
-			{
-				return this._correspondence.Entity;
-			}
-			set
-			{
-				correspondence previousValue = this._correspondence.Entity;
-				if (((previousValue != value) 
-							|| (this._correspondence.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._correspondence.Entity = null;
-						previousValue.tickets.Remove(this);
-					}
-					this._correspondence.Entity = value;
-					if ((value != null))
-					{
-						value.tickets.Add(this);
-						this._correspondence_id = value.id;
-					}
-					else
-					{
-						this._correspondence_id = default(int);
-					}
-					this.SendPropertyChanged("correspondence");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_ticket", Storage="_category", ThisKey="category_id", OtherKey="id", IsForeignKey=true)]
-		public category category
-		{
-			get
-			{
-				return this._category.Entity;
-			}
-			set
-			{
-				category previousValue = this._category.Entity;
-				if (((previousValue != value) 
-							|| (this._category.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._category.Entity = null;
-						previousValue.tickets.Remove(this);
-					}
-					this._category.Entity = value;
-					if ((value != null))
-					{
-						value.tickets.Add(this);
-						this._category_id = value.id;
-					}
-					else
-					{
-						this._category_id = default(int);
-					}
-					this.SendPropertyChanged("category");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.correspondence")]
 	public partial class correspondence : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1221,11 +490,11 @@ namespace PetraERP.Shared.Datasources
 		
 		private System.Nullable<bool> _status;
 		
-		private EntitySet<ticket> _tickets;
-		
 		private EntityRef<correspondence> _correspondence2;
 		
 		private EntitySet<sub_correspondence> _sub_correspondences;
+		
+		private EntitySet<ticket> _tickets;
 		
 		private EntityRef<correspondence> _correspondence1;
 		
@@ -1257,9 +526,9 @@ namespace PetraERP.Shared.Datasources
 		
 		public correspondence()
 		{
-			this._tickets = new EntitySet<ticket>(new Action<ticket>(this.attach_tickets), new Action<ticket>(this.detach_tickets));
 			this._correspondence2 = default(EntityRef<correspondence>);
 			this._sub_correspondences = new EntitySet<sub_correspondence>(new Action<sub_correspondence>(this.attach_sub_correspondences), new Action<sub_correspondence>(this.detach_sub_correspondences));
+			this._tickets = new EntitySet<ticket>(new Action<ticket>(this.attach_tickets), new Action<ticket>(this.detach_tickets));
 			this._correspondence1 = default(EntityRef<correspondence>);
 			OnCreated();
 		}
@@ -1468,19 +737,6 @@ namespace PetraERP.Shared.Datasources
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="correspondence_ticket", Storage="_tickets", ThisKey="id", OtherKey="correspondence_id")]
-		public EntitySet<ticket> tickets
-		{
-			get
-			{
-				return this._tickets;
-			}
-			set
-			{
-				this._tickets.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="correspondence_correspondence", Storage="_correspondence2", ThisKey="id", OtherKey="id", IsUnique=true, IsForeignKey=false)]
 		public correspondence correspondence2
 		{
@@ -1520,6 +776,19 @@ namespace PetraERP.Shared.Datasources
 			set
 			{
 				this._sub_correspondences.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="correspondence_ticket", Storage="_tickets", ThisKey="id", OtherKey="correspondence_id")]
+		public EntitySet<ticket> tickets
+		{
+			get
+			{
+				return this._tickets;
+			}
+			set
+			{
+				this._tickets.Assign(value);
 			}
 		}
 		
@@ -1577,18 +846,6 @@ namespace PetraERP.Shared.Datasources
 			}
 		}
 		
-		private void attach_tickets(ticket entity)
-		{
-			this.SendPropertyChanging();
-			entity.correspondence = this;
-		}
-		
-		private void detach_tickets(ticket entity)
-		{
-			this.SendPropertyChanging();
-			entity.correspondence = null;
-		}
-		
 		private void attach_sub_correspondences(sub_correspondence entity)
 		{
 			this.SendPropertyChanging();
@@ -1596,6 +853,18 @@ namespace PetraERP.Shared.Datasources
 		}
 		
 		private void detach_sub_correspondences(sub_correspondence entity)
+		{
+			this.SendPropertyChanging();
+			entity.correspondence = null;
+		}
+		
+		private void attach_tickets(ticket entity)
+		{
+			this.SendPropertyChanging();
+			entity.correspondence = this;
+		}
+		
+		private void detach_tickets(ticket entity)
 		{
 			this.SendPropertyChanging();
 			entity.correspondence = null;
@@ -1626,9 +895,9 @@ namespace PetraERP.Shared.Datasources
 		
 		private System.Nullable<bool> _status;
 		
-		private EntitySet<ticket> _tickets;
-		
 		private EntityRef<category> _category2;
+		
+		private EntitySet<ticket> _tickets;
 		
 		private EntityRef<category> _category1;
 		
@@ -1658,8 +927,8 @@ namespace PetraERP.Shared.Datasources
 		
 		public category()
 		{
-			this._tickets = new EntitySet<ticket>(new Action<ticket>(this.attach_tickets), new Action<ticket>(this.detach_tickets));
 			this._category2 = default(EntityRef<category>);
+			this._tickets = new EntitySet<ticket>(new Action<ticket>(this.attach_tickets), new Action<ticket>(this.detach_tickets));
 			this._category1 = default(EntityRef<category>);
 			OnCreated();
 		}
@@ -1848,19 +1117,6 @@ namespace PetraERP.Shared.Datasources
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_ticket", Storage="_tickets", ThisKey="id", OtherKey="category_id")]
-		public EntitySet<ticket> tickets
-		{
-			get
-			{
-				return this._tickets;
-			}
-			set
-			{
-				this._tickets.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_category", Storage="_category2", ThisKey="id", OtherKey="id", IsUnique=true, IsForeignKey=false)]
 		public category category2
 		{
@@ -1887,6 +1143,19 @@ namespace PetraERP.Shared.Datasources
 					}
 					this.SendPropertyChanged("category2");
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_ticket", Storage="_tickets", ThisKey="id", OtherKey="category_id")]
+		public EntitySet<ticket> tickets
+		{
+			get
+			{
+				return this._tickets;
+			}
+			set
+			{
+				this._tickets.Assign(value);
 			}
 		}
 		
@@ -2622,6 +1891,740 @@ namespace PetraERP.Shared.Datasources
 						this._sla_id = default(int);
 					}
 					this.SendPropertyChanged("sla_timer");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tickets")]
+	public partial class ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _ticket_id;
+		
+		private string _customer_id;
+		
+		private int _customer_id_type;
+		
+		private int _ticket_priority;
+		
+		private string _subject;
+		
+		private int _category_id;
+		
+		private int _correspondence_id;
+		
+		private int _sub_correspondence_id;
+		
+		private string _notes;
+		
+		private string _contact_no;
+		
+		private string _email;
+		
+		private System.Nullable<int> _assigned_to;
+		
+		private System.DateTime _date_time_created;
+		
+		private int _ticket_month;
+		
+		private int _ticket_year;
+		
+		private int _status;
+		
+		private int _owner;
+		
+		private System.DateTime _created_at;
+		
+		private System.Nullable<int> _modified_by;
+		
+		private System.Nullable<System.DateTime> _updated_at;
+		
+		private EntityRef<category> _category;
+		
+		private EntityRef<correspondence> _correspondence;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onticket_idChanging(string value);
+    partial void Onticket_idChanged();
+    partial void Oncustomer_idChanging(string value);
+    partial void Oncustomer_idChanged();
+    partial void Oncustomer_id_typeChanging(int value);
+    partial void Oncustomer_id_typeChanged();
+    partial void Onticket_priorityChanging(int value);
+    partial void Onticket_priorityChanged();
+    partial void OnsubjectChanging(string value);
+    partial void OnsubjectChanged();
+    partial void Oncategory_idChanging(int value);
+    partial void Oncategory_idChanged();
+    partial void Oncorrespondence_idChanging(int value);
+    partial void Oncorrespondence_idChanged();
+    partial void Onsub_correspondence_idChanging(int value);
+    partial void Onsub_correspondence_idChanged();
+    partial void OnnotesChanging(string value);
+    partial void OnnotesChanged();
+    partial void Oncontact_noChanging(string value);
+    partial void Oncontact_noChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void Onassigned_toChanging(System.Nullable<int> value);
+    partial void Onassigned_toChanged();
+    partial void Ondate_time_createdChanging(System.DateTime value);
+    partial void Ondate_time_createdChanged();
+    partial void Onticket_monthChanging(int value);
+    partial void Onticket_monthChanged();
+    partial void Onticket_yearChanging(int value);
+    partial void Onticket_yearChanged();
+    partial void OnstatusChanging(int value);
+    partial void OnstatusChanged();
+    partial void OnownerChanging(int value);
+    partial void OnownerChanged();
+    partial void Oncreated_atChanging(System.DateTime value);
+    partial void Oncreated_atChanged();
+    partial void Onmodified_byChanging(System.Nullable<int> value);
+    partial void Onmodified_byChanged();
+    partial void Onupdated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Onupdated_atChanged();
+    #endregion
+		
+		public ticket()
+		{
+			this._category = default(EntityRef<category>);
+			this._correspondence = default(EntityRef<correspondence>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_id", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ticket_id
+		{
+			get
+			{
+				return this._ticket_id;
+			}
+			set
+			{
+				if ((this._ticket_id != value))
+				{
+					this.Onticket_idChanging(value);
+					this.SendPropertyChanging();
+					this._ticket_id = value;
+					this.SendPropertyChanged("ticket_id");
+					this.Onticket_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string customer_id
+		{
+			get
+			{
+				return this._customer_id;
+			}
+			set
+			{
+				if ((this._customer_id != value))
+				{
+					this.Oncustomer_idChanging(value);
+					this.SendPropertyChanging();
+					this._customer_id = value;
+					this.SendPropertyChanged("customer_id");
+					this.Oncustomer_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customer_id_type", DbType="Int NOT NULL")]
+		public int customer_id_type
+		{
+			get
+			{
+				return this._customer_id_type;
+			}
+			set
+			{
+				if ((this._customer_id_type != value))
+				{
+					this.Oncustomer_id_typeChanging(value);
+					this.SendPropertyChanging();
+					this._customer_id_type = value;
+					this.SendPropertyChanged("customer_id_type");
+					this.Oncustomer_id_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_priority", DbType="Int NOT NULL")]
+		public int ticket_priority
+		{
+			get
+			{
+				return this._ticket_priority;
+			}
+			set
+			{
+				if ((this._ticket_priority != value))
+				{
+					this.Onticket_priorityChanging(value);
+					this.SendPropertyChanging();
+					this._ticket_priority = value;
+					this.SendPropertyChanged("ticket_priority");
+					this.Onticket_priorityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subject", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string subject
+		{
+			get
+			{
+				return this._subject;
+			}
+			set
+			{
+				if ((this._subject != value))
+				{
+					this.OnsubjectChanging(value);
+					this.SendPropertyChanging();
+					this._subject = value;
+					this.SendPropertyChanged("subject");
+					this.OnsubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category_id", DbType="Int NOT NULL")]
+		public int category_id
+		{
+			get
+			{
+				return this._category_id;
+			}
+			set
+			{
+				if ((this._category_id != value))
+				{
+					if (this._category.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Oncategory_idChanging(value);
+					this.SendPropertyChanging();
+					this._category_id = value;
+					this.SendPropertyChanged("category_id");
+					this.Oncategory_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_correspondence_id", DbType="Int NOT NULL")]
+		public int correspondence_id
+		{
+			get
+			{
+				return this._correspondence_id;
+			}
+			set
+			{
+				if ((this._correspondence_id != value))
+				{
+					if (this._correspondence.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Oncorrespondence_idChanging(value);
+					this.SendPropertyChanging();
+					this._correspondence_id = value;
+					this.SendPropertyChanged("correspondence_id");
+					this.Oncorrespondence_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sub_correspondence_id", DbType="Int NOT NULL")]
+		public int sub_correspondence_id
+		{
+			get
+			{
+				return this._sub_correspondence_id;
+			}
+			set
+			{
+				if ((this._sub_correspondence_id != value))
+				{
+					this.Onsub_correspondence_idChanging(value);
+					this.SendPropertyChanging();
+					this._sub_correspondence_id = value;
+					this.SendPropertyChanged("sub_correspondence_id");
+					this.Onsub_correspondence_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_notes", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string notes
+		{
+			get
+			{
+				return this._notes;
+			}
+			set
+			{
+				if ((this._notes != value))
+				{
+					this.OnnotesChanging(value);
+					this.SendPropertyChanging();
+					this._notes = value;
+					this.SendPropertyChanged("notes");
+					this.OnnotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contact_no", DbType="NVarChar(20)")]
+		public string contact_no
+		{
+			get
+			{
+				return this._contact_no;
+			}
+			set
+			{
+				if ((this._contact_no != value))
+				{
+					this.Oncontact_noChanging(value);
+					this.SendPropertyChanging();
+					this._contact_no = value;
+					this.SendPropertyChanged("contact_no");
+					this.Oncontact_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(50)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_assigned_to", DbType="Int")]
+		public System.Nullable<int> assigned_to
+		{
+			get
+			{
+				return this._assigned_to;
+			}
+			set
+			{
+				if ((this._assigned_to != value))
+				{
+					this.Onassigned_toChanging(value);
+					this.SendPropertyChanging();
+					this._assigned_to = value;
+					this.SendPropertyChanged("assigned_to");
+					this.Onassigned_toChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date_time_created", DbType="DateTime2 NOT NULL")]
+		public System.DateTime date_time_created
+		{
+			get
+			{
+				return this._date_time_created;
+			}
+			set
+			{
+				if ((this._date_time_created != value))
+				{
+					this.Ondate_time_createdChanging(value);
+					this.SendPropertyChanging();
+					this._date_time_created = value;
+					this.SendPropertyChanged("date_time_created");
+					this.Ondate_time_createdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_month", DbType="Int NOT NULL")]
+		public int ticket_month
+		{
+			get
+			{
+				return this._ticket_month;
+			}
+			set
+			{
+				if ((this._ticket_month != value))
+				{
+					this.Onticket_monthChanging(value);
+					this.SendPropertyChanging();
+					this._ticket_month = value;
+					this.SendPropertyChanged("ticket_month");
+					this.Onticket_monthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ticket_year", DbType="Int NOT NULL")]
+		public int ticket_year
+		{
+			get
+			{
+				return this._ticket_year;
+			}
+			set
+			{
+				if ((this._ticket_year != value))
+				{
+					this.Onticket_yearChanging(value);
+					this.SendPropertyChanging();
+					this._ticket_year = value;
+					this.SendPropertyChanged("ticket_year");
+					this.Onticket_yearChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
+		public int status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_owner", DbType="Int NOT NULL")]
+		public int owner
+		{
+			get
+			{
+				return this._owner;
+			}
+			set
+			{
+				if ((this._owner != value))
+				{
+					this.OnownerChanging(value);
+					this.SendPropertyChanging();
+					this._owner = value;
+					this.SendPropertyChanged("owner");
+					this.OnownerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime2 NOT NULL")]
+		public System.DateTime created_at
+		{
+			get
+			{
+				return this._created_at;
+			}
+			set
+			{
+				if ((this._created_at != value))
+				{
+					this.Oncreated_atChanging(value);
+					this.SendPropertyChanging();
+					this._created_at = value;
+					this.SendPropertyChanged("created_at");
+					this.Oncreated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modified_by", DbType="Int")]
+		public System.Nullable<int> modified_by
+		{
+			get
+			{
+				return this._modified_by;
+			}
+			set
+			{
+				if ((this._modified_by != value))
+				{
+					this.Onmodified_byChanging(value);
+					this.SendPropertyChanging();
+					this._modified_by = value;
+					this.SendPropertyChanged("modified_by");
+					this.Onmodified_byChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> updated_at
+		{
+			get
+			{
+				return this._updated_at;
+			}
+			set
+			{
+				if ((this._updated_at != value))
+				{
+					this.Onupdated_atChanging(value);
+					this.SendPropertyChanging();
+					this._updated_at = value;
+					this.SendPropertyChanged("updated_at");
+					this.Onupdated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_ticket", Storage="_category", ThisKey="category_id", OtherKey="id", IsForeignKey=true)]
+		public category category
+		{
+			get
+			{
+				return this._category.Entity;
+			}
+			set
+			{
+				category previousValue = this._category.Entity;
+				if (((previousValue != value) 
+							|| (this._category.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._category.Entity = null;
+						previousValue.tickets.Remove(this);
+					}
+					this._category.Entity = value;
+					if ((value != null))
+					{
+						value.tickets.Add(this);
+						this._category_id = value.id;
+					}
+					else
+					{
+						this._category_id = default(int);
+					}
+					this.SendPropertyChanged("category");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="correspondence_ticket", Storage="_correspondence", ThisKey="correspondence_id", OtherKey="id", IsForeignKey=true)]
+		public correspondence correspondence
+		{
+			get
+			{
+				return this._correspondence.Entity;
+			}
+			set
+			{
+				correspondence previousValue = this._correspondence.Entity;
+				if (((previousValue != value) 
+							|| (this._correspondence.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._correspondence.Entity = null;
+						previousValue.tickets.Remove(this);
+					}
+					this._correspondence.Entity = value;
+					if ((value != null))
+					{
+						value.tickets.Add(this);
+						this._correspondence_id = value.id;
+					}
+					else
+					{
+						this._correspondence_id = default(int);
+					}
+					this.SendPropertyChanged("correspondence");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ticket_statuses")]
+	public partial class ticket_statuse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _status_desc;
+		
+		private bool _can_set;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onstatus_descChanging(string value);
+    partial void Onstatus_descChanged();
+    partial void Oncan_setChanging(bool value);
+    partial void Oncan_setChanged();
+    #endregion
+		
+		public ticket_statuse()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status_desc", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string status_desc
+		{
+			get
+			{
+				return this._status_desc;
+			}
+			set
+			{
+				if ((this._status_desc != value))
+				{
+					this.Onstatus_descChanging(value);
+					this.SendPropertyChanging();
+					this._status_desc = value;
+					this.SendPropertyChanged("status_desc");
+					this.Onstatus_descChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_can_set", DbType="Bit NOT NULL")]
+		public bool can_set
+		{
+			get
+			{
+				return this._can_set;
+			}
+			set
+			{
+				if ((this._can_set != value))
+				{
+					this.Oncan_setChanging(value);
+					this.SendPropertyChanging();
+					this._can_set = value;
+					this.SendPropertyChanged("can_set");
+					this.Oncan_setChanged();
 				}
 			}
 		}

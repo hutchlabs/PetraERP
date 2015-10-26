@@ -123,6 +123,8 @@ namespace PetraERP.CRM.Views
             txtMiddleNames.Text = string.Empty;
             txtSurname.Text = string.Empty;
             txtCustomerName.Text = string.Empty;
+            txtTicketEmail.Text = string.Empty;
+            txtTicketContactNo.Text = string.Empty;
             cmbEmployers.ItemsSource = null;
         }
 
@@ -354,6 +356,8 @@ namespace PetraERP.CRM.Views
                 newTicket.category_id = int.Parse(cmbTicketCategory.SelectedValue.ToString());
                 newTicket.correspondence_id = int.Parse(cmbTicketCorrespondence.SelectedValue.ToString());
                 newTicket.sub_correspondence_id = int.Parse(cmbTicketSubCorrespondence.SelectedValue.ToString());
+                newTicket.contact_no = txtTicketContactNo.Text;
+                newTicket.email = txtTicketEmail.Text;
                 newTicket.notes = txtNotes.Text;
                 newTicket.ticket_month = DateTime.Now.Month;
                 newTicket.ticket_year = DateTime.Now.Year;
@@ -392,7 +396,7 @@ namespace PetraERP.CRM.Views
         private void load_categories()
         {
             cmbTicketCategory.Items.Clear();
-            var cats = CrmData.get_Categories();
+            var cats = CrmData.get_Active_Categories();
 
             foreach (var inicat in cats)
             {
@@ -403,7 +407,7 @@ namespace PetraERP.CRM.Views
         private void load_correspondences(int cat_id)
         {
             cmbTicketCorrespondence.Items.Clear();
-            var corres = CrmData.get_Correspondence_Filter_By_Category(cat_id);
+            var corres = CrmData.get_Active_Correspondence_Filter_By_Category(cat_id);
 
             foreach (var inicorres in corres)
             {
@@ -415,7 +419,7 @@ namespace PetraERP.CRM.Views
         private void load_sub_correspondences(int corres_id)
         {
             cmbTicketSubCorrespondence.Items.Clear();
-            var sub_corres = CrmData.get_Sub_Correspondence_Filter_By_Correspondence(corres_id);
+            var sub_corres = CrmData.get_Active_Sub_Correspondence_Filter_By_Correspondence(corres_id);
 
             foreach (var inicorres in sub_corres)
             {

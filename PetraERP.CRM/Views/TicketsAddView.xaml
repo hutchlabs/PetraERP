@@ -129,38 +129,42 @@
 
             <aw:WizardPage x:Name="tbTicketInfo" Header="Step 3 of 3" aw:Wizard97.Subtitle="Create Ticket" AllowBack="True" AllowCancel="True" AllowNext="False" AllowFinish="True" Commit="create_ticket">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,-2">
-                    <TextBox x:Name="txtTicketID" HorizontalAlignment="Left" Height="23" Margin="23,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301" IsReadOnly="True"/>
-                    <Label Content="Ticket ID :" HorizontalAlignment="Left" Margin="23,64,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Priority :" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rdPriorityLow" Content="Low" HorizontalAlignment="Left" Margin="401,93,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="rdPriorityMedium" Content="Medium" HorizontalAlignment="Left" Margin="459,93,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <RadioButton x:Name="rdPriorityHigh" Content="High" HorizontalAlignment="Left" Margin="536,93,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Type of Category" HorizontalAlignment="Left" Margin="20,227,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtTicketID" HorizontalAlignment="Left" Height="23" Margin="23,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" IsReadOnly="True"/>
+                    <Label Content="Ticket ID :" HorizontalAlignment="Left" Margin="23,114,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Priority :" HorizontalAlignment="Left" Margin="359,138,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rdPriorityLow" Content="Low" HorizontalAlignment="Left" Margin="421,142,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rdPriorityMedium" Content="Medium" HorizontalAlignment="Left" Margin="479,142,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton x:Name="rdPriorityHigh" Content="High" HorizontalAlignment="Left" Margin="556,142,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Type of Category" HorizontalAlignment="Left" Margin="20,224,0,0" VerticalAlignment="Top"/>
                     <GroupBox Header="Category Details" HorizontalAlignment="Left" Margin="20,285,0,0" VerticalAlignment="Top" Height="146" Width="692">
                         <Grid HorizontalAlignment="Left" Height="111" Margin="4,7,0,-1" VerticalAlignment="Top" Width="662">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="17*"/>
                                 <ColumnDefinition Width="314*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Correspondence :" HorizontalAlignment="Left" Margin="18,7,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                            <ComboBox x:Name="cmbTicketCorrespondence" HorizontalAlignment="Left" Margin="119,11,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketCorrespondence_SelectionChanged"/>
-                            <ComboBox x:Name="cmbTicketSubCorrespondence" HorizontalAlignment="Left" Margin="119,44,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketSubCorrespondence_SelectionChanged"/>
-                            <Label Content="Sub Correspondence :" HorizontalAlignment="Left" Margin="18,40,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                            <Label Content="Associated SLA :" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="txtAssocaitedSLA" HorizontalAlignment="Left" Height="23" Margin="119,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" Grid.Column="1" IsReadOnly="True"/>
+                            <Label Content="Correspondence :" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <ComboBox x:Name="cmbTicketCorrespondence" HorizontalAlignment="Left" Margin="119,4,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketCorrespondence_SelectionChanged"/>
+                            <ComboBox x:Name="cmbTicketSubCorrespondence" HorizontalAlignment="Left" Margin="119,37,0,0" VerticalAlignment="Top" Width="492"  DisplayMemberPath="Key" SelectedValuePath="Value" Grid.Column="1" SelectionChanged="cmbTicketSubCorrespondence_SelectionChanged"/>
+                            <Label Content="Sub Correspondence :" HorizontalAlignment="Left" Margin="18,33,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <Label Content="Associated SLA :" HorizontalAlignment="Left" Margin="18,67,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="txtAssocaitedSLA" HorizontalAlignment="Left" Height="23" Margin="119,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="492" Grid.Column="1" IsReadOnly="True"/>
                         </Grid>
                     </GroupBox>
-                    <Label Content="Ticket Subject" HorizontalAlignment="Left" Margin="23,117,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtTicketSubject" HorizontalAlignment="Left" Height="23" Margin="23,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="689"/>
-                    <ComboBox x:Name="cmbTicketCategory" HorizontalAlignment="Left" Margin="22,253,0,0" VerticalAlignment="Top" Width="689"  DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="cmbTicketCategory_SelectionChanged"/>
+                    <Label Content="Ticket Subject" HorizontalAlignment="Left" Margin="23,167,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtTicketSubject" HorizontalAlignment="Left" Height="23" Margin="23,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="402"/>
+                    <ComboBox x:Name="cmbTicketCategory" HorizontalAlignment="Left" Margin="22,250,0,0" VerticalAlignment="Top" Width="689"  DisplayMemberPath="Key" SelectedValuePath="Value" SelectionChanged="cmbTicketCategory_SelectionChanged"/>
                     <Label Content="Notes :" HorizontalAlignment="Left" Margin="19,435,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtNotes" HorizontalAlignment="Left" Height="58" Margin="18,461,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="694"/>
-                    <TextBox x:Name="txtCustomerName" HorizontalAlignment="Left" Height="23" Margin="23,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" IsReadOnly="True"/>
+                    <TextBox x:Name="txtCustomerName" HorizontalAlignment="Left" Height="23" Margin="23,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" IsReadOnly="True"/>
                     <TextBox x:Name="txtPetraID" HorizontalAlignment="Left" Height="23" Margin="536,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" IsReadOnly="True"/>
                     <Label Content="Name of Customer :" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top"/>
                     <Label Content="Petra ID :" HorizontalAlignment="Left" Margin="536,10,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Assign To :" HorizontalAlignment="Left" Margin="23,176,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cmbAssignTo"  DisplayMemberPath="_Value" SelectedValuePath="_Key" HorizontalAlignment="Left" Margin="22,202,0,0" VerticalAlignment="Top" Width="690"/>
+                    <Label Content="Assign To :" HorizontalAlignment="Left" Margin="450,167,0,0" VerticalAlignment="Top" RenderTransformOrigin="7.629,-1.663"/>
+                    <ComboBox x:Name="cmbAssignTo"  DisplayMemberPath="_Value" SelectedValuePath="_Key" HorizontalAlignment="Left" Margin="449,193,0,0" VerticalAlignment="Top" Width="260"/>
+                    <Label Content="Contact No. :" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtTicketContactNo" HorizontalAlignment="Left" Height="23" Margin="22,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="319"/>
+                    <Label Content="Email :" HorizontalAlignment="Left" Margin="364,62,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtTicketEmail" HorizontalAlignment="Left" Height="23" Margin="364,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="345"/>
                 </Grid>
             </aw:WizardPage>
         </aw:Wizard>

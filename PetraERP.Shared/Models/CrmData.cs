@@ -111,6 +111,14 @@ namespace PetraERP.Shared.Models
                     select new crmCorrespondenceView() { code = corres.code, Id = corres.id, Name = corres.correspondence_name, description = corres.description, category = cats.category_name, category_id = cats.id });
         }
 
+        public static IEnumerable<crmCorrespondenceView> get_Active_Correspondence_Filter_By_Category(int cat_id)
+        {
+            return (from corres in Database.CRM.correspondences
+                    join cats in Database.CRM.categories on corres.category_id equals cats.id
+                    where corres.category_id == cat_id && corres.status == true
+                    select new crmCorrespondenceView() { code = corres.code, Id = corres.id, Name = corres.correspondence_name, description = corres.description, category = cats.category_name, category_id = cats.id });
+        }
+
         public static crmCorrespondenceView get_Correspondence(int id)
         {
             return (from corres in Database.CRM.correspondences
@@ -182,11 +190,28 @@ namespace PetraERP.Shared.Models
 
         }
 
+        public static IEnumerable<crmSubCorrespondenceView> get_Active_Sub_Correspondence_Filter_By_Correspondence(int corres_id)
+        {
+            return (from subCorres in Database.CRM.sub_correspondences
+                    join corres in Database.CRM.correspondences on subCorres.correspondence_id equals corres.id
+                    where subCorres.correspondence_id == corres_id && subCorres.status == true
+                    select new crmSubCorrespondenceView() { code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = "", correspondence_id = corres.id, sla_id = 0, active = (bool)subCorres.status });
+
+        }
+
        
         public static IEnumerable<crmCategoryView> get_Categories()
         {
             return (from cat in Database.CRM.categories                
                     select new crmCategoryView() { code = cat.code,  Id = cat.id, Name = cat.category_name, description = cat.description, active = (bool)cat.status });
+
+        }
+
+        public static IEnumerable<crmCategoryView> get_Active_Categories()
+        {
+            return (from cat in Database.CRM.categories
+                    where cat.status == true
+                    select new crmCategoryView() { code = cat.code, Id = cat.id, Name = cat.category_name, description = cat.description, active = (bool)cat.status });
 
         }
 
@@ -302,7 +327,7 @@ namespace PetraERP.Shared.Models
                     join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
                     join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                     where tic.ticket_id == ticket_id
-                    select new crmTicketDetails() { owner = GetUserName(tic.owner), category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status }
+                    select new crmTicketDetails() { owner = GetUserName(tic.owner), category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
                    ).Single<crmTicketDetails>();
         }
 
@@ -333,6 +358,13 @@ namespace PetraERP.Shared.Models
         public static IEnumerable<crmTicketStatus> get_ticket_status()
         {
             return (from tic_status in Database.CRM.ticket_statuses 
+                    select new crmTicketStatus() { id = tic_status.id, status = tic_status.status_desc });
+        }
+
+        public static IEnumerable<crmTicketStatus> get_allowed_ticket_status()
+        {
+            return (from tic_status in Database.CRM.ticket_statuses
+                    where tic_status.can_set == true
                     select new crmTicketStatus() { id = tic_status.id, status = tic_status.status_desc });
         }
 
@@ -550,6 +582,8 @@ namespace PetraERP.Shared.Models
         public string correspondence { get; set; }
         public string subcorrespondence { get; set; }
         public string owner { get; set; }
+        public string contact_no { get; set; }
+        public string email { get; set; }
     }
 
     public class crmTicketComments

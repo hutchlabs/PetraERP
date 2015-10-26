@@ -8,9 +8,9 @@
         ResizeMode="NoResize" WindowStyle="ToolWindow"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d" 
-        EnableDWMDropShadow="True" Title="Edit Ticket" Height="636.846" Width="608.362" WindowStartupLocation="CenterScreen">
+        EnableDWMDropShadow="True" Title="Edit Ticket" Height="661.846" Width="608.362" WindowStartupLocation="CenterScreen">
 
-    <Grid Background="WhiteSmoke" Margin="0">
+    <Grid Background="WhiteSmoke" Margin="0,0,0,-13">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -21,7 +21,7 @@
             <Label x:Name="lblTicketName" Content="Name" HorizontalAlignment="Left"  Margin="16,14,0,0" VerticalAlignment="Top" FontFamily="Segoe WP Light" 
                         FontSize="36" FontWeight="ExtraBold"/>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Height="65">
                 <Label x:Name="lblTicketInfo" Content="    Ticket ID: {0}&#10;          Date: {1}&#10;       Owner: {2}" HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
@@ -30,16 +30,23 @@
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
             </StackPanel>
-
+            <StackPanel Orientation="Horizontal" Height="40">
+                <Label x:Name="lblContact" Content="Client Contact : " HorizontalAlignment="Left" 
+            		FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+            		Margin="25,8,0,8" VerticalAlignment="Center" Width="166"/>
+                <Label x:Name="lblEmail" Content="Client Email : " HorizontalAlignment="Left" 
+            		FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+            		Margin="25,8,0,8" VerticalAlignment="Center" Width="308"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label x:Name="lblstatus" Content="Status: " HorizontalAlignment="Left" 
-                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
-                       Margin="50,0,0,0" VerticalAlignment="Center"/>
+            		FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+            		Margin="50,0,0,0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cbxStatus" ItemsSource="{Binding TicketStatuses}" SelectedValuePath="id" DisplayMemberPath="status" SelectionChanged="cbxStatus_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" />
 
                 <Label x:Name="lblesca" Content="Escalation due: x hours " HorizontalAlignment="Left" 
-                       FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
-                       Margin="30,0,0,0" VerticalAlignment="Center"/>
+            		FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
+            		Margin="30,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 

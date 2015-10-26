@@ -19,7 +19,7 @@ namespace PetraERP.CRM.Views
     public partial class TicketsEditView : MetroWindow
     {
         private string _ticketID;
-        private IEnumerable<crmTicketStatus> _statuses = CrmData.get_ticket_status();
+        private IEnumerable<crmTicketStatus> _statuses = CrmData.get_allowed_ticket_status();
 
         private MessageCollection _messages;
         private Storyboard scrollViewerStoryboard;
@@ -82,9 +82,16 @@ namespace PetraERP.CRM.Views
             lblesca.Content = "Escalation Due: " + ticket_data.esacalation;
 
             lblIssue.Content = "Issue - " + ticket_data.subject;
+
+            lblContact.Content = "Contact No. : " + ticket_data.contact_no != string.Empty ? ticket_data.contact_no : "None";
+
+            lblEmail.Content = "Email : " + ticket_data.email != string.Empty ? ticket_data.email : "None";
+
             tbIssue.Text = ticket_data.notes;
 
             cbxStatus.SelectedValue = ticket_data.status_id;
+
+           
 
             load_ticket_comments();
         }
