@@ -8,3 +8,4 @@ C:\Users\David\Documents\coltrane\github\petraerp\PetraERP\PetraERP.TrackerServi
 \\psf\Home\Documents\PetraERP\PetraERP.TrackerService\bin\Debug\PetraERP.TrackerService.pdb
 \\psf\Home\Documents\PetraERP\PetraERP.TrackerService\obj\Debug\PetraERP.TrackerService.exe
 \\psf\Home\Documents\PetraERP\PetraERP.TrackerService\obj\Debug\PetraERP.TrackerService.pdb
+\\psf\Home\Documents\PetraERP\PetraERP.TrackerService\obj\Debug\PetraERP.TrackerService.csprojResolveAssemblyReference.cache

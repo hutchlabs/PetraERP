@@ -9,11 +9,15 @@
              xmlns:ViewModels="clr-namespace:PetraERP.CRM.ViewModels"
              xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
              mc:Ignorable="d">
-    
+
     <UserControl.DataContext>
         <ViewModels:AdminViewModel />
     </UserControl.DataContext>
-    
+
+
+
+
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,7 +30,7 @@
     <Grid>
         <DockPanel Margin="0,10,0,0">
 
-            <StackPanel DockPanel.Dock="Left" Orientation="Vertical">              
+            <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="10,5,0,0" Background="{DynamicResource AccentColorBrush}">
                     <Label Content="{Binding SLACount}" FontFamily="Segoe WP Light" FontWeight="Bold"  FontSize="14" Foreground="WhiteSmoke" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
@@ -38,7 +42,7 @@
                         </Rectangle>
                     </Button>
                 </StackPanel>
-            
+
                 <DataGrid 
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Width="500"
                       ColumnWidth="*" Margin="10,10,0,10" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" 
@@ -48,40 +52,42 @@
 
             <Grid DockPanel.Dock="Left" Margin="10,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="WhiteSmoke" Width="530" Height="300">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="45" />
-                    <RowDefinition Height="45" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="35" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="60" />
+                    <RowDefinition Height="28.171" />
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="33" />
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="39" />
+                    <RowDefinition Height="86" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="1" Margin="20,0,0,0" Content="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light"/>
+                <Label Grid.Row="0" Grid.Column="1" Margin="20,0,0,0" Content="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light" Height="10" Width="10"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="ID :"  Margin="0,10,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedSLA.Id}" Margin="0,10,0,0" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="120"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="ID :"  Margin="0,6,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="27"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedSLA.Id}" Margin="0,6,0,0" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="120"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="Code :" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedSLA.code}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Code :" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="44"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedSLA.code}" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="Name :" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedSLA.Name}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" />
+                <Label Grid.Row="4" Grid.Column="0" Content="Name :" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="48"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedSLA.Name}" HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" />
 
-                <Label Grid.Row="4" Grid.Column="0" Content="      Time to notify before&#10;       escalation (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedSLA.Pre_escalate}" HorizontalAlignment="Left" Height="23" VerticalAlignment="center" Width="200" />
-                
-                <Label Grid.Row="5" Grid.Column="0" Content="      Time to escalate (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedSLA.Escalated}" HorizontalAlignment="Left" Height="23" VerticalAlignment="center" Width="200" />
-                
-                <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Command="{Binding SaveSLACommand}" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <Button Command="{Binding CancelCreateCommand}" Content="Cancel" Visibility="{Binding ShowCancel}" HorizontalAlignment="Right" Margin="40,0,0,0" VerticalAlignment="Top"  />
+                <Label Grid.Row="4" Grid.Column="0" Content="      Time to notify before&#10;       escalation (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top" Height="42" Width="141" Margin="0,31,0,0" Grid.RowSpan="2"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedSLA.Pre_escalate}" HorizontalAlignment="Left" Height="26" VerticalAlignment="center" Width="200" Margin="0,0,0,22" />
+
+                <Label Grid.Row="6" Grid.Column="0" Content="      Time to escalate (mins) :" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="150"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedSLA.Escalated}" HorizontalAlignment="Left" Height="26" VerticalAlignment="center" Width="200" Margin="0,43,0,18" Grid.RowSpan="2" />
+
+                <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Command="{Binding SaveSLACommand}" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"  />
+                    <Button Command="{Binding CancelCreateCommand}" Content="Cancel" Visibility="{Binding ShowCancel}" HorizontalAlignment="Right" Margin="40,29,0,0" VerticalAlignment="Top"  />
                 </StackPanel>
+                <CheckBox IsChecked="{Binding SelectedSLA.Active}" Content="Active" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Top" Height="18" Width="56"/>
             </Grid>
         </DockPanel>
     </Grid>

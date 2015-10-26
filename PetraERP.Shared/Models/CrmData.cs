@@ -23,6 +23,7 @@ namespace PetraERP.Shared.Models
             newCat.code = SelectedSLA.code;
             newCat.pre_escalate = SelectedSLA.Pre_escalate;
             newCat.escalate = SelectedSLA.Escalated;
+            newCat.Status = SelectedSLA.Active;
             newCat.owner = AppData.CurrentUser.id;
             newCat.created_at = DateTime.Now;
             Database.CRM.sla_timers.InsertOnSubmit(newCat);
@@ -36,6 +37,7 @@ namespace PetraERP.Shared.Models
             cat.code = SelectedSLA.code;
             cat.pre_escalate = SelectedSLA.Pre_escalate;
             cat.escalate = SelectedSLA.Escalated;
+            cat.Status = SelectedSLA.Active;
             cat.updated_at = DateTime.Now;
             Database.CRM.SubmitChanges();
         }
@@ -43,21 +45,21 @@ namespace PetraERP.Shared.Models
         public static IEnumerable<crmSLAView> get_SLAs_View()
         {
             return (from sla in Database.CRM.sla_timers                   
-                    select new crmSLAView() {code = sla.code, Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate});
+                    select new crmSLAView() {code = sla.code, Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate, Active = (bool)sla.Status});
         }
 
         public static crmSLAView get_SLAs_View(int id)
         {
             return (from sla in Database.CRM.sla_timers
                     where sla.ID == id
-                    select new crmSLAView() { code = sla.code,  Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate }).Single<crmSLAView>();;
+                    select new crmSLAView() { code = sla.code, Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate, Active = (bool)sla.Status }).Single<crmSLAView>(); ;
         }
 
         public static crmSLAView get_SLAs_By_Name_View(string slaName)
         {
             return (from sla in Database.CRM.sla_timers
                     where sla.sla_name == slaName
-                    select new crmSLAView() { code = sla.code, Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate }).Single<crmSLAView>(); ;
+                    select new crmSLAView() { code = sla.code, Id = sla.ID, Name = sla.sla_name, Pre_escalate = sla.pre_escalate, Escalated = sla.escalate, Active = (bool)sla.Status }).Single<crmSLAView>(); ;
         }
 
 
@@ -73,6 +75,7 @@ namespace PetraERP.Shared.Models
             newCat.code = SelectedCorrespondence.code;
             newCat.description = SelectedCorrespondence.description;
             newCat.category_id = SelectedCorrespondence.category_id;
+            newCat.status = SelectedCorrespondence.active;
             newCat.owner = AppData.CurrentUser.id;
             newCat.created_at = DateTime.Now;
             Database.CRM.correspondences.InsertOnSubmit(newCat);
@@ -86,6 +89,7 @@ namespace PetraERP.Shared.Models
             cat.code = SelectedCorrespondence.code;
             cat.description = SelectedCorrespondence.description;
             cat.category_id = SelectedCorrespondence.category_id;
+            cat.status = SelectedCorrespondence.active;
             cat.modified_by = AppData.CurrentUser.id;
             cat.updated_at = DateTime.Now;
             Database.CRM.SubmitChanges();
@@ -129,6 +133,7 @@ namespace PetraERP.Shared.Models
             newCat.description = SelectedSubCorrespondence.description;
             newCat.correspondence_id = SelectedSubCorrespondence.correspondence_id;
             newCat.sla_id = SelectedSubCorrespondence.sla_id;
+            newCat.status = (bool)SelectedSubCorrespondence.active;
             newCat.owner = AppData.CurrentUser.id;
             newCat.created_at = DateTime.Now;
             Database.CRM.sub_correspondences.InsertOnSubmit(newCat);
@@ -143,6 +148,7 @@ namespace PetraERP.Shared.Models
             cat.description = SelectedSubCorrespondence.description;
             cat.correspondence_id = SelectedSubCorrespondence.correspondence_id;
             cat.sla_id = SelectedSubCorrespondence.sla_id;
+            cat.status = (bool)SelectedSubCorrespondence.active;
             cat.modified_by = AppData.CurrentUser.id;
             cat.updated_at = DateTime.Now;
             Database.CRM.SubmitChanges();
@@ -154,7 +160,7 @@ namespace PetraERP.Shared.Models
                     join corres in Database.CRM.correspondences on subCorres.correspondence_id equals corres.id
                     from sla in Database.CRM.sla_timers
                     where subCorres.sla_id == sla.ID
-                    select new crmSubCorrespondenceView() {code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = sla.sla_name, correspondence_id=corres.id, sla_id=sla.ID });
+                    select new crmSubCorrespondenceView() {code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = sla.sla_name, correspondence_id=corres.id, sla_id=sla.ID, active = (bool)subCorres.status });
 
         }
 
@@ -164,7 +170,7 @@ namespace PetraERP.Shared.Models
                     join corres in Database.CRM.correspondences on subCorres.correspondence_id equals corres.id
                     from sla in Database.CRM.sla_timers
                     where subCorres.sla_id == sla.ID && subCorres.id == id
-                    select new crmSubCorrespondenceView() { code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = sla.sla_name, correspondence_id = corres.id, sla_id = sla.ID }).Single<crmSubCorrespondenceView>();
+                    select new crmSubCorrespondenceView() { code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = sla.sla_name, correspondence_id = corres.id, sla_id = sla.ID, active = (bool)subCorres.status }).Single<crmSubCorrespondenceView>();
         }
 
         public static IEnumerable<crmSubCorrespondenceView> get_Sub_Correspondence_Filter_By_Correspondence(int corres_id)
@@ -172,7 +178,7 @@ namespace PetraERP.Shared.Models
             return (from subCorres in Database.CRM.sub_correspondences
                     join corres in Database.CRM.correspondences on subCorres.correspondence_id equals corres.id
                     where  subCorres.correspondence_id == corres_id
-                    select new crmSubCorrespondenceView() { code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = "", correspondence_id = corres.id, sla_id = 0 });
+                    select new crmSubCorrespondenceView() { code = subCorres.code, Id = subCorres.id, Name = subCorres.sub_correspondence_name, description = subCorres.description, correspondence = corres.correspondence_name, SLA = "", correspondence_id = corres.id, sla_id = 0, active = (bool)subCorres.status });
 
         }
 
@@ -180,7 +186,7 @@ namespace PetraERP.Shared.Models
         public static IEnumerable<crmCategoryView> get_Categories()
         {
             return (from cat in Database.CRM.categories                
-                    select new crmCategoryView() { code = cat.code,  Id = cat.id, Name = cat.category_name, description = cat.description });
+                    select new crmCategoryView() { code = cat.code,  Id = cat.id, Name = cat.category_name, description = cat.description, active = (bool)cat.status });
 
         }
 
@@ -188,7 +194,7 @@ namespace PetraERP.Shared.Models
         {
             return (from cat in Database.CRM.categories                  
                     where cat.id == id
-                    select new crmCategoryView(){ code = cat.code, Id = cat.id, Name = cat.category_name, description = cat.description }).Single<crmCategoryView>();
+                    select new crmCategoryView(){ code = cat.code, Id = cat.id, Name = cat.category_name, description = cat.description, active = (bool)cat.status }).Single<crmCategoryView>();
         }
 
         public static category GetCategory(int id)
@@ -198,10 +204,11 @@ namespace PetraERP.Shared.Models
 
         public static void AddCategory(crmCategoryView SelectedCategory)
         {
-            category newCat = new category();
+            category newCat = new category(); 
             newCat.category_name = SelectedCategory.Name;
             newCat.code = SelectedCategory.code;
             newCat.description = SelectedCategory.description;
+            newCat.status = (bool)SelectedCategory.active;
             newCat.owner = AppData.CurrentUser.id;
             newCat.created_at = DateTime.Now;
             Database.CRM.categories.InsertOnSubmit(newCat);
@@ -214,6 +221,7 @@ namespace PetraERP.Shared.Models
             cat.category_name = SelectedCategory.Name;
             cat.code = SelectedCategory.code;
             cat.description = SelectedCategory.description;
+            cat.status = (bool)SelectedCategory.active;
             cat.modified_by = AppData.CurrentUser.id;
             cat.updated_at = DateTime.Now;
             Database.CRM.SubmitChanges();
@@ -239,9 +247,10 @@ namespace PetraERP.Shared.Models
                     return (from tic in Database.CRM.tickets
                             join cat in Database.CRM.categories on tic.category_id equals cat.id
                             join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
-                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id 
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                            from sla in Database.CRM.sla_timers
+                            where sla.ID == sub_corress.sla_id
                             select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
                 }
                 else
@@ -251,8 +260,8 @@ namespace PetraERP.Shared.Models
                             join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
                             join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
-                            where tic.status == status_id
+                            from sla in Database.CRM.sla_timers
+                            where tic.status == status_id && sla.ID == sub_corress.sla_id
                             select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
                 }
             }
@@ -267,8 +276,8 @@ namespace PetraERP.Shared.Models
                             join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
                             join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
-                            where (tic.assigned_to == uid || tic.assigned_to == null)
+                            from sla in Database.CRM.sla_timers 
+                            where (tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id
                             select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
                 }
                 else
@@ -278,8 +287,8 @@ namespace PetraERP.Shared.Models
                             join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
                             join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                            join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
-                            where tic.status == status_id && (tic.assigned_to == uid || tic.assigned_to == null)
+                            from sla in Database.CRM.sla_timers 
+                            where tic.status == status_id && (tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id
                             select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), owner = GetUserName(tic.owner), escalation_due = sla.escalate });
                 }
             }
@@ -472,6 +481,7 @@ namespace PetraERP.Shared.Models
         public string Name { get; set; }
         public int Pre_escalate { get; set; }
         public int Escalated { get; set; }
+        public bool Active { get; set; }
 
     }
 
@@ -483,6 +493,7 @@ namespace PetraERP.Shared.Models
         public string category { get; set; }
         public String description { get; set; }
         public int category_id { get; set; }
+        public  bool active { get; set; }
     }
 
     public class crmSubCorrespondenceView
@@ -495,6 +506,7 @@ namespace PetraERP.Shared.Models
         public String description { get; set; }
         public int correspondence_id { get; set; }
         public int sla_id { get; set; }
+        public bool active { get; set; }
     }
 
     public class crmCategoryView
@@ -503,6 +515,7 @@ namespace PetraERP.Shared.Models
         public string code { get; set; }
         public string Name { get; set; }
         public String description { get; set; }
+        public bool active { get; set; }
     }
 
     public class crmTicketCounter
