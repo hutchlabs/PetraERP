@@ -226,6 +226,15 @@ namespace PetraERP.Shared.Models
                     select u);
         }
 
+        public static IEnumerable<ERP_User> GetUsersByRole(int role_id)
+        {
+            return (from u in Database.ERP.ERP_Users
+                    join ur in Database.ERP.ERP_Users_Roles on u.id equals ur.user_id
+                    join r in Database.ERP.ERP_Roles on ur.role_id equals r.id
+                    where r.id == role_id
+                    select u);
+        }
+
         public static IEnumerable<ERP_User> GetActiveUsers()
         {
             return (from u in Database.ERP.ERP_Users where u.status == true select u);

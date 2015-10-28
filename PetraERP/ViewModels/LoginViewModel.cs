@@ -94,8 +94,8 @@ namespace PetraERP.ViewModels
         {
             TryLogInCommand = new RelayCommand(TryLoginIn, CanTryLogin);
             TryResetPassCommand = new RelayCommand(TryResetPass, CanTryReset);
-            Username = "admin@petratrust.com";
-            Password = "redred";
+            Username = "marlene@petratrust.com";
+            Password = "dogdog";
         }
 
         #endregion

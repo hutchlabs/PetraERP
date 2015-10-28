@@ -156,6 +156,13 @@ namespace PetraERP.CRM.Views
                         Database.CRM.ticket_comments.InsertOnSubmit(newComment);
                         Database.CRM.SubmitChanges();
                         load_ticket_comments();
+
+                        var ticket_data = CrmData.get_ticket_details(_ticketID);
+
+                        if (ticket_data.ownerid != AppData.CurrentUser.id)
+                        {
+                            Notification.Add(ticket_data.ownerid, "CRM Ticket Comment", "CRM Ticket", ticket_data.id);
+                        }
                     }
                     else
                     { MessageBox.Show("Your comment was not posted."); }

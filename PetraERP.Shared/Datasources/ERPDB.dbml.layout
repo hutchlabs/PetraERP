@@ -59,31 +59,24 @@
         <classShapeMoniker Id="f581e9cc-7809-423a-a0d7-201b647ce6b2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 2.27089680989583); (1.5 : 3)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.5 : 2.27089680989583); (1.5 : 3)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ERPDBDataContext/ERP_Application/ERP_Application_ERP_Role" />
       <nodes>
         <classShapeMoniker Id="65f896c6-67e4-4d5e-b9d0-7a90fd1d7750" />
         <classShapeMoniker Id="b4631a0b-c860-4b06-86bb-b83bb11acc34" />
       </nodes>
     </associationConnector>
-    <classShape Id="76176ffc-8776-4a94-88e5-caf3b65f2ee6" absoluteBounds="3.25, 0.5, 2, 3.3093082682291666">
+    <classShape Id="3243e2c8-3f45-4115-a6ba-eb55eacb0372" absoluteBounds="3.875, 0.5, 2, 3.3093082682291666">
       <DataClassMoniker Name="/ERPDBDataContext/ERP_Notification" />
       <nestedChildShapes>
-        <elementListCompartment Id="edda655c-7aab-4f11-aba1-db27cea5ec77" absoluteBounds="3.2649999999999997, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="67c420ae-0014-450c-ac14-07db6e9204a7" absoluteBounds="3.8899999999999997, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 1.38544840494792); (3.25 : 1.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 1.38544840494792); (3.875 : 1.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ERPDBDataContext/ERP_Application/ERP_Application_ERP_Notification" />
       <nodes>
         <classShapeMoniker Id="65f896c6-67e4-4d5e-b9d0-7a90fd1d7750" />
-        <classShapeMoniker Id="76176ffc-8776-4a94-88e5-caf3b65f2ee6" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 3.40465413411458); (3.25 : 3.40465413411458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/ERPDBDataContext/ERP_Role/ERP_Role_ERP_Notification" />
-      <nodes>
-        <classShapeMoniker Id="b4631a0b-c860-4b06-86bb-b83bb11acc34" />
-        <classShapeMoniker Id="76176ffc-8776-4a94-88e5-caf3b65f2ee6" />
+        <classShapeMoniker Id="3243e2c8-3f45-4115-a6ba-eb55eacb0372" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

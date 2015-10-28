@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PetraERP" Class="ERPDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Petra_ERP" Class="ERPDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Elmina\Sqlexpress;Initial Catalog=Petra_ERP;Integrated Security=True" SettingsObjectName="PetraERP.Shared.Properties.Settings" SettingsPropertyName="Petra_ERPConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ERP_Applications" Member="ERP_Applications">
     <Type Name="ERP_Application">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -75,7 +76,6 @@
       <Column Name="created_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Column Name="updated_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="ERP_Role_ERP_Users_Role" Member="ERP_Users_Roles" ThisKey="id" OtherKey="role_id" Type="ERP_Users_Role" />
-      <Association Name="ERP_Role_ERP_Notification" Member="ERP_Notifications" ThisKey="id" OtherKey="to_role_id" Type="ERP_Notification" />
       <Association Name="ERP_Application_ERP_Role" Member="ERP_Application" ThisKey="application_id" OtherKey="id" Type="ERP_Application" IsForeignKey="true" />
     </Type>
   </Table>
@@ -83,7 +83,7 @@
     <Type Name="ERP_Notification">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="application_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="to_role_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="to_user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="from_user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="notification_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="job_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
@@ -95,7 +95,6 @@
       <Column Name="created_at" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="updated_at" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Association Name="ERP_Application_ERP_Notification" Member="ERP_Application" ThisKey="application_id" OtherKey="id" Type="ERP_Application" IsForeignKey="true" />
-      <Association Name="ERP_Role_ERP_Notification" Member="ERP_Role" ThisKey="to_role_id" OtherKey="id" Type="ERP_Role" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
