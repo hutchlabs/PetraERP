@@ -152,6 +152,8 @@ csx/
 AppPackages/
 
 # Others
+bin/
+obj/
 *.[Cc]ache
 ClientBin/
 [Ss]tyle[Cc]op.*
