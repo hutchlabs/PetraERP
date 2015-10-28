@@ -49,7 +49,7 @@
 
                             <Label x:Name="lbl_userCount" Content="{Binding UsersCount}" FontFamily="Segoe WP Light" FontSize="14" Foreground="WhiteSmoke" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
-                            <StackPanel x:Name="actionBar" Orientation="Horizontal" Margin="20,0,0,0" Visibility="{Binding ElementName=chx_userfilter, Path=IsChecked, Converter={StaticResource boolToVis}}">
+                            <StackPanel x:Name="actionBar" Orientation="Horizontal" Margin="20,0,0,0" Visibility="Visible">
                                 <Button x:Name="btn_activateUser" Command="{Binding ActivateUserCommand}"   Width="40" Height="40"  ToolTip="Activate Selected Users" Margin="10,0,0,0" Style="{DynamicResource MetroCircleButtonStyle}">
                                     <Rectangle Width="10" Height="10" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                         <Rectangle.OpacityMask>
