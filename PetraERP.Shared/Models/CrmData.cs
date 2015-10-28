@@ -363,9 +363,25 @@ namespace PetraERP.Shared.Models
 
         public static IEnumerable<crmTicketStatus> get_allowed_ticket_status()
         {
-            return (from tic_status in Database.CRM.ticket_statuses
-                    where tic_status.can_set == true
-                    select new crmTicketStatus() { id = tic_status.id, status = tic_status.status_desc });
+            IList<crmTicketStatus> c = new List<crmTicketStatus>(); 
+            var ts = (from tic_status in Database.CRM.ticket_statuses
+                                            where tic_status.can_set == true
+                                            select tic_status);
+
+            foreach(ticket_statuse t in ts)
+            {
+                if (t.status_desc=="ON HOLD")
+                {
+                    if (Users.IsCurrentUserCRMAdmin())
+                    {
+                       c.Add(new crmTicketStatus() { id = t.id, status = t.status_desc });
+                    }
+                } else {
+                    c.Add(new crmTicketStatus() { id = t.id, status = t.status_desc });
+                }
+            }
+
+            return c.AsEnumerable();
         }
 
         #endregion

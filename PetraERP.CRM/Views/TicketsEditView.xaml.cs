@@ -143,30 +143,33 @@ namespace PetraERP.CRM.Views
         {
             try
             {
-                if(validate())
-                {
+                //if(validate())
+                //{
                     if (update_ticket(status))
                     {
-                        ticket_comment newComment = new ticket_comment();
-                        newComment.ticket_id = _ticketID;
-                        newComment.comment_date = DateTime.Now;
-                        newComment.status = "1".ToString();
-                        newComment.owner = AppData.CurrentUser.id;
-                        newComment.comment = txtComment.Text;
-                        Database.CRM.ticket_comments.InsertOnSubmit(newComment);
-                        Database.CRM.SubmitChanges();
-                        load_ticket_comments();
-
-                        var ticket_data = CrmData.get_ticket_details(_ticketID);
-
-                        if (ticket_data.ownerid != AppData.CurrentUser.id)
+                        if (txtComment.Text != "")
                         {
-                            Notification.Add(ticket_data.ownerid, "CRM Ticket Comment", "CRM Ticket", ticket_data.id);
+                            ticket_comment newComment = new ticket_comment();
+                            newComment.ticket_id = _ticketID;
+                            newComment.comment_date = DateTime.Now;
+                            newComment.status = "1".ToString();
+                            newComment.owner = AppData.CurrentUser.id;
+                            newComment.comment = txtComment.Text;
+                            Database.CRM.ticket_comments.InsertOnSubmit(newComment);
+                            Database.CRM.SubmitChanges();
+                            load_ticket_comments();
+
+                            var ticket_data = CrmData.get_ticket_details(_ticketID);
+
+                            if (ticket_data.ownerid != AppData.CurrentUser.id)
+                            {
+                                Notification.Add(ticket_data.ownerid, "CRM: Comment added to Ticket " + _ticketID, "CRM Ticket", ticket_data.id);
+                            }
                         }
                     }
                     else
                     { MessageBox.Show("Your comment was not posted."); }
-                }
+                //}
             }
             catch(Exception err)
             {
@@ -191,13 +194,13 @@ namespace PetraERP.CRM.Views
              {
                  var result = await this.ShowInputAsync("Change Status to "+s.status+"?", "Comment");
 
-                  if (result == null) //user pressed cancel
-                      return;
+                  //if (result == null) //user pressed cancel
+                  //    return;
 
-                  if (result.Length > 0)
-                  {
+                  //if (result.Length > 0)
+                  //{
                       bool success = false;
-                      txtComment.Text = result;
+                      if (result != null && result != "") { txtComment.Text = result; }
                       try
                       {
                           if (s.status == "RESOLVED") { post_comment(4); }
@@ -215,7 +218,7 @@ namespace PetraERP.CRM.Views
                           await this.ShowMessageAsync("Ticket Status Error", "An error occured. Please retry.");
                           cbxStatus_SelectionChanged(sender, e);
                       }
-                  }
+                  //}
              }
         }
      

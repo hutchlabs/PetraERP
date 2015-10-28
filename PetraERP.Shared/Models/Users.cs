@@ -170,7 +170,8 @@ namespace PetraERP.Shared.Models
         {
             try
             {
-                return (IsCurrentUserSuperAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN));
+                UserAppRoles uar = Users.GetUserRoles(AppData.CurrentUser.id);
+                return (IsCurrentUserSuperAdmin() || uar.crm_role.role.Equals(Constants.ROLES_CRM_ADMIN));
             }
             catch (Exception)
             {
@@ -182,8 +183,9 @@ namespace PetraERP.Shared.Models
         {
             try
             {
+                UserAppRoles uar = Users.GetUserRoles(AppData.CurrentUser.id);
                 return (IsCurrentUserSuperAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN) ||
-                        AppData.CurrentRole.Equals(Constants.ROLES_CRM_USER));
+                        uar.crm_role.role.Equals(Constants.ROLES_CRM_USER));
             }
             catch (Exception)
             {
