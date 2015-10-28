@@ -51,7 +51,8 @@ namespace PetraERP.UpdateService.Models
 
         static Database()
         {
-            string datasource = "ELMINA\\SQLEXPRESS";
+            //string datasource = "ELMINA\\SQLEXPRESS";
+            string datasource = "Petrasql";
             String erpStr = "Data Source=" + datasource + ";Initial Catalog=Petra_ERP;MultipleActiveResultSets=True;Integrated Security=True";
             String crmStr = "Data Source=" + datasource + ";Initial Catalog=Petra_CRM;MultipleActiveResultSets=True;Integrated Security=True";
             String tconStr = "Data Source=" + datasource + ";Initial Catalog=Petra_tracker;MultipleActiveResultSets=True;Integrated Security=True";
