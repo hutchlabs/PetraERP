@@ -82,6 +82,8 @@ namespace PetraERP.UpdateService.Models
                         if (nf == null)
                         {
                             AddNotification((int)t.assigned_to, t.owner, job, Constants.JOB_TYPE_TICKET, t.id);
+
+                            UpdateTicket(t.id);
                         }
 
                         //Constants.Comment(string.Format("Escalating Ticket {0}. Minutes passed: {1}", t.ticket_id, now.Subtract(t.created_at).TotalMinutes.ToString()));
@@ -116,6 +118,20 @@ namespace PetraERP.UpdateService.Models
                     from sla in Database.Crm.sla_timers 
                     where tic.status == OPEN_TICKET_ID && sla.ID == sub_corress.sla_id
                     select new Ticket() { id = tic.id, ticket_id = tic.ticket_id, subject = tic.subject, created_at = tic.created_at, owner = tic.owner, assigned_to = tic.assigned_to, pre_escalate=sla.pre_escalate, escalate = sla.escalate});
+        }
+
+        private static void UpdateTicket(int ticketid)
+        {
+            try
+            {
+                var ticket = (from tic in Database.Crm.tickets where tic.id == ticketid select tic).Single();
+                ticket.status = 3; // set to escalated
+                Database.Crm.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                Constants.Comment("Error setting ticket to escalated" + e.Message);
+            }
         }
 
         #endregion
@@ -186,7 +202,7 @@ namespace PetraERP.UpdateService.Models
         {
             try
             {
-                nf.modified_by = _defaultUserId; ;
+                nf.modified_by = _defaultUserId;
                 nf.updated_at = DateTime.Now;
                 Database.Erp.SubmitChanges();
             }
