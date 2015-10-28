@@ -90,9 +90,14 @@ namespace PetraERP.CRM.ViewModels
                     {
                         try
                         {
+                            if (SelectedTicket.status == "RESOLVED")
+                            {
+                                AppData.MessageService.ShowMessage("Please note: this ticket has already been resolved.", Shared.UI.MessagingService.DialogType.Message);
+                            }
+
                             TicketsEditView win = new TicketsEditView(SelectedTicket.ticket_id);
                             win.Closed += window_ClosingFinished;
-                            win.ShowDialog();
+                            win.ShowDialog();                           
                         }
                         catch (Exception err)
                         {
