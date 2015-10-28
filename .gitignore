@@ -152,7 +152,7 @@ csx/
 AppPackages/
 
 # Others
-bin/
+bin/*
 obj/
 *.[Cc]ache
 ClientBin/
