@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:Shared="clr-namespace:PetraERP.Shared;assembly=PetraERP.Shared"
              xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
              AttachedBehaviors:ElementLoadingBehavior.InitializeDataContextWhenLoaded="True"
@@ -56,10 +57,14 @@
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Username}" FontSize="14" Width="200"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Password" />
-                <PasswordBox Grid.Row="3" Grid.Column="1" Margin="5"  Width="200" 
+                <PasswordBox Grid.Row="3" Grid.Column="1" Margin="5"  Width="200"       
                              attached:PasswordHelper.Attach="True" 
-                             attached:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
-                
+                             attached:PasswordHelper.Password="{Binding Password, Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <AttachedBehaviors:EventToCommandBehavior Command="{Binding PasswordKeyUpCommand}" Event="KeyUp" PassArguments="True" />
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
+
                 <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Login"
                         Content="{Binding ButtonText}" Margin="10" HorizontalAlignment="Center"
                         Command="{Binding TryLogInCommand}"/>

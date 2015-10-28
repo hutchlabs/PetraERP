@@ -79,6 +79,7 @@ namespace PetraERP.ViewModels
 
         public ConfigViewModel() : base("Config")
         {
+            //Server = "ELMINA\\SQLEXPRESS";
             TryConnectCommand = new RelayCommand(TryConnect, CanTryConnect);
         }
 

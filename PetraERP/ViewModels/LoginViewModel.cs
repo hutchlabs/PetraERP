@@ -81,6 +81,11 @@ namespace PetraERP.ViewModels
 
         public ICommand TryResetPassCommand { get; private set; }
 
+        public ActionCommand<KeyEventArgs> PasswordKeyUpCommand
+        {
+            get { return new ActionCommand<KeyEventArgs>(OnKeyUp); }
+        }
+
         #endregion
 
         #region Constructor
@@ -96,6 +101,17 @@ namespace PetraERP.ViewModels
         #endregion
 
         #region Private Helpers
+
+        private void OnKeyUp(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (CanTryLogin())
+                {
+                    TryLoginIn();
+                }
+            }
+        }
 
         private void doLogin(string username, string password)
         {
