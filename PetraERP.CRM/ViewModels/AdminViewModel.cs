@@ -97,7 +97,7 @@ namespace PetraERP.CRM.ViewModels
 
         public string CategoriesCount
         {
-            get { return string.Format("{0} Categories", _categories.Count()); }
+            get { return string.Format("{0} Departments", _categories.Count()); }
             private set { ; }
         }
 
@@ -135,7 +135,7 @@ namespace PetraERP.CRM.ViewModels
 
         public string CorrespondencesCount
         {
-            get { return string.Format("{0} Correspondences", _correspondences.Count()); }
+            get { return string.Format("{0} Categories", _correspondences.Count()); }
             private set { ; }
         }
 
@@ -186,7 +186,7 @@ namespace PetraERP.CRM.ViewModels
 
         public string SubCorrespondencesCount
         {
-            get { return string.Format("{0} Sub Correspondences", _subcorrespondences.Count()); }
+            get { return string.Format("{0} Request Types", _subcorrespondences.Count()); }
             private set { ; }
         }
 
@@ -271,7 +271,7 @@ namespace PetraERP.CRM.ViewModels
                         try
                         {
                             SelectedCategory = new crmCategoryView { Id=0, code="", description="", Name="" };
-                            Title = "Adding New Category";
+                            Title = "Adding New Department";
                             _isUpdate = false;
                             ShowCancel = Visibility.Visible;
                         }
@@ -301,17 +301,17 @@ namespace PetraERP.CRM.ViewModels
                                 if (_isUpdate)
                                 {
                                     CrmData.SaveCategory(SelectedCategory);
-                                    message =  "Category successfully updated.";
+                                    message =  "Department successfully updated.";
                                 }
                                 else
                                 {
                                     CrmData.AddCategory(SelectedCategory);
                                     Categories = CrmData.get_Categories();
                                     SelectedIdx = Categories.Count() - 1;
-                                    message = "New category successfully created.";
+                                    message = "New department successfully created.";
                                 }
                                                          
-                                AppData.MessageService.ShowMessage(message, "Manage Categories");
+                                AppData.MessageService.ShowMessage(message, "Manage Departments");
                             }
                         }
                         catch (Exception err)
@@ -335,7 +335,7 @@ namespace PetraERP.CRM.ViewModels
                         try
                         {
                             SelectedCorrespondence = new crmCorrespondenceView { Id = 0, code = "", description = "", Name = "", category="", category_id=-1 };
-                            Title = "Adding New Correspondence";
+                            Title = "Adding Categories";
                             _isUpdate = false;
                             ShowCancel = Visibility.Visible;
                         }
@@ -365,17 +365,17 @@ namespace PetraERP.CRM.ViewModels
                                 if (_isUpdate)
                                 {
                                     CrmData.SaveCorrespondence(SelectedCorrespondence);
-                                    message = "Correspondence successfully updated.";
+                                    message = "Categories successfully updated.";
                                 }
                                 else
                                 {
                                     CrmData.AddCorrespondence(SelectedCorrespondence);
                                     Correspondences = CrmData.get_Correspondence();
                                     SelectedIdx = Correspondences.Count() - 1;
-                                    message = "New correspondence successfully created.";
+                                    message = "New category successfully created.";
                                 }
 
-                                AppData.MessageService.ShowMessage(message, "Manage Correspondence");
+                                AppData.MessageService.ShowMessage(message, "Manage Category");
                             }
                         }
                         catch (Exception err)
@@ -399,7 +399,7 @@ namespace PetraERP.CRM.ViewModels
                         try
                         {
                             SelectedSubCorrespondence = new crmSubCorrespondenceView { Id = 0, code = "", description = "", Name = "", sla_id=0,correspondence_id=-1 };
-                            Title = "Adding New Sub Correspondence";
+                            Title = "Adding New Request Type";
                             _isUpdate = false;
                             ShowCancel = Visibility.Visible;
                         }
@@ -429,17 +429,17 @@ namespace PetraERP.CRM.ViewModels
                                 if (_isUpdate)
                                 {
                                     CrmData.SaveSubCorrespondence(SelectedSubCorrespondence);
-                                    message = "Sub Correspondence successfully updated.";
+                                    message = "Request Type successfully updated.";
                                 }
                                 else
                                 {
                                     CrmData.AddSubCorrespondence(SelectedSubCorrespondence);
                                     SubCorrespondences = CrmData.get_Sub_Correspondence();
                                     SelectedIdx = SubCorrespondences.Count() - 1;
-                                    message = "New Sub Correspondence successfully created.";
+                                    message = "New Request Type successfully created.";
                                 }
 
-                                AppData.MessageService.ShowMessage(message, "Manage Sub Correspondence");
+                                AppData.MessageService.ShowMessage(message, "Manage Request Type");
                             }
                         }
                         catch (Exception err)
@@ -537,10 +537,10 @@ namespace PetraERP.CRM.ViewModels
         {        
             if (SelectedCategory.Name == string.Empty) 
             { 
-                AppData.MessageService.ShowMessage("Please specify the name of the category you want to create", "No category name",DialogType.Error); 
+                AppData.MessageService.ShowMessage("Please specify the name of the department you want to create", "No department name",DialogType.Error); 
                 return false; 
             } else if (SelectedCategory.code == string.Empty) { 
-                AppData.MessageService.ShowMessage("Please specify the code of the category you want to create", "No category code",DialogType.Error); 
+                AppData.MessageService.ShowMessage("Please specify the code of the department you want to create", "No department code",DialogType.Error); 
                 return false; 
             }
         
@@ -549,18 +549,18 @@ namespace PetraERP.CRM.ViewModels
 
         private bool validate_correspondence()
         {
-            if (SelectedCorrespondence.Name == string.Empty) { AppData.MessageService.ShowMessage("Please specify the name of the correspondence you want to create", "No correspondence name", DialogType.Error); return false; }
-            else if (SelectedCorrespondence.category_id <= 0) { AppData.MessageService.ShowMessage("Please select the category for the correspondence you want to create", "No category selected", DialogType.Error); return false; }
-            else if (SelectedCorrespondence.code == string.Empty) { AppData.MessageService.ShowMessage("Please specify the code for the correspondence you want to create", "No correspondence code", DialogType.Error); return false; }
+            if (SelectedCorrespondence.Name == string.Empty) { AppData.MessageService.ShowMessage("Please specify the name of the category you want to create", "No category name", DialogType.Error); return false; }
+            else if (SelectedCorrespondence.category_id <= 0) { AppData.MessageService.ShowMessage("Please select the category for the category you want to create", "No category selected", DialogType.Error); return false; }
+            else if (SelectedCorrespondence.code == string.Empty) { AppData.MessageService.ShowMessage("Please specify the code for the category you want to create", "No category code", DialogType.Error); return false; }
             else { return true; }
         }
 
         private bool validate_subcorrespondence()
         {
-            if (SelectedSubCorrespondence.Name == string.Empty) { AppData.MessageService.ShowMessage("Please specify the name of the correspondence you want to create", "No correspondence name", DialogType.Error);  return false; }
-            else if (SelectedSubCorrespondence.correspondence_id <= 0) { AppData.MessageService.ShowMessage("Please select the associated correspondence of the sub correspondence you want to create", "No correspondence selected", DialogType.Error); return false; }
-            else if (SelectedSubCorrespondence.sla_id < 0) { AppData.MessageService.ShowMessage("Please select the associated SLA of the sub correspondence you want to create", "No SLA selected", DialogType.Error); return false; }
-            else if (SelectedSubCorrespondence.code == string.Empty) { AppData.MessageService.ShowMessage("Please specify the code of the sub correspondence you want to create", "No sub correspondence code", DialogType.Error); return false; }
+            if (SelectedSubCorrespondence.Name == string.Empty) { AppData.MessageService.ShowMessage("Please specify the name of the request type you want to create", "No request type name", DialogType.Error);  return false; }
+            else if (SelectedSubCorrespondence.correspondence_id <= 0) { AppData.MessageService.ShowMessage("Please select the associated category of the request type you want to create", "No category selected", DialogType.Error); return false; }
+            else if (SelectedSubCorrespondence.sla_id < 0) { AppData.MessageService.ShowMessage("Please select the associated SLA of the request type you want to create", "No SLA selected", DialogType.Error); return false; }
+            else if (SelectedSubCorrespondence.code == string.Empty) { AppData.MessageService.ShowMessage("Please specify the code of the request type you want to create", "No request type code", DialogType.Error); return false; }
             else { return true; }
         }
 

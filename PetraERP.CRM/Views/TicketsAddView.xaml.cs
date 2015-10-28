@@ -322,9 +322,9 @@ namespace PetraERP.CRM.Views
                 if (txtPetraID.Text == string.Empty) { MessageBox.Show("No Petra ID found for this ticket. Ticket can not be created without an ID.", "No Petra ID", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else if (txtPetraID.Text == string.Empty) { MessageBox.Show("No Petra ID found for this ticket. Ticket can not be created without an ID.", "No Petra ID", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else if (txtTicketSubject.Text == string.Empty) { MessageBox.Show("No subject found for this ticket. Ticket can not be created without a subject.", "No Subject", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
-                else if (cmbTicketCategory.SelectedIndex < 0) { MessageBox.Show("Please select a category for this ticket. Ticket can not be created without a category.", "No Category", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
-                else if (cmbTicketCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a correspondence for this ticket. Ticket can not be created without a correspondence.", "No Correspondence", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
-                else if (cmbTicketSubCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a [sub correspondence for this ticket. Ticket can not be created without a sub correspondence.", "No Correspondence", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
+                else if (cmbTicketCategory.SelectedIndex < 0) { MessageBox.Show("Please select a department for this ticket. Ticket can not be created without a department.", "No Department", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
+                else if (cmbTicketCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a category for this ticket. Ticket can not be created without a category.", "No Category", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
+                else if (cmbTicketSubCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a request type for this ticket. Ticket can not be created without a request type.", "No Request Type", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else { return true; }
             }
             catch (Exception)

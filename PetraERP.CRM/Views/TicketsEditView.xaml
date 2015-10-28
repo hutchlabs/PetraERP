@@ -26,7 +26,7 @@
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
 
-                <Label x:Name="lblTicketInfo2" Content="                  Category: {0}&#10;       Correspondence: {1}&#10;Sub Correspondence: {2}&#10;" HorizontalAlignment="Left" 
+                <Label x:Name="lblTicketInfo2" Content="             Department: {0}&#10;                 Category: {1}&#10;           Request Type: {2}&#10;" HorizontalAlignment="Left" 
                        FontFamily="Segoe WP Light" FontSize="12" FontWeight="ExtraBold" TextOptions.TextFormattingMode="Ideal"
                        Margin="25,0,0,0" VerticalAlignment="Top"/>
             </StackPanel>

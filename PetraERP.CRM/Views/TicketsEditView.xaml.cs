@@ -76,7 +76,7 @@ namespace PetraERP.CRM.Views
             lblTicketInfo.Content = string.Format("    Ticket ID: {0}\n          Date: {1:ddd dd MMM yyyy HH:mm tt}\n       Owner: {2}",
                                                   ticket_data.ticket_id, DateTime.Parse(ticket_data.ticket_date), ticket_data.owner);
 
-            lblTicketInfo2.Content = string.Format("                        Category: {0}\n             Correspondence: {1}\n      Sub Correspondence: {2}\n",
+            lblTicketInfo2.Content = string.Format("                   Department: {0}\n                       Category: {1}\n                Request Type: {2}\n",
                                                    ticket_data.category, ticket_data.correspondence,  ticket_data.subcorrespondence);
 
             lblesca.Content = "Escalation Due: " + ticket_data.esacalation;

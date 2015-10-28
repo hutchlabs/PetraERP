@@ -41,7 +41,7 @@
 
                 <DataGrid HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Width="500"
                       ColumnWidth="*" Margin="10,10,0,10" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" 
-                      SelectionMode="Single" SelectionUnit="FullRow" GridLinesVisibility="All" HeadersVisibility="All" ToolTip="Categories"
+                      SelectionMode="Single" SelectionUnit="FullRow" GridLinesVisibility="All" HeadersVisibility="All" ToolTip="Departments"
                       ItemsSource="{Binding Categories}" SelectedIndex="{Binding SelectedIdx}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
             </StackPanel>
 

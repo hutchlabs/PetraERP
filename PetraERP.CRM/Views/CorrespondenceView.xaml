@@ -75,7 +75,7 @@
                 <Label Grid.Row="4" Grid.Column="0" Content="Description :" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="76"/>
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedCorrespondence.description}" HorizontalAlignment="Left" Height="58" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" />
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Category :" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,4,0,11" Width="64"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Department :" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="0,4,0,11" Width="64"/>
                 <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Categories}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding SelectedCorrespondence.category_id}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Height="26" Margin="0,4,0,11" />
 
                 <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">

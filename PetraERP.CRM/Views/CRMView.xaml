@@ -38,15 +38,15 @@
                         <Views:SLAView />
                     </TabItem>
 
-                    <TabItem Header="CATEGORIES" ToolTip="Manage Categories" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
+                    <TabItem Header="DEPARTMENTS" ToolTip="Manage Categories" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
                         <Views:CategoriesView />
                     </TabItem>
                   
-                    <TabItem Header="CORRESPONDENCE" ToolTip="Manage Correspondence" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
+                    <TabItem Header="CATEGORIES" ToolTip="Manage Correspondence" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
                         <Views:CorrespondenceView />
                     </TabItem>
 
-                    <TabItem Header="SUB CORRESPONDENCE" ToolTip="Manage Sub Correspondence" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
+                    <TabItem Header="REQUEST TYPES" ToolTip="Manage Sub Correspondence" Controls:ControlsHelper.HeaderFontSize="{StaticResource SubTabFontSize}" FontFamily="Segoe WP Light">
                         <Views:SubCorrespondenceView />
                     </TabItem>
     
