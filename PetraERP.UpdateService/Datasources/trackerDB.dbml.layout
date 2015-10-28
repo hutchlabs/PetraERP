@@ -66,7 +66,7 @@
         <classShapeMoniker Id="8b41b4dc-a70a-4825-a1c5-5bc7afc86acc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.968748 : 6.625); (0.968748 : 6.0881982421875); (2.75 : 6.0881982421875); (2.75 : 4.125); (3.2163720703125 : 4.125 : JumpStart); (3.38303873697916 : 4.125 : JumpEnd); (5.875 : 4.125); (5.875 : 2.55850341796875); (6.25 : 2.55850341796875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.968748 : 6.625); (0.968748 : 6.0881982421875); (1.41666666666667 : 6.0881982421875 : JumpStart); (1.58333333333333 : 6.0881982421875 : JumpEnd); (2.75 : 6.0881982421875); (2.75 : 4.125); (3.2163720703125 : 4.125 : JumpStart); (3.38303873697916 : 4.125 : JumpEnd); (5.875 : 4.125); (5.875 : 2.55850341796875); (6.25 : 2.55850341796875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/TrackerDataContext/User/User_Notification" />
       <nodes>
         <classShapeMoniker Id="2acd5fbf-90e3-463f-a183-a380ff0a5e29" />
@@ -86,7 +86,7 @@
         <elementListCompartment Id="85061a0c-780d-481a-ab37-4b71455a76ba" absoluteBounds="3.0149999999999997, 11.835, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 10.5112125651042); (1.5 : 12.7412019856771); (1.94791916666667 : 12.7412019856771 : JumpStart); (2.11458583333333 : 12.7412019856771 : JumpEnd); (3 : 12.7412019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.5 : 10.5112125651042); (1.5 : 12.7412019856771); (3 : 12.7412019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/TrackerDataContext/User/User_PDealDescription" />
       <nodes>
         <classShapeMoniker Id="2acd5fbf-90e3-463f-a183-a380ff0a5e29" />

@@ -8,7 +8,7 @@
         <elementListCompartment Id="d5b989ce-4b9d-4644-be5d-27bb9a835024" absoluteBounds="3.14, 1.085, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.83423076923077 : 5.28041829427083); (3.83423076923077 : 5.53041829427083); (4.04858974358974 : 5.53041829427083 : JumpStart); (4.21525641025641 : 5.53041829427083 : JumpEnd); (4.42961538461539 : 5.53041829427083); (4.42961538461539 : 5.28041829427083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.83423076923077 : 5.28041829427083); (3.83423076923077 : 5.53041829427083); (4.04858974358975 : 5.53041829427083 : JumpStart); (4.21525641025641 : 5.53041829427083 : JumpEnd); (4.42961538461539 : 5.53041829427083); (4.42961538461539 : 5.28041829427083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Association/Association_Association" />
       <nodes>
         <classShapeMoniker Id="bd143853-0daa-42c2-85d9-8675e44f3a7b" />
@@ -40,21 +40,21 @@
         <elementListCompartment Id="1ce6d603-80b5-497e-9680-d3a73284f3c6" absoluteBounds="3.64, 6.585, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.83980769230769 : 6.125); (4.83980769230769 : 5.28041829427083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.83980769230769 : 6.125); (4.83980769230769 : 5.28041829427083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_Association" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />
         <classShapeMoniker Id="bd143853-0daa-42c2-85d9-8675e44f3a7b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.13192307692308 : 6.125); (4.13192307692308 : 5.28041829427083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.13192307692308 : 6.125); (4.13192307692308 : 5.28041829427083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_Association1" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />
         <classShapeMoniker Id="bd143853-0daa-42c2-85d9-8675e44f3a7b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.625 : 7.90465413411458); (2.5 : 7.90465413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.625 : 7.90465413411458); (2.5 : 7.90465413411458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_EntityContact" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />
@@ -74,7 +74,7 @@
         <elementListCompartment Id="fcdb20ce-dc29-49f2-b1f7-d018d01f5183" absoluteBounds="1.3900000000000001, 11.335, 1.9700000000000002, 10.0567626953125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.625 : 11.2123120117187); (3.375 : 11.2123120117187)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.625 : 11.2123120117187); (3.375 : 11.2123120117187)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_EntityClient" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />
@@ -87,7 +87,7 @@
         <elementListCompartment Id="ceef250d-487b-4a28-a5c9-6c24e6cea24f" absoluteBounds="0.51500000000000012, 22.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.9375 : 21.625); (1.9375 : 21.4917626953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.9375 : 21.625); (1.9375 : 21.4917626953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Purpose/Purpose_EntityClient" />
       <nodes>
         <classShapeMoniker Id="96f90b2a-1ee4-458c-bfb0-f7da1e1ce379" />
@@ -106,7 +106,7 @@
         <elementListCompartment Id="06c2147c-c410-410c-ba5e-f3781f6da6c1" absoluteBounds="3.64, 13.085, 1.9700000000000002, 6.5953369140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.91711538461538 : 11.5496240234375); (3.91711538461538 : 12.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.91711538461538 : 11.5496240234375); (3.91711538461538 : 12.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_EntityPerson" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />
@@ -119,7 +119,7 @@
         <elementListCompartment Id="da5c7844-3b40-4696-baac-b9654b4f516b" absoluteBounds="6.265, 20.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.80230969230769 : 11.5496240234375); (4.80230969230769 : 12.375); (5.75 : 12.375); (5.75 : 18.9915185546875); (5.875 : 18.9915185546875); (5.875 : 20.8181469726563); (6.25 : 20.8181469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.80230969230769 : 11.5496240234375); (4.80230969230769 : 12.375); (5.75 : 12.375); (5.75 : 18.9915185546875); (5.875 : 18.9915185546875); (5.875 : 20.8181469726563); (6.25 : 20.8181469726563)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MicrogenDBDataContext/Entity/Entity_EntityRole" />
       <nodes>
         <classShapeMoniker Id="60d8c8af-22f7-4750-99a2-126cb325b302" />

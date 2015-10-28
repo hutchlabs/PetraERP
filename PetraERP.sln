@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.CRM", "PetraERP.CR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.Tracker", "PetraERP.Tracker\PetraERP.Tracker.csproj", "{C71AA8A0-D8FE-4CA1-B75E-5731B72BB50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.TrackerService", "PetraERP.TrackerService\PetraERP.TrackerService.csproj", "{130663FC-4498-483D-A3E7-973C75698F17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetraERP.UpdateService", "PetraERP.UpdateService\PetraERP.UpdateService.csproj", "{130663FC-4498-483D-A3E7-973C75698F17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Petra5" Class="MicrogenDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ELMINA\SQLEXPRESS;Initial Catalog=Petra5;Integrated Security=True" SettingsObjectName="PetraERP.Shared.Properties.Settings" SettingsPropertyName="Petra5ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ELMINA\SQLEXPRESS;Initial Catalog=Petra5;Integrated Security=True" SettingsObjectName="PetraERP.UpdateService.Properties.Settings" SettingsPropertyName="Petra5ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Association" Member="Associations">
     <Type Name="Association">
       <Column Name="AssociationID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

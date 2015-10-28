@@ -1,4 +1,4 @@
-﻿using PetraERP.TrackerService.Models;
+﻿using PetraERP.UpdateService.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,26 +11,29 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
 
-namespace PetraERP.TrackerService
+namespace PetraERP.UpdateService
 {
     #region Service 
 
-    public class TrackerService : ServiceBase
+    public class UpdateService : ServiceBase
     {      
         #region Private Members
 
+        private static CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private static CancellationToken _token = _tokenSource.Token;
+        
         #endregion
 
         #region Construct & Main
 
-        public TrackerService()
+        public UpdateService()
         {
-            ServiceName = "PetraERP.TrackerService";
+            ServiceName = "PetraERP.UpdateService";
         }
 
         public static void Main()
         {
-            ServiceBase.Run(new TrackerService());
+            ServiceBase.Run(new UpdateService());
         }
 
         #endregion
@@ -39,7 +42,6 @@ namespace PetraERP.TrackerService
 
         protected override void OnStart(string[] args)
         {
-            TrackerSchedule.Comment("Starting PetraERP Tracker Service.");
             System.Timers.Timer timer1 = new System.Timers.Timer();
             timer1.Interval = 10000;
             timer1.Start();
@@ -49,13 +51,22 @@ namespace PetraERP.TrackerService
 
         public static void timer1_Elapsed(object sender, EventArgs e)
         {
-            TrackerSchedule.StartUpdate();
+            Task taskA = Task.Factory.StartNew(() =>
+            {
+                Task taskB = new Task(() => TrackerSchedule.StartUpdate());
+                Task taskC = new Task(() => CrmTicket.StartUpdate());
+
+                taskB.Start();
+                taskC.Start();
+            }, _token);
+            
         }
 
         protected override void OnStop()
         {
-            TrackerSchedule.Comment("Stopping PetraERP Tracker Service.");
             TrackerSchedule.StopUpdate();
+            CrmTicket.StopUpdate();
+            _tokenSource.Cancel();
             base.OnStop();
         }
 
@@ -79,9 +90,9 @@ namespace PetraERP.TrackerService
             process = new ServiceProcessInstaller();
             process.Account = ServiceAccount.LocalSystem;
             service = new ServiceInstaller();
-            service.ServiceName = "PetraERP.TrackerService";
-            service.DisplayName = "PetraERP.TrackerService";
-            service.Description = "This service periodically updates the status of schedules for the Tracker.";
+            service.ServiceName = "PetraERP.UpdateService";
+            service.DisplayName = "PetraERP.UpdateService";
+            service.Description = "This service periodically updates the status of schedules for the Tracker and (pre) escalations for CRM Tickets.";
             service.StartType = ServiceStartMode.Automatic;
             Installers.Add(process);
             Installers.Add(service);

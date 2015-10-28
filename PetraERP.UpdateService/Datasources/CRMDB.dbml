@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Petra_CRM" Class="CRMDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=NICHOLASARKFEA4\SQLEXPRESS;Initial Catalog=Petra_CRM;Integrated Security=True" SettingsObjectName="PetraERP.UpdateService.Properties.Settings" SettingsPropertyName="Petra_CRMConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ticket_comments" Member="ticket_comments">
+    <Type Name="ticket_comment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ticket_id" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comment_date" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ticket_comment_ticket_comment" Member="ticket_comment2" ThisKey="id" OtherKey="id" Type="ticket_comment" Cardinality="One" />
+      <Association Name="ticket_comment_ticket_comment1" Member="ticket_comment4" ThisKey="id" OtherKey="id" Type="ticket_comment" Cardinality="One" />
+      <Association Name="ticket_comment_ticket_comment" Member="ticket_comment1" ThisKey="id" OtherKey="id" Type="ticket_comment" IsForeignKey="true" />
+      <Association Name="ticket_comment_ticket_comment1" Member="ticket_comment3" ThisKey="id" OtherKey="id" Type="ticket_comment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.correspondence" Member="correspondences">
+    <Type Name="correspondence">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="correspondence_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="category_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="created_at" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="modified_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="correspondence_correspondence" Member="correspondence2" ThisKey="id" OtherKey="id" Type="correspondence" Cardinality="One" />
+      <Association Name="correspondence_sub_correspondence" Member="sub_correspondences" ThisKey="id" OtherKey="correspondence_id" Type="sub_correspondence" />
+      <Association Name="correspondence_ticket" Member="tickets" ThisKey="id" OtherKey="correspondence_id" Type="ticket" />
+      <Association Name="correspondence_correspondence" Member="correspondence1" ThisKey="id" OtherKey="id" Type="correspondence" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.categories" Member="categories">
+    <Type Name="category">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="category_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="modified_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="category_category" Member="category2" ThisKey="id" OtherKey="id" Type="category" Cardinality="One" />
+      <Association Name="category_ticket" Member="tickets" ThisKey="id" OtherKey="category_id" Type="ticket" />
+      <Association Name="category_category" Member="category1" ThisKey="id" OtherKey="id" Type="category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sla_timers" Member="sla_timers">
+    <Type Name="sla_timer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sla_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pre_escalate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="escalate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="owner" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="created_at" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="modified_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="sla_timer_sub_correspondence" Member="sub_correspondences" ThisKey="ID" OtherKey="sla_id" Type="sub_correspondence" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sub_correspondence" Member="sub_correspondences">
+    <Type Name="sub_correspondence">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="correspondence_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sla_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sub_correspondence_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="created_at" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="modified_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="correspondence_sub_correspondence" Member="correspondence" ThisKey="correspondence_id" OtherKey="id" Type="correspondence" IsForeignKey="true" />
+      <Association Name="sla_timer_sub_correspondence" Member="sla_timer" ThisKey="sla_id" OtherKey="ID" Type="sla_timer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tickets" Member="tickets">
+    <Type Name="ticket">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ticket_id" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="customer_id" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="customer_id_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="subject" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="category_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="correspondence_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sub_correspondence_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="contact_no" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="assigned_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date_time_created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ticket_year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="created_at" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="modified_by" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="updated_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="category_ticket" Member="category" ThisKey="category_id" OtherKey="id" Type="category" IsForeignKey="true" />
+      <Association Name="correspondence_ticket" Member="correspondence" ThisKey="correspondence_id" OtherKey="id" Type="correspondence" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ticket_statuses" Member="ticket_statuses">
+    <Type Name="ticket_statuse">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="status_desc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="can_set" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
