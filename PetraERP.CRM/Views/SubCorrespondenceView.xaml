@@ -95,7 +95,7 @@
                     <Button Command="{Binding SaveSubCorrespondenceCommand}" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,38,0,0" Click="Button_Click"  />
                     <Button Command="{Binding CancelCreateCommand}" Content="Cancel" Visibility="{Binding ShowCancel}" HorizontalAlignment="Right" Margin="40,39,0,0" VerticalAlignment="Top"  />
                 </StackPanel>
-                <CheckBox IsChecked="{Binding SelectedSCSLA.active}" Content="Active" Grid.Column="1" HorizontalAlignment="Left" Margin="1,11,0,0" Grid.Row="7" VerticalAlignment="Top"/>
+                <CheckBox IsChecked="{Binding SelectedSubCorrespondence.active}" Content="Active" Grid.Column="1" HorizontalAlignment="Left" Margin="1,11,0,0" Grid.Row="7" VerticalAlignment="Top"/>
             </Grid>
         </DockPanel>
     </Grid>
