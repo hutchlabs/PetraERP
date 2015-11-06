@@ -147,6 +147,12 @@ namespace PetraERP.CRM.Views
                 //{
                     if (update_ticket(status))
                     {
+                        var ticket_data = CrmData.get_ticket_details(_ticketID);
+
+                        if (status==6)
+                        {
+                            Notification.AddToRole(11, "CRM Ticket ON HOLD Request " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
+                        }
                         if (txtComment.Text != "")
                         {
                             ticket_comment newComment = new ticket_comment();
@@ -159,7 +165,6 @@ namespace PetraERP.CRM.Views
                             Database.CRM.SubmitChanges();
                             load_ticket_comments();
 
-                            var ticket_data = CrmData.get_ticket_details(_ticketID);
 
                             if (ticket_data.ownerid != AppData.CurrentUser.id)
                             {
@@ -205,6 +210,11 @@ namespace PetraERP.CRM.Views
                       {
                           if (s.status == "RESOLVED") { post_comment(4); }
                           else if (s.status == "ON HOLD") { post_comment(2); }
+                          else if (s.status == "ON HOLD WAITING APPROVAL") { 
+                              post_comment(6);
+
+                              
+                          }
                           success = true;
                       }
                       catch (Exception) { success = false; }
@@ -212,7 +222,7 @@ namespace PetraERP.CRM.Views
                       if (success)
                       {
                           await this.ShowMessageAsync("Ticket Status Changed","The status of the ticket has been set to "+s.status);
-                          if (s.status == "RESOLVED" || s.status == "ON HOLD")
+                          if (s.status == "RESOLVED" || s.status == "ON HOLD" || s.status == "ON HOLD WAITING APPROVAL")
                           {
                               this.Close();
                           }
