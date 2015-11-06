@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Linq;
 using PetraERP.Shared.Datasources;
 using PetraERP.Shared;
+using PetraERP.CRM.Views;
 
 namespace PetraERP.ViewModels
 {
@@ -111,6 +112,28 @@ namespace PetraERP.ViewModels
             if (SelectedNotification != null)
             {
                 Console.WriteLine("Opening notification: " + SelectedNotification.notification_type);
+
+                if (SelectedNotification.job_type.Trim().Equals(PetraERP.Shared.Constants.JOB_TYPE_TICKET))
+                {
+                    crmTicketDetails td = CrmData.get_ticket(SelectedNotification.job_id);
+
+                    try
+                    {
+                        if (td.status_id == 4) //resolved ticket
+                        {
+                            AppData.MessageService.ShowMessage("Please note: this ticket has already been resolved.", Shared.UI.MessagingService.DialogType.Message);
+                        }
+
+                        TicketsEditView win = new TicketsEditView(td.ticket_id);
+                        //win.Closed += window_ClosingFinished;
+                        win.ShowDialog();
+                    }
+                    catch (Exception err)
+                    {
+                        AppData.MessageService.ShowMessage(err.Message);
+                    }
+                }
+
                 /*object obj = this.FindName("surrogateFlyout");
                 Flyout mflyout = (Flyout)obj;
                 mflyout.ClosingFinished += notificationflyout_ClosingFinished;

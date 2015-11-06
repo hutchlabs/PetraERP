@@ -163,7 +163,7 @@ namespace PetraERP.CRM.Views
 
                             if (ticket_data.ownerid != AppData.CurrentUser.id)
                             {
-                                Notification.Add(ticket_data.ownerid, "CRM: Comment added to Ticket " + _ticketID, "CRM Ticket", ticket_data.id);
+                                Notification.Add(ticket_data.assigned_to, "CRM: Comment added to Ticket " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
                             }
                         }
                     }
@@ -212,6 +212,10 @@ namespace PetraERP.CRM.Views
                       if (success)
                       {
                           await this.ShowMessageAsync("Ticket Status Changed","The status of the ticket has been set to "+s.status);
+                          if (s.status == "RESOLVED" || s.status == "ON HOLD")
+                          {
+                              this.Close();
+                          }
                       }
                       else
                       {

@@ -156,7 +156,7 @@ namespace PetraERP.Shared.Models
             cat.description = SelectedSubCorrespondence.description;
             cat.correspondence_id = SelectedSubCorrespondence.correspondence_id;
             cat.sla_id = SelectedSubCorrespondence.sla_id;
-            cat.status = (bool)SelectedSubCorrespondence.active;
+            cat.status = SelectedSubCorrespondence.active;
             cat.modified_by = AppData.CurrentUser.id;
             cat.updated_at = DateTime.Now;
             Database.CRM.SubmitChanges();
@@ -319,6 +319,18 @@ namespace PetraERP.Shared.Models
             }
         }
 
+        public static crmTicketDetails get_ticket(int id)
+        {
+            return (from tic in Database.CRM.tickets
+                    join cat in Database.CRM.categories on tic.category_id equals cat.id
+                    join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                    join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
+                    join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
+                    where tic.id == id
+                    select new crmTicketDetails() { id = tic.id, owner = GetUserName(tic.owner), ownerid = tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
+                  ).Single<crmTicketDetails>();
+        }
+
         public static  crmTicketDetails get_ticket_details(string ticket_id)
         {
             return (from tic in Database.CRM.tickets
@@ -327,7 +339,7 @@ namespace PetraERP.Shared.Models
                     join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
                     join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                     where tic.ticket_id == ticket_id
-                    select new crmTicketDetails() { id=tic.id, owner = GetUserName(tic.owner), ownerid= tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
+                    select new crmTicketDetails() { id=tic.id, assigned_to = tic.assigned_to??0, owner = GetUserName(tic.owner), ownerid= tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
                    ).Single<crmTicketDetails>();
         }
 
@@ -600,6 +612,7 @@ namespace PetraERP.Shared.Models
         public string subcorrespondence { get; set; }
         public string owner { get; set; }
         public int ownerid { get; set; }
+        public int assigned_to { get; set; }
         public string contact_no { get; set; }
         public string email { get; set; }
     }

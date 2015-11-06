@@ -368,7 +368,7 @@ namespace PetraERP.CRM.Views
                 Database.CRM.tickets.InsertOnSubmit(newTicket);
                 Database.CRM.SubmitChanges();
 
-                string t = string.Format("Ticket {0} added",newTicket.ticket_id);
+                string t = string.Format("Ticket {0} Added",newTicket.ticket_id);
                 
                 Notification.Add((int)newTicket.assigned_to, t, PetraERP.Shared.Constants.JOB_TYPE_TICKET, newTicket.id);
 
