@@ -22,6 +22,7 @@
         // Job types for Jobs table
         public const string JOB_TYPE_SCHEDULE = "Schedule";
         public const string JOB_TYPE_SUBSCRIPTION = "Subscription";
+        public const string JOB_TYPE_TICKET = "Ticket";
 
         // User status
         public const string STATUS_ALL = "All";

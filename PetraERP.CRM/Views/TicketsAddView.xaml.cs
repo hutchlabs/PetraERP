@@ -362,11 +362,16 @@ namespace PetraERP.CRM.Views
                 newTicket.ticket_month = DateTime.Now.Month;
                 newTicket.ticket_year = DateTime.Now.Year;
                 newTicket.status = 1;
-                newTicket.owner = 0;
-                newTicket.assigned_to = 1;
+                newTicket.owner = Users.GetCurrentUser().id;
+                newTicket.assigned_to = int.Parse(cmbAssignTo.SelectedValue.ToString());
                 newTicket.created_at = DateTime.Now;
                 Database.CRM.tickets.InsertOnSubmit(newTicket);
                 Database.CRM.SubmitChanges();
+
+                string t = string.Format("Ticket {0} added",newTicket.ticket_id);
+                
+                Notification.Add((int)newTicket.assigned_to, t, PetraERP.Shared.Constants.JOB_TYPE_TICKET, newTicket.id);
+
                 return true;
             }
             catch (Exception newSlaError)
