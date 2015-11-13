@@ -81,8 +81,8 @@ namespace PetraERP.UpdateService.Models
 
                         if (nf == null)
                         {
+                            AddNotificationToRole(3, t.owner, job, Constants.JOB_TYPE_TICKET, t.id); // Notify CRM Super user
                             AddNotification((int)t.assigned_to, t.owner, job, Constants.JOB_TYPE_TICKET, t.id);
-
                             UpdateTicket(t.id);
                         }
 
@@ -138,6 +138,16 @@ namespace PetraERP.UpdateService.Models
 
         #region Notification Methods
 
+        public static void AddNotificationToRole(int role_id, int from_user, string notification_type, string job_type, int jobid)
+        {
+            IEnumerable<ERP_User> u = GetUsersByRole(role_id);
+
+            foreach (ERP_User x in u)
+            {
+                AddNotification(x.id, from_user, notification_type, job_type, jobid);
+            }
+        }
+
         private static void AddNotification(int to_user_id, int from_user_id, string notification_type, string job_type, int jobid)
         {
             try
@@ -192,7 +202,7 @@ namespace PetraERP.UpdateService.Models
                 nf.status = Constants.NF_STATUS_EXPIRED;
                 SaveNotification(nf);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Constants.Comment("Error expiring notification: " + e.Message);
             }
@@ -211,6 +221,15 @@ namespace PetraERP.UpdateService.Models
                 Constants.Comment("Error saving notification: " + e.Message);
 
             }
+        }
+
+        public static IEnumerable<ERP_User> GetUsersByRole(int role_id)
+        {
+            return (from u in Database.Erp.ERP_Users
+                    join ur in Database.Erp.ERP_Users_Roles on u.id equals ur.user_id
+                    join r in Database.Erp.ERP_Roles on ur.role_id equals r.id
+                    where r.id == role_id
+                    select u);
         }
 
         #endregion
