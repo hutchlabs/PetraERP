@@ -13,6 +13,11 @@
     <UserControl.DataContext>
         <ViewModels:AdminViewModel />
     </UserControl.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <UserControl.Resources>
         <ResourceDictionary>

@@ -168,6 +168,7 @@ namespace PetraERP.CRM.ViewModels
                 _scsla = value;
 
                 OnPropertyChanged(GetPropertyName(() => SelectedSCSLA));
+                OnPropertyChanged(GetPropertyName(() => SLAs));
             }
         }
 
@@ -217,8 +218,11 @@ namespace PetraERP.CRM.ViewModels
                 if (value == _slas)
                     return;
                 _slas = value;
+
                 OnPropertyChanged(GetPropertyName(() => SLAs));
                 OnPropertyChanged(GetPropertyName(() => SLACount));
+                OnPropertyChanged(GetPropertyName(() => SelectedSLA));
+                OnPropertyChanged(GetPropertyName(() => SelectedSCSLA));
             }
         }
 
@@ -231,7 +235,32 @@ namespace PetraERP.CRM.ViewModels
         #endregion
 
         #region Commands
-    
+
+        public ICommand LoadedCommand
+        {
+            get
+            {
+                return new SimpleCommand
+                {
+                    CanExecuteDelegate = x => true,
+                    ExecuteDelegate = x =>
+                    {
+                        try
+                        {
+                            Categories = CrmData.get_Categories();
+                            Correspondences = CrmData.get_Correspondence();
+                            SubCorrespondences = CrmData.get_Sub_Correspondence();
+                            SLAs = CrmData.get_SLAs_View();
+                        }
+                        catch (Exception err)
+                        {
+                            AppData.MessageService.ShowMessage(err.Message);
+                        }
+                    }
+                };
+            }
+        }
+
         public ICommand CancelCreateCommand
         {
             get
@@ -493,6 +522,7 @@ namespace PetraERP.CRM.ViewModels
                                 if (_isUpdate)
                                 {
                                     CrmData.SaveSLA(SelectedSLA);
+                                    SLAs = CrmData.get_SLAs_View();
                                     message = "SLA successfully updated.";
                                 }
                                 else
@@ -502,7 +532,7 @@ namespace PetraERP.CRM.ViewModels
                                     SelectedIdx = SLAs.Count() - 1;
                                     message = "New SLA successfully created.";
                                 }
-
+                                SubCorrespondences = CrmData.get_Sub_Correspondence();
                                 AppData.MessageService.ShowMessage(message, "Manage SLAs");
                             }
                         }
