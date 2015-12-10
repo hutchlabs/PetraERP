@@ -256,15 +256,18 @@ namespace PetraERP.Shared.Models
         public static string get_ticket_seqence_no(int cat_id, int corres_id, int sub_corres_id, int month, int year)
         {
             return (from ini in Database.CRM.tickets
-                    where 
-                          ini.ticket_month == month &&
+                    where ini.ticket_month == month &&
                           ini.ticket_year == year
-                    select ini).Count().ToString("00000");
+                          select ini).Count().ToString("00000");
        
         }
 
-        public static IEnumerable<crmTicketsView> get_active_tickets(int status_id=0)
+        public static IEnumerable<crmTicketsView> get_active_tickets(int status_id=-1)
         {
+
+            //Default statuses to load
+            var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
+
             if (Users.IsCurrentUserCRMAdmin())
             {
                 if (status_id == 0)
@@ -274,9 +277,24 @@ namespace PetraERP.Shared.Models
                             join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
                             join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id 
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
-                            from sla in Database.CRM.sla_timers
+                            from sla in Database.CRM.sla_timers                   
                             where sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
-                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = (tic.created_at).ToString(), Assigned_To = GetUserName(tic.assigned_to??0), escalation_due = GetDueDate(tic.created_at,  sla.escalate) }).Distinct();
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                }
+                else if(status_id == -1)
+                {
+                     return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id 
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            from sla in Database.CRM.sla_timers
+                            where loadDef.Contains(tic.status)
+                            where sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+        
                 }
                 else
                 {
@@ -287,7 +305,8 @@ namespace PetraERP.Shared.Models
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
                             from sla in Database.CRM.sla_timers
                             where tic.status == status_id && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
-                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), Assigned_To = GetUserName(tic.assigned_to??0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
                 }
             }
             else
@@ -303,7 +322,22 @@ namespace PetraERP.Shared.Models
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
                             from sla in Database.CRM.sla_timers
                             where (tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
-                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), Assigned_To = GetUserName(tic.assigned_to??0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                }
+                else if(status_id == -1)
+                {
+                     return (from tic in Database.CRM.tickets
+                            join cat in Database.CRM.categories on tic.category_id equals cat.id
+                            join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                            join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id 
+                            join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                            from sla in Database.CRM.sla_timers
+                            where loadDef.Contains(tic.status)
+                            where sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+        
                 }
                 else
                 {
@@ -314,7 +348,8 @@ namespace PetraERP.Shared.Models
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
                             from sla in Database.CRM.sla_timers
                             where tic.status == status_id && (tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
-                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), Assigned_To = GetUserName(tic.assigned_to??0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                            orderby tic.created_at.AddMinutes(sla.escalate) descending
+                            select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
                 }
             }
         }
@@ -327,7 +362,7 @@ namespace PetraERP.Shared.Models
                     join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
                     join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                     where tic.id == id
-                    select new crmTicketDetails() { id = tic.id, owner = GetUserName(tic.owner), ownerid = tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = (tic.created_at).ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
+                    select new crmTicketDetails() { id = tic.id, owner = GetUserName(tic.owner), ownerid = tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = GetFormattedDate(tic.created_at), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
                   ).Single<crmTicketDetails>();
         }
 
@@ -339,7 +374,7 @@ namespace PetraERP.Shared.Models
                     join sub_corress in Database.CRM.sub_correspondences on tic.sub_correspondence_id equals sub_corress.id
                     join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                     where tic.ticket_id == ticket_id
-                    select new crmTicketDetails() { id=tic.id, assigned_to = tic.assigned_to??0, owner = GetUserName(tic.owner), ownerid= tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = tic.created_at.ToString(), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
+                    select new crmTicketDetails() { id = tic.id, assigned_to = tic.assigned_to ?? 0, owner = GetUserName(tic.owner), ownerid = tic.owner, category = cat.category_name, correspondence = corress.correspondence_name, notes = tic.notes, ticket_id = tic.ticket_id, petra_id = tic.customer_id, subcorrespondence = sub_corress.sub_correspondence_name, esacalation = sla.escalate, ticket_date = GetFormattedDate(tic.created_at), subject = tic.subject, customer_type = tic.customer_id_type, status_id = tic.status, contact_no = tic.contact_no, email = tic.email }
                    ).Single<crmTicketDetails>();
         }
 
@@ -354,7 +389,8 @@ namespace PetraERP.Shared.Models
                         join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
                         join sla in Database.CRM.sla_timers on sub_corress.sla_id equals sla.ID
                         where tic.customer_id == petra_id
-                        select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = tic.created_at.ToString(), Assigned_To = GetUserName(tic.assigned_to??0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                        orderby tic.created_at.AddMinutes(sla.escalate) descending
+                        select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
             }
             catch (Exception e) { throw (e);  }
          }
@@ -525,7 +561,17 @@ namespace PetraERP.Shared.Models
 
         private static string GetDueDate(DateTime created, int sla)
         {
-            return created.AddMinutes(sla).ToString("f");
+            return created.AddMinutes(sla).ToString("dd-MMM-yyyy hh:mm tt");
+        }
+
+        private static DateTime GetDueDateSorter(DateTime created, int sla)
+        {
+            return created.AddMinutes(sla); 
+        }
+
+        private static string GetFormattedDate(DateTime created)
+        {
+            return created.ToString("dd-MMM-yyyy hh:mm tt");
         }
 
         #endregion

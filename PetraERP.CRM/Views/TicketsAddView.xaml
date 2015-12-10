@@ -135,7 +135,7 @@
                     <RadioButton x:Name="rdPriorityLow" Content="Low" HorizontalAlignment="Left" Margin="421,142,0,0" VerticalAlignment="Top"/>
                     <RadioButton x:Name="rdPriorityMedium" Content="Medium" HorizontalAlignment="Left" Margin="479,142,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <RadioButton x:Name="rdPriorityHigh" Content="High" HorizontalAlignment="Left" Margin="556,142,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Type of Category" HorizontalAlignment="Left" Margin="20,224,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Department" HorizontalAlignment="Left" Margin="20,224,0,0" VerticalAlignment="Top"/>
                     <GroupBox Header="Category Details" HorizontalAlignment="Left" Margin="20,285,0,0" VerticalAlignment="Top" Height="146" Width="692">
                         <Grid HorizontalAlignment="Left" Height="111" Margin="4,7,0,-1" VerticalAlignment="Top" Width="662">
                             <Grid.ColumnDefinitions>

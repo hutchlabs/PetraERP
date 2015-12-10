@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.875" name="CRMDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10" name="CRMDB">
   <DataContextMoniker Name="/CRMDBDataContext" />
   <nestedChildShapes>
     <classShape Id="56589329-9cd5-460d-a220-204a30f595bc" absoluteBounds="0.5, 3.875, 2, 1.9631982421875">
@@ -87,17 +87,17 @@
         <classShapeMoniker Id="48805533-173a-455c-8887-52fc31b91991" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.90625 : 3.60740397135417); (8.90625 : 8.39985270182292); (5.125 : 8.39985270182292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.375 : 3.60740397135417); (7 : 3.98240397135417); (5.95833333333333 : 3.98240397135417 : JumpStart); (5.79166666666667 : 3.98240397135417 : JumpEnd); (4.390627 : 3.98240397135417); (4.390627 : 4.5)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/CRMDBDataContext/correspondence/correspondence_ticket" />
       <nodes>
         <classShapeMoniker Id="873f66a3-d999-4e18-8825-51f19bc46dbe" />
         <classShapeMoniker Id="48805533-173a-455c-8887-52fc31b91991" />
       </nodes>
     </associationConnector>
-    <classShape Id="b4f6295d-7b73-452d-950b-69aa89dcaa74" absoluteBounds="0.5, 8.25, 2, 1.3862939453125">
+    <classShape Id="437c1526-f7a3-42d1-8a90-a692b6ef8b24" absoluteBounds="0.5, 8.125, 2, 1.5785953776041666">
       <DataClassMoniker Name="/CRMDBDataContext/ticket_statuse" />
       <nestedChildShapes>
-        <elementListCompartment Id="8e3e9b5d-1ebe-4782-9ee4-2272610173e0" absoluteBounds="0.51499999999999968, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6940b7d5-fc51-4ec9-90e2-79fe54f6a8a4" absoluteBounds="0.51499999999999968, 8.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -200,6 +200,7 @@ namespace PetraERP.CRM.Views
                 txtMiddleNames.Text = cust_info.Second_Name;
                 txtSurname.Text = cust_info.Last_Name;
                 txtCustomerName.Text = cust_info.First_Name + " " + cust_info.Second_Name + " " + cust_info.Last_Name;
+                txtTicketSubject.Text = cust_info.First_Name + " " + cust_info.Second_Name + " " + cust_info.Last_Name+" ()";
              }
              catch (Exception e)
              {
@@ -284,6 +285,7 @@ namespace PetraERP.CRM.Views
                 txtPetraID.Text = comp_info.petra_id;
                 txtCompanyName.Text = comp_info.company_name;
                 txtCustomerName.Text = comp_info.company_name;
+                txtTicketSubject.Text = comp_info.company_name+" ()";
                 txtCompanyRegNo.Text = comp_info.bus_reg_num;
                 CompanyPreviousTickets.Items.Clear();
                 CompanyPreviousTickets.ItemsSource = null;
@@ -451,12 +453,20 @@ namespace PetraERP.CRM.Views
             }
         }
 
+
+        private void generateDefSubject()
+        {
+            string [] sel = (string [])cmbTicketSubCorrespondence.SelectedItem.ToString().Split(',');
+            txtTicketSubject.Text = txtTicketSubject.Text.Substring(0, txtTicketSubject.Text.IndexOf('(')) + "(" + sel[0].Substring(1) + ")";
+        }
+
         private void cmbTicketSubCorrespondence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
                 if (cmbTicketSubCorrespondence.SelectedIndex >= 0)
                 {
+                    generateDefSubject();
                     var sub_corres = CrmData.get_Sub_Correspondence(int.Parse(cmbTicketSubCorrespondence.SelectedValue.ToString()));
                     var sla = CrmData.get_SLAs_By_Name_View(sub_corres.SLA);
                     txtAssocaitedSLA.Text = sla.Name + " TIMERS [Pre Escalate : " + sla.code + "] [Escalate : " + sla.Escalated + "]";

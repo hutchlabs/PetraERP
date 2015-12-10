@@ -2552,6 +2552,8 @@ namespace PetraERP.Shared.Datasources
 		
 		private bool _can_set;
 		
+		private System.Nullable<bool> _is_default;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2562,6 +2564,8 @@ namespace PetraERP.Shared.Datasources
     partial void Onstatus_descChanged();
     partial void Oncan_setChanging(bool value);
     partial void Oncan_setChanged();
+    partial void Onis_defaultChanging(System.Nullable<bool> value);
+    partial void Onis_defaultChanged();
     #endregion
 		
 		public ticket_statuse()
@@ -2625,6 +2629,26 @@ namespace PetraERP.Shared.Datasources
 					this._can_set = value;
 					this.SendPropertyChanged("can_set");
 					this.Oncan_setChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_default", DbType="Bit")]
+		public System.Nullable<bool> is_default
+		{
+			get
+			{
+				return this._is_default;
+			}
+			set
+			{
+				if ((this._is_default != value))
+				{
+					this.Onis_defaultChanging(value);
+					this.SendPropertyChanging();
+					this._is_default = value;
+					this.SendPropertyChanged("is_default");
+					this.Onis_defaultChanged();
 				}
 			}
 		}
