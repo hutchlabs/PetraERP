@@ -392,7 +392,10 @@ namespace PetraERP.CRM.Views
 
                 foreach (var u in users)
                 {
-                    cmbAssignTo.Items.Add(new ComboBoxPairs(u.id.ToString(), u.first_name + " " + u.last_name));
+                    if (u.status)
+                    {
+                        cmbAssignTo.Items.Add(new ComboBoxPairs(u.id.ToString(), u.first_name + " " + u.last_name));
+                    }
                 }
             } catch(Exception e)
             {

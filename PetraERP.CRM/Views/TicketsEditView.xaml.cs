@@ -166,9 +166,9 @@ namespace PetraERP.CRM.Views
                             load_ticket_comments();
 
 
-                            if (ticket_data.ownerid != AppData.CurrentUser.id)
+                            if (ticket_data.assigned_to != AppData.CurrentUser.id)
                             {
-                                Notification.Add(ticket_data.assigned_to, "CRM: Comment added to Ticket " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
+                                Notification.Add(ticket_data.assigned_to, "CRM: Ticket Comment " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
                             }
                         }
                     }

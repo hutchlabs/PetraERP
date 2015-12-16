@@ -22,7 +22,7 @@ namespace PetraERP.Shared.Models
             var userid = AppData.CurrentUser.id;
             
             return (from n in Database.ERP.ERP_Notifications
-                    where (n.status != Constants.NF_STATUS_EXPIRED && n.status != Constants.NF_STATUS_RESOLVED) && 
+                    where (n.status != Constants.NF_STATUS_SEEN && n.status != Constants.NF_STATUS_EXPIRED && n.status != Constants.NF_STATUS_RESOLVED) && 
                           (n.to_user_id == userid)
                     orderby n.times_sent descending, n.updated_at descending, n.status descending 
                     select n);
@@ -33,7 +33,7 @@ namespace PetraERP.Shared.Models
             try
             {
                 return (from n in Database.ERP.ERP_Notifications
-                        where (n.status != Constants.NF_STATUS_EXPIRED && n.status != Constants.NF_STATUS_RESOLVED) &&
+                        where (n.status != Constants.NF_STATUS_SEEN && n.status != Constants.NF_STATUS_EXPIRED && n.status != Constants.NF_STATUS_RESOLVED) &&
                               (n.notification_type == notification_type) &&
                               (n.job_id == job_id) && (n.job_type==job_type)
                         select n).Single();
@@ -97,7 +97,8 @@ namespace PetraERP.Shared.Models
         public static string GetNotificationStatus()
         {
             var total_notifications = (from n in Database.ERP.ERP_Notifications
-                                       where (n.status != Constants.NF_STATUS_EXPIRED) && 
+                                       where (n.status != Constants.NF_STATUS_SEEN) && 
+                                             (n.status != Constants.NF_STATUS_EXPIRED) && 
                                              (n.status != Constants.NF_STATUS_RESOLVED) && 
                                              (n.to_user_id == AppData.CurrentUser.id)
                                        select n).Count();
@@ -123,7 +124,7 @@ namespace PetraERP.Shared.Models
         public static string GetNotificationToolTip()
         {
             var total_notifications = (from n in Database.ERP.ERP_Notifications
-                                       where (n.status != Constants.NF_STATUS_EXPIRED) &&
+                                       where (n.status != Constants.NF_STATUS_SEEN) &&  (n.status != Constants.NF_STATUS_EXPIRED) &&
                                              (n.status != Constants.NF_STATUS_RESOLVED) && 
                                              (n.to_user_id == AppData.CurrentUser.id)
                                        select n).Count();
