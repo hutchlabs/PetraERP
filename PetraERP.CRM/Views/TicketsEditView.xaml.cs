@@ -151,7 +151,7 @@ namespace PetraERP.CRM.Views
 
                         if (status==6)
                         {
-                            Notification.AddToRole(11, "CRM Ticket ON HOLD Request " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
+                            Notification.AddToRole(11, "Ticket ON HOLD: " + ticket_data.subject, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
                         }
                         if (txtComment.Text != "")
                         {
@@ -168,7 +168,7 @@ namespace PetraERP.CRM.Views
 
                             if (ticket_data.assigned_to != AppData.CurrentUser.id)
                             {
-                                Notification.Add(ticket_data.assigned_to, "CRM: Ticket Comment " + _ticketID, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
+                                Notification.Add(ticket_data.assigned_to, "Comment on Ticket: " + ticket_data.subject, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
                             }
                         }
                     }
