@@ -184,7 +184,7 @@ namespace PetraERP.Shared.Models
             try
             {
                 UserAppRoles uar = Users.GetUserRoles(AppData.CurrentUser.id);
-                return (IsCurrentUserSuperAdmin() || AppData.CurrentRole.Equals(Constants.ROLES_CRM_ADMIN) ||
+                return (IsCurrentUserSuperAdmin() || uar.crm_role.role.Equals(Constants.ROLES_CRM_ADMIN) ||
                         uar.crm_role.role.Equals(Constants.ROLES_CRM_USER));
             }
             catch (Exception)

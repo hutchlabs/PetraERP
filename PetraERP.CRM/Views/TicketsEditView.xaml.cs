@@ -151,7 +151,7 @@ namespace PetraERP.CRM.Views
 
                         if (status==6)
                         {
-                            Notification.AddToRole(11, "Ticket ON HOLD: " + ticket_data.subject, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
+                            Notification.AddToRole(11, "Approve Ticket: " + ticket_data.subject, PetraERP.Shared.Constants.JOB_TYPE_TICKET, ticket_data.id);
                         }
                         if (txtComment.Text != "")
                         {
@@ -211,9 +211,7 @@ namespace PetraERP.CRM.Views
                           if (s.status == "RESOLVED") { post_comment(4); }
                           else if (s.status == "ON HOLD") { post_comment(2); }
                           else if (s.status == "ON HOLD WAITING APPROVAL") { 
-                              post_comment(6);
-
-                              
+                              post_comment(6); 
                           }
                           success = true;
                       }
