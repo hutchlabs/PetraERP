@@ -25,9 +25,9 @@ namespace PetraERP.CRM.ViewModels
 
         private string _filterValue;
 
-        private readonly string[] _ticketsFilterOptions = { string.Empty,Constants.STATUS_ALL, Constants.TICKET_STATUS_OPEN,
-                                                           Constants.TICKET_STATUS_ON_HOLD, Constants.TICKET_STATUS_ON_HOLD_WAITING, Constants.TICKET_STATUS_ESCALATED,
-                                                           Constants.TICKET_STATUS_RESOLVED};
+        private readonly string[] _ticketsFilterOptions = { Constants.STATUS_OPEN_ESCALATED,Constants.STATUS_ALL, Constants.TICKET_STATUS_OPEN,
+                                                             Constants.TICKET_STATUS_ON_HOLD, Constants.TICKET_STATUS_ON_HOLD_WAITING, Constants.TICKET_STATUS_ESCALATED,
+                                                             Constants.TICKET_STATUS_RESOLVED};
 
         #endregion
 
@@ -193,6 +193,7 @@ namespace PetraERP.CRM.ViewModels
                 else if (TicketsFilterValue == Constants.TICKET_STATUS_RESOLVED) { Tickets = CrmData.get_active_tickets(4); }
                 else if (TicketsFilterValue == Constants.TICKET_STATUS_DEACTIVATED) { Tickets = CrmData.get_active_tickets(5); }
                 else if (TicketsFilterValue == Constants.TICKET_STATUS_ON_HOLD_WAITING) { Tickets = CrmData.get_active_tickets(6);  }
+                else if (TicketsFilterValue == Constants.STATUS_OPEN_ESCALATED) { Tickets = CrmData.get_active_tickets(-1); }
                 else if (TicketsFilterValue == Constants.STATUS_ALL) { Tickets = CrmData.get_active_tickets(0); }
                 else { Tickets = CrmData.get_active_tickets(); }
             }

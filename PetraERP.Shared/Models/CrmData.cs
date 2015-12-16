@@ -264,7 +264,6 @@ namespace PetraERP.Shared.Models
 
         public static IEnumerable<crmTicketsView> get_active_tickets(int status_id=-1)
         {
-
             //Default statuses to load
             var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
 
