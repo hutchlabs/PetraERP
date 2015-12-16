@@ -472,7 +472,8 @@ namespace PetraERP.CRM.Views
                     generateDefSubject();
                     var sub_corres = CrmData.get_Sub_Correspondence(int.Parse(cmbTicketSubCorrespondence.SelectedValue.ToString()));
                     var sla = CrmData.get_SLAs_By_Name_View(sub_corres.SLA);
-                    txtAssocaitedSLA.Text = sla.Name + " TIMERS [Pre Escalate : " + sla.code + "] [Escalate : " + sla.Escalated + "]";
+                    TimeSpan ts = TimeSpan.FromMinutes(sla.Escalated);    
+                    txtAssocaitedSLA.Text = string.Format("{0} TIMERS [Pre Escalate: {1}] [Escalate: {2} hours, {3} mins]",sla.Name, sla.code, ts.Hours, ts.Minutes);
                 }
                 else
                 { 
