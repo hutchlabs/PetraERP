@@ -28,7 +28,7 @@ namespace PetraERP.CRM.ViewModels
         private crmSLAView _scsla;
         private IEnumerable<crmSubCorrespondenceView> _subcorrespondences = CrmData.get_Sub_Correspondence();
         
-        private crmSLAView _sla;
+        //private crmSLAView _sla;
         private IEnumerable<crmSLAView> _slas = CrmData.get_SLAs_View();
 
         #endregion

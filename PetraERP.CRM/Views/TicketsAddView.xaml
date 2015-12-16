@@ -163,8 +163,8 @@
                     <ComboBox x:Name="cmbAssignTo"  DisplayMemberPath="_Value" SelectedValuePath="_Key" HorizontalAlignment="Left" Margin="449,193,0,0" VerticalAlignment="Top" Width="260"/>
                     <Label Content="Contact No. :" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtTicketContactNo" HorizontalAlignment="Left" Height="23" Margin="22,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="319"/>
-                    <Label Content="Email :" HorizontalAlignment="Left" Margin="364,62,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtTicketEmail" HorizontalAlignment="Left" Height="23" Margin="364,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="345"/>
+                    <Label Content="Mode of contact :" HorizontalAlignment="Left" Margin="364,62,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbContactMode"  DisplayMemberPath="Value" SelectedValuePath="Key" HorizontalAlignment="Left" Margin="364,88,0,0" VerticalAlignment="Top" Width="345"/>                    
                 </Grid>
             </aw:WizardPage>
         </aw:Wizard>

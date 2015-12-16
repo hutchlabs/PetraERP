@@ -51,6 +51,7 @@ namespace PetraERP.CRM.Views
         {
             load_categories();
             load_users();
+            load_contact_modes();
         }
 
         private void PageChanged(object sender, AvalonWizard.CurrentPageChangedEventArgs e)
@@ -123,9 +124,9 @@ namespace PetraERP.CRM.Views
             txtMiddleNames.Text = string.Empty;
             txtSurname.Text = string.Empty;
             txtCustomerName.Text = string.Empty;
-            txtTicketEmail.Text = string.Empty;
             txtTicketContactNo.Text = string.Empty;
             cmbEmployers.ItemsSource = null;
+            cmbContactMode.ItemsSource = null;
         }
 
         public ICommand SearchButtonCmd
@@ -327,6 +328,8 @@ namespace PetraERP.CRM.Views
                 else if (cmbTicketCategory.SelectedIndex < 0) { MessageBox.Show("Please select a department for this ticket. Ticket can not be created without a department.", "No Department", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else if (cmbTicketCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a category for this ticket. Ticket can not be created without a category.", "No Category", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else if (cmbTicketSubCorrespondence.SelectedIndex < 0) { MessageBox.Show("Please select a request type for this ticket. Ticket can not be created without a request type.", "No Request Type", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
+                else if (cmbAssignTo.SelectedIndex < 0) { MessageBox.Show("Please assign ticket. Ticket cannot be created with out assigning it to someone.", "Ticket not assigned", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
+                else if (cmbContactMode.SelectedIndex < 0) { MessageBox.Show("Please indicate a mode of contact. Ticket cannot be created otherwise.", "Mode of contact error", MessageBoxButton.OK, MessageBoxImage.Exclamation); return false; }
                 else { return true; }
             }
             catch (Exception)
@@ -359,7 +362,7 @@ namespace PetraERP.CRM.Views
                 newTicket.correspondence_id = int.Parse(cmbTicketCorrespondence.SelectedValue.ToString());
                 newTicket.sub_correspondence_id = int.Parse(cmbTicketSubCorrespondence.SelectedValue.ToString());
                 newTicket.contact_no = txtTicketContactNo.Text;
-                newTicket.email = txtTicketEmail.Text;
+                newTicket.email = cmbContactMode.SelectedValue.ToString();
                 newTicket.notes = txtNotes.Text;
                 newTicket.ticket_month = DateTime.Now.Month;
                 newTicket.ticket_year = DateTime.Now.Year;
@@ -412,6 +415,16 @@ namespace PetraERP.CRM.Views
             {
                 cmbTicketCategory.Items.Add(new KeyValuePair<string, int>(inicat.Name, inicat.Id));
             }
+        }
+
+        private void load_contact_modes()
+        {
+            cmbContactMode.Items.Clear();
+            cmbContactMode.Items.Add(new KeyValuePair<string, string>("Email", "Email"));
+            cmbContactMode.Items.Add(new KeyValuePair<string, string>("Phone Call", "Phone Call"));
+            cmbContactMode.Items.Add(new KeyValuePair<string, string>("Social Media", "Social Media"));
+            cmbContactMode.Items.Add(new KeyValuePair<string, string>("Text", "Text"));
+            cmbContactMode.Items.Add(new KeyValuePair<string, string>("Walk-in","Walk-in"));
         }
 
         private void load_correspondences(int cat_id)
