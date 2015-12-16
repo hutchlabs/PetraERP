@@ -1,6 +1,8 @@
 ﻿using PetraERP.Shared.Datasources;
+using PetraERP.Shared.UI;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq.SqlClient;
 using System.Linq;
 
 namespace PetraERP.Shared.Models
@@ -262,6 +264,178 @@ namespace PetraERP.Shared.Models
        
         }
 
+
+        private static string[] do_entity_search(string term)
+        {
+            List<string> codes = new List<string>();
+            //var people = search_customer_by_name(term);
+            //var companies = search_companies_by_name(term);
+            // foreach (var p in people) { codes.Add(p.Petra_ID); }
+            //foreach (var c in companies) { codes.Add(c.petra_id); }
+            return codes.ToArray();
+        }
+
+        private static int[] do_username_search(string term)
+        {
+            List<int> ids = new List<int>();
+            var people = Users.SearchUserByUsername(term);
+            foreach (var p in people) { ids.Add(p.id); }
+            return ids.ToArray();
+        }
+
+        public static IEnumerable<crmTicketsView> search_tickets(string term, int filter=-1)
+        {
+            if (term.Equals(""))
+            {
+                return null;
+            }
+            else
+            {
+                string[] hicodes = do_entity_search(term);
+                int[] ids = do_username_search(term);
+
+                term = "%" + term + "%";
+
+                if (Users.IsCurrentUserCRMAdmin())
+                {
+                    #region crm admin search
+                    
+                    if (filter == 0)
+                    {
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id                               
+                                from sla in Database.CRM.sla_timers
+                                where (sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                    }
+                    else if (filter == -1)
+                    {
+                        var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                                from sla in Database.CRM.sla_timers
+                                where loadDef.Contains(tic.status)
+                                where (sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                    }
+                    else
+                    {
+                        var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                                from sla in Database.CRM.sla_timers
+                                where (tic.status == filter && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                   
+                    }
+                    #endregion 
+                }
+                else
+                {
+                    #region normal user search
+
+                    int uid = AppData.CurrentUser.id;
+
+                    if (filter == 0)
+                    {
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id 
+                                from sla in Database.CRM.sla_timers
+                                where ((tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                    }
+                    else if (filter == -1)
+                    {
+                        var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                                from sla in Database.CRM.sla_timers
+                                where loadDef.Contains(tic.status)
+                                where ((tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                    }
+                    else
+                    {
+                        var loadDef = (from s in Database.CRM.ticket_statuses where s.is_default == true select s.id).ToArray();
+                        return (from tic in Database.CRM.tickets
+                                join cat in Database.CRM.categories on tic.category_id equals cat.id
+                                join corress in Database.CRM.correspondences on tic.correspondence_id equals corress.id
+                                join sub_corress in Database.CRM.sub_correspondences on corress.id equals sub_corress.correspondence_id
+                                join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
+                                from sla in Database.CRM.sla_timers
+                                where ((tic.assigned_to == uid || tic.assigned_to == null) && tic.status == filter && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id) &&
+                                      (
+                                         SqlMethods.Like(tic.ticket_id, term) || SqlMethods.Like(tic.customer_id, term) ||
+                                         SqlMethods.Like(tic.subject, term) || SqlMethods.Like(corress.correspondence_name, term) ||
+                                         SqlMethods.Like(sub_corress.sub_correspondence_name, term) || SqlMethods.Like(cat.category_name, term) ||
+                                         ids.Contains((tic.assigned_to ?? 0)) || SqlMethods.Like(cat.category_name, term) ||
+                                         hicodes.Contains(tic.customer_id)
+                                      )
+                                orderby tic.created_at.AddMinutes(sla.escalate) descending
+                                select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
+                   
+                    }
+
+                    #endregion 
+                }
+            }
+        }
+
         public static IEnumerable<crmTicketsView> get_active_tickets(int status_id=-1)
         {
             //Default statuses to load
@@ -333,7 +507,7 @@ namespace PetraERP.Shared.Models
                             join tic_status in Database.CRM.ticket_statuses on tic.status equals tic_status.id
                             from sla in Database.CRM.sla_timers
                             where loadDef.Contains(tic.status)
-                            where sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
+                            where (tic.assigned_to == uid || tic.assigned_to == null) && sla.ID == sub_corress.sla_id && corress.id == tic.correspondence_id && sub_corress.id == tic.sub_correspondence_id && cat.id == tic.category_id
                             orderby tic.created_at.AddMinutes(sla.escalate) descending
                             select new crmTicketsView() { ticket_id = tic.ticket_id, category = cat.category_name, correspondence = corress.correspondence_name, subject = tic.subject, status = tic_status.status_desc, subcorrespondence = sub_corress.sub_correspondence_name, created_at = GetFormattedDate(tic.created_at), Assigned_To = GetUserName(tic.assigned_to ?? 0), escalation_due = GetDueDate(tic.created_at, sla.escalate) }).Distinct();
         

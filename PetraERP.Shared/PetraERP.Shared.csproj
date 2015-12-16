@@ -130,6 +130,7 @@
     <Compile Include="UI\AttachedMembers\DataGridSelectedItemsBlendBehavior.cs" />
     <Compile Include="UI\AttachedMembers\ElementLoadingBehavior.cs" />
     <Compile Include="UI\AttachedMembers\EventToCommandBehavior.cs" />
+    <Compile Include="UI\AttachedMembers\TextboxHelper.cs" />
     <Compile Include="UI\AttachedMembers\PasswordHelper.cs" />
     <Compile Include="UI\AttachedMembers\StyleProperties.cs" />
     <Compile Include="UI\Controls\AnimatedContentControl.cs" />

@@ -8,6 +8,7 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:ViewModels="clr-namespace:PetraERP.CRM.ViewModels"
              xmlns:AttachedBehaviors="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
+             xmlns:attached="clr-namespace:PetraERP.Shared.UI.AttachedMembers;assembly=PetraERP.Shared"
              mc:Ignorable="d">
     
     <UserControl.DataContext>
@@ -32,7 +33,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,5,0,0" Background="{DynamicResource AccentColorBrush}">
                 <Controls:SplitButton x:Name="TicketListFilter"
                                   HorizontalContentAlignment="Left" HorizontalAlignment="Left"
-                                  Width="120" Height="20" Margin="10,0,0,0" Padding="5,0,0,0"
+                                  Width="140" Height="20" Margin="10,0,0,0" Padding="5,0,0,0"
                                   SelectedIndex="0"
                                   SelectedItem="{Binding TicketsFilterValue}"
                                   Command="{Binding FilterTicketsCommand}"
@@ -51,6 +52,25 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Button>
+
+                <StackPanel x:Name="searchBar" Orientation="Horizontal" Margin="180,0,0,0" Visibility="Visible"  HorizontalAlignment="Right">            
+                    <Label Content="Search" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBox x:Name="txtQuery" 
+                             attached:TextBoxHelper.Attach="True" 
+                             attached:TextBoxHelper.TextBox="{Binding SearchValue, Mode=TwoWay}"
+                             Controls:TextBoxHelper.Watermark="Enter HI code, name or subcorrespondence" HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top" Width="260">
+                        <i:Interaction.Behaviors>
+                            <AttachedBehaviors:EventToCommandBehavior Command="{Binding SearchKeyUpCommand}" Event="KeyUp" PassArguments="True" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button x:Name="btn_Query" Command="{Binding SearchCommand}"  Margin="10,0,0,0" Width="40" Height="40" ToolTip="Query" Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Rectangle Width="10" Height="10" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>          
+                </StackPanel>
             </StackPanel>
             
             <DataGrid x:Name="viewTickets" 

@@ -2,6 +2,7 @@
 using PetraERP.Shared.Utility;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -212,6 +213,11 @@ namespace PetraERP.Shared.Models
         public static ERP_User GetUser(string username)
         {
             return (from u in Database.ERP.ERP_Users where u.username == username select u).Single();
+        }
+
+        public static IEnumerable<ERP_User> SearchUserByUsername(string username)
+        {
+            return (from u in Database.ERP.ERP_Users where SqlMethods.Like(u.username, "%"+username+"%") select u);
         }
 
         public static IEnumerable<ERP_User> GetUsers()

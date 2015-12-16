@@ -23,11 +23,13 @@ namespace PetraERP.CRM.ViewModels
 
         private IEnumerable<crmTicketsView> _tickets;
 
+        private string _searchValue;
+
         private string _filterValue;
 
-        private readonly string[] _ticketsFilterOptions = { Constants.STATUS_OPEN_ESCALATED,Constants.STATUS_ALL, Constants.TICKET_STATUS_OPEN,
-                                                             Constants.TICKET_STATUS_ON_HOLD, Constants.TICKET_STATUS_ON_HOLD_WAITING, Constants.TICKET_STATUS_ESCALATED,
-                                                             Constants.TICKET_STATUS_RESOLVED};
+        private readonly string[] _ticketsFilterOptions = { Constants.STATUS_OPEN_ESCALATED,  Constants.STATUS_ALL, Constants.TICKET_STATUS_OPEN,
+                                                            Constants.TICKET_STATUS_ON_HOLD, Constants.TICKET_STATUS_ON_HOLD_WAITING, Constants.TICKET_STATUS_ESCALATED,
+                                                            Constants.TICKET_STATUS_RESOLVED};
 
         #endregion
 
@@ -73,6 +75,15 @@ namespace PetraERP.CRM.ViewModels
         {
             get { return _ticketsFilterOptions; }
             private set { ; }
+        }
+
+        public string SearchValue
+        {
+            get { return _searchValue; }
+            set {         
+                _searchValue = value;
+                OnPropertyChanged(GetPropertyName(() => SearchValue));  
+            }
         }
 
         #endregion
@@ -132,6 +143,21 @@ namespace PetraERP.CRM.ViewModels
             }
         }
 
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new SimpleCommand
+                {
+                    CanExecuteDelegate = x => true,
+                    ExecuteDelegate = x =>
+                    {
+                        doSearch();
+                    }
+                };
+            }
+        }
+
         public ICommand FilterTicketsCommand
         {
             get
@@ -145,6 +171,11 @@ namespace PetraERP.CRM.ViewModels
                     }
                 };
             }
+        }
+
+        public ActionCommand<KeyEventArgs> SearchKeyUpCommand
+        {
+            get { return new ActionCommand<KeyEventArgs>(OnKeyUp); }
         }
 
         public ActionCommand<SelectionChangedEventArgs> FilterTicketsSelectionCommand
@@ -171,6 +202,14 @@ namespace PetraERP.CRM.ViewModels
         #endregion
 
         #region Private Methods
+        
+        private void OnKeyUp(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                doSearch();
+            }
+        }
 
         private void OnFilterSelect(SelectionChangedEventArgs e)
         {
@@ -182,25 +221,60 @@ namespace PetraERP.CRM.ViewModels
             UpdateTicketGrid();
         }
 
-        private void UpdateTicketGrid()
+        private void doSearch()
         {
             try
             {
-                 // Get items
-                if (TicketsFilterValue == Constants.TICKET_STATUS_OPEN) { Tickets = CrmData.get_active_tickets(1); }
-                else if (TicketsFilterValue == Constants.TICKET_STATUS_ON_HOLD) { Tickets = CrmData.get_active_tickets(2); }
-                else if (TicketsFilterValue == Constants.TICKET_STATUS_ESCALATED) { Tickets = CrmData.get_active_tickets(3); }
-                else if (TicketsFilterValue == Constants.TICKET_STATUS_RESOLVED) { Tickets = CrmData.get_active_tickets(4); }
-                else if (TicketsFilterValue == Constants.TICKET_STATUS_DEACTIVATED) { Tickets = CrmData.get_active_tickets(5); }
-                else if (TicketsFilterValue == Constants.TICKET_STATUS_ON_HOLD_WAITING) { Tickets = CrmData.get_active_tickets(6);  }
-                else if (TicketsFilterValue == Constants.STATUS_OPEN_ESCALATED) { Tickets = CrmData.get_active_tickets(-1); }
-                else if (TicketsFilterValue == Constants.STATUS_ALL) { Tickets = CrmData.get_active_tickets(0); }
-                else { Tickets = CrmData.get_active_tickets(); }
+                if (SearchValue != "")
+                {
+                    IEnumerable<crmTicketsView> t = CrmData.search_tickets(SearchValue, GetFilterStatusCode());
+                    if (t == null || t.Count() <= 0)
+                    {
+                        AppData.MessageService.ShowMessage("No results found for '" + SearchValue + "'");
+                    }
+                    else
+                    {
+                        Tickets = t;
+                    }
+                }
+                else
+                {
+                    UpdateTicketGrid();
+                    AppData.MessageService.ShowMessage("Please enter a search term.");
+                }
             }
             catch (Exception err)
             {
                 AppData.MessageService.ShowMessage(err.Message);
             }
+        }
+
+        private void UpdateTicketGrid()
+        {
+            try
+            {
+                 // Get items
+                Tickets = CrmData.get_active_tickets(GetFilterStatusCode());
+            }
+            catch (Exception err)
+            {
+                AppData.MessageService.ShowMessage(err.Message);
+            }
+        }
+
+        private int GetFilterStatusCode()
+        {
+            int code;
+            if (TicketsFilterValue == Constants.TICKET_STATUS_OPEN) { code = 1; }
+            else if (TicketsFilterValue == Constants.TICKET_STATUS_ON_HOLD) { code = 2; }
+            else if (TicketsFilterValue == Constants.TICKET_STATUS_ESCALATED) { code = 3; }
+            else if (TicketsFilterValue == Constants.TICKET_STATUS_RESOLVED) { code = 4; }
+            else if (TicketsFilterValue == Constants.TICKET_STATUS_DEACTIVATED) { code = 5; }
+            else if (TicketsFilterValue == Constants.TICKET_STATUS_ON_HOLD_WAITING) { code = 6; }
+            else if (TicketsFilterValue == Constants.STATUS_OPEN_ESCALATED) { code = -1; }
+            else if (TicketsFilterValue == Constants.STATUS_ALL) { code = 0; }
+            else { code = -1; }
+            return code;
         }
 
         #endregion
