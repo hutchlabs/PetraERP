@@ -381,10 +381,11 @@ namespace PetraERP.ViewModels
                     ExecuteDelegate = x =>
                     {
                         try
-                        {
-                            //TicketsAddView win = new TicketsAddView();
-                            //win.Closed += window_ClosingFinished;
-                            //win.ShowDialog();
+                        {   
+                            SelectedUser.status = true;
+                            PetraERP.Shared.Models.Users.Save(SelectedUser);
+                            UpdateGrid();
+                            AppData.MessageService.ShowMessage("User activated", "Manage Users");
                         }
                         catch (Exception err)
                         {
@@ -406,9 +407,10 @@ namespace PetraERP.ViewModels
                     {
                         try
                         {
-                            //TicketsAddView win = new TicketsAddView();
-                            //win.Closed += window_ClosingFinished;
-                            //win.ShowDialog();
+                            SelectedUser.status = false;
+                            PetraERP.Shared.Models.Users.Save(SelectedUser);
+                            UpdateGrid();
+                            AppData.MessageService.ShowMessage("User deactivated", "Manage Users");
                         }
                         catch (Exception err)
                         {
