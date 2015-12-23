@@ -21,7 +21,7 @@ namespace PetraERP.UpdateService.Models
 
         public TrackerSchedule()
         {
-            _interval = TimeSpan.FromMinutes(Double.Parse(GetSetting(Constants.SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES))).Milliseconds;
+            //_interval = TimeSpan.FromMinutes(Double.Parse(GetSetting(Constants.SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES))).Milliseconds;
         }
 
         #endregion
@@ -47,6 +47,8 @@ namespace PetraERP.UpdateService.Models
 
         private static void UpdateScheduleWorkFlowStatus()
         {
+            _interval = TimeSpan.FromMinutes(Double.Parse(GetSetting(Constants.SETTINGS_TIME_INTERVAL_UPDATE_SCHEDULES))).Milliseconds;
+
             if (_continue)
             {
                 var schedules = GetSchedulesForProcessing();
@@ -61,7 +63,8 @@ namespace PetraERP.UpdateService.Models
                         s.ptas_fund_deal_id = GetFundDealId(s.company_id, s.tier, s.contributiontypeid, s.month, s.year);
                     }
 
-                    //Comment("\tWorking on schedule: " + s.id.ToString());
+                    string comment = string.Format("\tWorking on schedule: [id:{0}, {1}, {2}-{3}]", s.id, s.company, s.year, s.month);
+                    Constants.Comment(comment);
                     EvaluateScheduleWorkFlow(s);
                 }
 
